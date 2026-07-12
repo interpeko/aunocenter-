@@ -13,7 +13,9 @@
   const shortcut = document.querySelector<HTMLElement>('[data-interpeko-shortcut]');
   const footer = document.querySelector<HTMLElement>('.site-footer');
   if (shortcut && footer && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(([entry]) => {
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
       shortcut.toggleAttribute('data-footer-visible', entry.isIntersecting);
     }, { threshold: .04 });
     observer.observe(footer);
