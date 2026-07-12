@@ -21,11 +21,19 @@ for (const file of await walk(root)) {
   let content = await readFile(file, 'utf8');
   content = content
     .replaceAll('action="/', `action="${primary}/`)
+    .replace(/\bsrcset="([^"]+)"/g, (_match, value) => {
+      const rewritten = value.replace(/(^|,\s*)\//g, (_candidate, prefix) => `${prefix}${base}`);
+      return `srcset="${rewritten}"`;
+    })
     .replaceAll('href="/', `href="${base}`)
     .replaceAll('src="/', `src="${base}`)
     .replaceAll('url(/', `url(${base}`)
     .replaceAll('"src":"/', `"src":"${base}`)
     .replaceAll('"src": "/', `"src": "${base}`);
+  for (const match of content.matchAll(/\bsrcset="([^"]+)"/g)) {
+    const unprefixed = match[1].split(',').map(candidate => candidate.trim().split(/\s+/)[0]).filter(url => url.startsWith('/') && !url.startsWith(base));
+    if (unprefixed.length) throw new Error(`Unprefixed srcset URL in ${path.relative(root, file)}: ${unprefixed.join(', ')}`);
+  }
   await writeFile(file, content);
 }
 
