@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root = path.resolve('dist');
 const base = '/aunocenter-/';
+const primary = 'https://aunocenter.netlify.app';
 
 async function walk(directory) {
   const files = [];
@@ -19,9 +20,9 @@ for (const file of await walk(root)) {
   if (!['.html', '.js', '.css', '.json', '.webmanifest'].includes(extension)) continue;
   let content = await readFile(file, 'utf8');
   content = content
+    .replaceAll('action="/', `action="${primary}/`)
     .replaceAll('href="/', `href="${base}`)
     .replaceAll('src="/', `src="${base}`)
-    .replaceAll('action="/', `action="${base}`)
     .replaceAll('url(/', `url(${base}`)
     .replaceAll('"src":"/', `"src":"${base}`)
     .replaceAll('"src": "/', `"src": "${base}`);
