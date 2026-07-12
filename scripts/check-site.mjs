@@ -43,7 +43,7 @@ for (const file of requiredFiles) {
   catch { failures.push(`Missing required build artifact: ${file}`); }
 }
 
-for (const file of ['netlify/functions/interpeko.mjs', 'shared/interpeko-knowledge.mjs']) {
+for (const file of ['netlify/functions/interpeko.mjs', 'shared/interpeko-knowledge.mjs', 'src/components/InterpekoShortcut.astro']) {
   try { await access(path.resolve(file)); }
   catch { failures.push(`Missing Interpeko implementation file: ${file}`); }
 }
@@ -134,6 +134,8 @@ if (/planned programme concepts|Schedule to be announced/i.test(normalizedHtml))
 if (/social[- ]links website|link hub|linktree homepage/i.test((htmlByFile.get(path.join(root, 'index.html')) ?? ''))) failures.push('Homepage contains old link-hub language');
 
 const interpekoHtml = htmlByFile.get(path.join(root, 'interpeko', 'index.html')) ?? '';
+if (!homepageHtml.includes('data-interpeko-shortcut') || !homepageHtml.includes('Open Interpeko academic research assistant')) failures.push('Homepage is missing the Interpeko shortcut');
+if (interpekoHtml.includes('data-interpeko-shortcut')) failures.push('Interpeko page contains a redundant assistant shortcut');
 for (const phrase of ['AI-generated', 'Guided academic mode', 'Human review required', 'Academic guidance in four moves']) {
   if (!interpekoHtml.includes(phrase)) failures.push(`Interpeko page is missing: ${phrase}`);
 }

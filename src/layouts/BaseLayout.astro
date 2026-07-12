@@ -1,6 +1,7 @@
 ---
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
+import InterpekoShortcut from '@/components/InterpekoShortcut.astro';
 import { SITE, socials } from '@/data/site';
 import '@/styles/global.css';
 
@@ -54,6 +55,7 @@ const breadcrumbSchema = breadcrumbs.length > 0 ? {
   ]
 } : null;
 const schemas = [organizationSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema : schema ? [schema] : [])].filter(Boolean);
+const showInterpekoShortcut = !Astro.url.pathname.startsWith('/interpeko');
 ---
 
 <!doctype html>
@@ -92,6 +94,7 @@ const schemas = [organizationSchema, breadcrumbSchema, ...(Array.isArray(schema)
     <main id="main-content" tabindex="-1">
       <slot />
     </main>
+    {showInterpekoShortcut && <InterpekoShortcut />}
     <Footer />
   </body>
 </html>

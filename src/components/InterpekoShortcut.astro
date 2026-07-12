@@ -1,0 +1,104 @@
+<aside class="interpeko-shortcut" aria-label="Interpeko assistant shortcut" data-interpeko-shortcut>
+  <a href="/interpeko/" aria-label="Open Interpeko academic research assistant">
+    <span class="interpeko-shortcut__orb" aria-hidden="true">I</span>
+    <span class="interpeko-shortcut__copy">
+      <strong>Ask Interpeko</strong>
+      <small>AI + guided research</small>
+    </span>
+    <span class="interpeko-shortcut__arrow" aria-hidden="true">↗</span>
+  </a>
+</aside>
+
+<script>
+  const shortcut = document.querySelector<HTMLElement>('[data-interpeko-shortcut]');
+  const footer = document.querySelector<HTMLElement>('.site-footer');
+  if (shortcut && footer && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(([entry]) => {
+      shortcut.toggleAttribute('data-footer-visible', entry.isIntersecting);
+    }, { threshold: .04 });
+    observer.observe(footer);
+  }
+</script>
+
+<style>
+  .interpeko-shortcut {
+    position: fixed;
+    right: clamp(.8rem, 2vw, 1.5rem);
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    z-index: 48;
+    transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+  }
+  .interpeko-shortcut a {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.5rem auto 1.5rem;
+    gap: .62rem;
+    align-items: center;
+    min-height: 3.55rem;
+    padding: .48rem .62rem .48rem .5rem;
+    overflow: hidden;
+    color: #fff;
+    background: linear-gradient(120deg, var(--plum-950), var(--plum-700) 70%, #19494c);
+    border: 1px solid rgba(225, 192, 126, .72);
+    border-radius: 999px;
+    box-shadow: 0 14px 36px rgba(31, 13, 41, .28), 0 2px 8px rgba(31, 13, 41, .18);
+    text-decoration: none;
+    isolation: isolate;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .interpeko-shortcut a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at 15% 10%, rgba(255, 255, 255, .16), transparent 38%);
+  }
+  .interpeko-shortcut a:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold-light);
+    box-shadow: 0 18px 44px rgba(31, 13, 41, .34), 0 3px 10px rgba(31, 13, 41, .2);
+  }
+  .interpeko-shortcut a:focus-visible {
+    outline: 3px solid var(--gold-light);
+    outline-offset: 3px;
+  }
+  .interpeko-shortcut[data-footer-visible]:not(:focus-within),
+  :global(body):has(input:focus, textarea:focus, select:focus) .interpeko-shortcut:not(:focus-within) {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(.65rem);
+  }
+  .interpeko-shortcut__orb {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--plum-950);
+    background: radial-gradient(circle at 32% 25%, #fff5d9, var(--gold-light) 52%, var(--gold));
+    border: 1px solid rgba(255, 255, 255, .68);
+    border-radius: 50%;
+    box-shadow: 0 0 0 .28rem rgba(225, 192, 126, .1);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+  .interpeko-shortcut__copy { display: grid; min-width: 7.4rem; text-align: left; line-height: 1.15; }
+  .interpeko-shortcut__copy strong { font-size: .79rem; letter-spacing: .01em; }
+  .interpeko-shortcut__copy small { margin-top: .2rem; color: rgba(255, 255, 255, .7); font-size: .58rem; letter-spacing: .045em; text-transform: uppercase; }
+  .interpeko-shortcut__arrow { display: grid; place-items: center; width: 1.45rem; height: 1.45rem; color: var(--gold-light); border: 1px solid rgba(255, 255, 255, .18); border-radius: 50%; font-size: .72rem; }
+  @media (max-width: 30rem) {
+    .interpeko-shortcut { right: .7rem; bottom: max(.72rem, env(safe-area-inset-bottom)); }
+    .interpeko-shortcut a { grid-template-columns: 2.2rem auto; min-height: 3.1rem; padding: .4rem .72rem .4rem .42rem; }
+    .interpeko-shortcut__orb { width: 2.2rem; height: 2.2rem; font-size: 1.1rem; }
+    .interpeko-shortcut__copy { min-width: 0; }
+    .interpeko-shortcut__copy strong { font-size: .74rem; }
+    .interpeko-shortcut__copy small,
+    .interpeko-shortcut__arrow { display: none; }
+  }
+  @media print { .interpeko-shortcut { display: none; } }
+  @media (forced-colors: active) {
+    .interpeko-shortcut a,
+    .interpeko-shortcut__orb { border: 1px solid CanvasText; }
+  }
+</style>
