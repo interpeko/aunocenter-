@@ -8,7 +8,7 @@
   "theme_color": "#24102f",
   "icons": [
     {
-      "src": "/aunocenter-images/auno-crest.png",
+      "src": "/aunocenter-/images/auno-crest.png",
       "sizes": "828x828",
       "type": "image/png",
       "purpose": "any maskable"
