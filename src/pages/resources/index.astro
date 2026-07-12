@@ -6,6 +6,12 @@ import CallToAction from '@/components/CallToAction.astro';
 import { resources, libraryMaterials } from '@/data/site';
 const crumbs = [{ label: 'Research resources' }];
 const categories = ['All', 'Learning materials', ...new Set(resources.map(item => item.category))];
+const toolkits = [
+  {title:'Research Question Canvas',type:'Template',summary:'A structured canvas for connecting the problem, question, objectives, feasibility, ethics, design, measurement, and limitations.',href:'/resources/research-question-canvas.md'},
+  {title:'Statistical Analysis Plan Checklist',type:'Checklist',summary:'A pre-analysis checklist covering variables, estimands, methods, assumptions, missingness, sensitivity work, reporting, and deviations.',href:'/resources/analysis-plan-checklist.md'},
+  {title:'Manuscript Readiness Checklist',type:'Checklist',summary:'A submission-oriented integrity, reporting, authorship, disclosure, and journal-requirements review.',href:'/resources/manuscript-readiness-checklist.md'},
+  {title:'AUNO Center Introduction Package',type:'Media toolkit',summary:'English storyboard, voiceover, captions, transcript, social adaptations, publication checklist, and thumbnail.',href:'/media/'}
+];
 ---
 
 <BaseLayout title="Research Resources and Articles | AUNO Center" description="Practical articles and tools for research design, statistics, questionnaires, literature reviews, reporting, integrity, and healthcare research." breadcrumbs={crumbs}>
@@ -21,8 +27,9 @@ const categories = ['All', 'Learning materials', ...new Set(resources.map(item =
       <div class="filter-bar" aria-label="Filter resources by category">
         {categories.map((category, index) => <button class="filter-button" type="button" data-filter={category} aria-pressed={index === 0 ? 'true' : 'false'}>{category}</button>)}
       </div>
-      <p id="resource-status" class="resource-status" role="status" aria-live="polite">Showing all {resources.length + libraryMaterials.length} resources.</p>
+      <p id="resource-status" class="resource-status" role="status" aria-live="polite">Showing all {resources.length + libraryMaterials.length + toolkits.length} resources.</p>
       <div class="resource-grid mt-2" id="resource-grid">
+        {toolkits.map(toolkit => <article class="resource-card" data-category="Learning materials" data-search={`${toolkit.title} ${toolkit.summary} ${toolkit.type}`.toLowerCase()}><div class="resource-card__meta"><span>{toolkit.type}</span><span>Open resource</span></div><h3><a href={toolkit.href}>{toolkit.title}</a></h3><p>{toolkit.summary}</p><a class="text-link" href={toolkit.href}>Open toolkit <span aria-hidden="true">→</span></a></article>)}
         {libraryMaterials.map(material => <article class="resource-card resource-card--material" data-category="Learning materials" data-search={`${material.title} ${material.summary} ${material.author} ${material.topics.join(' ')}`.toLowerCase()}><img src={material.thumbnail} width="720" height="960" alt={`Cover of ${material.title}`} loading="lazy" /><div class="resource-card__body"><div class="resource-card__meta"><span>Learning material</span><span>{material.pages} pages</span></div><h3><a href={material.href}>{material.title}</a></h3><p>{material.summary}</p><p class="resource-author">Attributed to {material.author}</p><a class="text-link" href={material.href} target="_blank" rel="noopener">Open PDF <span aria-hidden="true">↗</span></a></div></article>)}
         {resources.map(resource => <article class="resource-card" data-category={resource.category} data-search={`${resource.title} ${resource.summary} ${resource.category}`.toLowerCase()}><div class="resource-card__meta"><span>{resource.category}</span><span>{resource.readingTime}</span></div><h3><a href={`/resources/${resource.slug}/`}>{resource.title}</a></h3><p>{resource.summary}</p><a class="text-link" href={`/resources/${resource.slug}/`}>Read the guide <span aria-hidden="true">→</span></a></article>)}
       </div>

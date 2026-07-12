@@ -273,7 +273,7 @@
   .check-stack { display: grid; gap: 1rem; margin-top: 1.5rem; }
   .form-actions { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--line); }
   .form-actions p { max-width: 35rem; font-size: .78rem; }
-  .honeypot { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
+  .honeypot { display: none !important; }
 
   .resource-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
   .resource-card { min-height: 19rem; display: flex; flex-direction: column; padding: 1.5rem; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); }

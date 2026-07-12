@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">AUNO Center institutional introduction</title><desc id="desc">Purple and gold research network graphic with the AUNO Center crest and slogan.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#18091f"/><stop offset=".55" stop-color="#351443"/><stop offset="1" stop-color="#153a3d"/></linearGradient><radialGradient id="glow"><stop stop-color="#d9b66d" stop-opacity=".34"/><stop offset="1" stop-color="#d9b66d" stop-opacity="0"/></radialGradient></defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/><circle cx="1510" cy="180" r="560" fill="url(#glow)"/><g fill="none" stroke="#d9b66d" stroke-opacity=".28" stroke-width="2"><circle cx="1530" cy="530" r="320"/><circle cx="1530" cy="530" r="430"/><path d="M1100 530h860M1530 100c-210 185-210 675 0 860M1530 100c210 185 210 675 0 860"/></g>
+  <rect x="120" y="110" width="170" height="170" rx="35" fill="#fff"/><image href="/images/auno-crest.png" x="120" y="110" width="170" height="170"/>
+  <text x="120" y="430" fill="#ead19d" font-family="Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="8">INSTITUTIONAL INTRODUCTION</text>
+  <text x="120" y="565" fill="#fff" font-family="Georgia, serif" font-size="102">Research with clarity.</text>
+  <text x="120" y="675" fill="#ead19d" font-family="Georgia, serif" font-size="102" font-style="italic">Knowledge with purpose.</text>
+  <text x="120" y="815" fill="#fff" fill-opacity=".82" font-family="Arial, sans-serif" font-size="34">One World. One Research. One Center of Excellence.</text>
+  <circle cx="1700" cy="850" r="90" fill="#fff" fill-opacity=".94"/><path d="M1674 801l78 49-78 49z" fill="#351443"/>
+</svg>

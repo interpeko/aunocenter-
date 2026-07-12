@@ -20,7 +20,10 @@ const requiredFiles = [
   'contact/index.html', 'privacy/index.html', 'terms/index.html',
   'research-consultancy-disclaimer/index.html', 'accessibility/index.html',
   'thank-you/index.html', 'search/index.html', 'sitemap-index.xml', 'robots.txt',
-  'images/auno-social-poster.png', 'images/auno-whatsapp-qr.svg', 'images/auno-whatsapp-qr.png'
+  'images/auno-social-poster.png', 'images/auno-whatsapp-qr.svg', 'images/auno-whatsapp-qr.png',
+  'images/auno-introduction-thumbnail.svg', 'media/auno-center-introduction-production-brief.md',
+  'media/auno-center-introduction-transcript.txt', 'media/auno-center-introduction-captions.vtt',
+  'resources/research-question-canvas.md', 'resources/analysis-plan-checklist.md', 'resources/manuscript-readiness-checklist.md'
 ];
 
 async function walk(directory) {
@@ -48,6 +51,8 @@ for (const [file, html] of htmlByFile) {
   const isPoster = relative === 'social-poster/index.html';
   const h1Count = (html.match(/<h1(?:\s|>)/g) || []).length;
   if (h1Count !== 1) failures.push(`${relative}: expected one H1, found ${h1Count}`);
+  const mainCount = (html.match(/<main(?:\s|>)/g) || []).length;
+  if (!isPoster && mainCount !== 1) failures.push(`${relative}: expected one main landmark, found ${mainCount}`);
   if (!isPoster && !/<main\s[^>]*id="main-content"/.test(html)) failures.push(`${relative}: missing main landmark`);
   if (!isPoster && !/<meta\s+name="description"\s+content="[^"]+"/.test(html)) failures.push(`${relative}: missing meta description`);
   if (!isPoster && !/<link\s+rel="canonical"\s+href="[^"]+"/.test(html)) failures.push(`${relative}: missing canonical URL`);
@@ -100,6 +105,7 @@ const resourcePages = htmlFiles.filter(file => {
 if (resourcePages.length < 8) failures.push(`Expected at least 8 detailed resources, found ${resourcePages.length}`);
 
 if (!normalizedHtml.includes('One World. One Research.')) failures.push('Institutional tagline is missing');
+if (/planned programme concepts|Schedule to be announced/i.test(normalizedHtml)) failures.push('Unverified programme concepts are present');
 if (/social[- ]links website|link hub|linktree homepage/i.test((htmlByFile.get(path.join(root, 'index.html')) ?? ''))) failures.push('Homepage contains old link-hub language');
 
 if (failures.length) {

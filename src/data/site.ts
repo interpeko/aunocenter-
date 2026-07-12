@@ -985,45 +985,6 @@ export const focusAreas = [
   }
 ] as const;
 
-export const events = [
-  {
-    title: 'Research Question Clinic',
-    type: 'Online research clinic',
-    description: 'A guided session for refining a broad topic into a focused, feasible research question.',
-    status: 'Schedule to be announced'
-  },
-  {
-    title: 'Study Design Essentials',
-    type: 'Interactive workshop',
-    description: 'Compare common designs and practise aligning design choices with a research objective.',
-    status: 'Schedule to be announced'
-  },
-  {
-    title: 'Statistics for Research Decisions',
-    type: 'Webinar',
-    description: 'An accessible introduction to estimates, uncertainty, assumptions, effect sizes, and practical meaning.',
-    status: 'Schedule to be announced'
-  },
-  {
-    title: 'Questionnaire Design Lab',
-    type: 'Applied workshop',
-    description: 'Explore construct mapping, wording, scales, survey flow, respondent burden, and pretesting.',
-    status: 'Schedule to be announced'
-  },
-  {
-    title: 'Building a Transparent Literature Review',
-    type: 'Methods seminar',
-    description: 'Use protocols, search documentation, screening rules, extraction forms, and appraisal well.',
-    status: 'Schedule to be announced'
-  },
-  {
-    title: 'Research Integrity Roundtable',
-    type: 'Discussion event',
-    description: 'A facilitated conversation on authorship, responsible AI, data stewardship, and transparent reporting.',
-    status: 'Schedule to be announced'
-  }
-] as const;
-
 export const faqGroups = [
   {
     category: 'Getting started',
