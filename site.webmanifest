@@ -1,0 +1,17 @@
+{
+  "name": "AUNO Center",
+  "short_name": "AUNO",
+  "description": "Global Research Support and Capacity Building",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f3ea",
+  "theme_color": "#24102f",
+  "icons": [
+    {
+      "src": "/aunocenter-images/auno-crest.png",
+      "sizes": "828x828",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

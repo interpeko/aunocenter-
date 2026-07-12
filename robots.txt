@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aunocenter.netlify.app/sitemap-index.xml
