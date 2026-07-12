@@ -1,0 +1,81 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+
+const crumbs = [{ label: 'Training & capacity building' }];
+const themes = [
+  'From topic to researchable question', 'Research design and protocol development', 'Sampling and measurement',
+  'Statistics for research decision-making', 'Questionnaire design and testing', 'Literature review methods',
+  'Data visualisation and results communication', 'Academic and professional research writing',
+  'Research ethics, integrity, and responsible AI use', 'Healthcare research methods',
+  'Reporting guidelines and transparent practice', 'Research leadership and institutional systems'
+];
+---
+
+<BaseLayout title="Research Training and Capacity Building | AUNO Center" description="Explore practical research workshops, seminars, project clinics, and tailored capacity-building programmes for individuals and institutions." breadcrumbs={crumbs}>
+  <Breadcrumbs items={crumbs} />
+  <PageHero eyebrow="Training & capacity building" title="Build research capability that lasts." lead="Practical learning to help participants understand research choices, apply methods thoughtfully, and communicate evidence with confidence.">
+    <div slot="actions" class="button-row"><a class="button button--gold" href="#training-inquiry">Request tailored training <span aria-hidden="true">↗</span></a></div>
+  </PageHero>
+
+  <section class="section">
+    <div class="shell content-grid">
+      <div>
+        <p class="eyebrow">Learning portfolio</p><h2>Training themes grounded in real research decisions.</h2>
+        <div class="theme-grid mt-3">{themes.map((theme, index) => <article><span>{String(index+1).padStart(2,'0')}</span><h3>{theme}</h3></article>)}</div>
+      </div>
+      <aside class="sticky-aside">
+        <div class="side-card"><h2>Formats</h2><ul class="check-list"><li>Live online workshops</li><li>Seminars and short courses</li><li>Guided project clinics</li><li>Tailored institutional programmes</li><li>Team-based capacity building</li><li>Training of trainers where appropriate</li></ul></div>
+        <div class="side-card"><h2>Designed around your context</h2><p>Delivery mode, learning outcomes, group size, accessibility needs, schedule, and resources are agreed during scoping.</p></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--plum">
+    <div class="shell">
+      <div class="section-heading section-heading--light"><p class="eyebrow eyebrow--light">Learning approach</p><h2>From explanation to confident application.</h2><p>Every programme is designed to create useful understanding, not only deliver information.</p></div>
+      <div class="number-grid training-principles">
+        <article class="number-card"><span class="number-card__index">01</span><h3>Clear outcomes</h3><p>Participants know what they should understand or be able to do.</p></article>
+        <article class="number-card"><span class="number-card__index">02</span><h3>Applied examples</h3><p>Concepts are connected to realistic research decisions and materials.</p></article>
+        <article class="number-card"><span class="number-card__index">03</span><h3>Guided practice</h3><p>Participants work through choices with feedback, questions, and reflection.</p></article>
+        <article class="number-card"><span class="number-card__index">04</span><h3>Reusable tools</h3><p>Templates and checklists support application beyond the session.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ivory" id="training-inquiry">
+    <div class="shell form-page-grid">
+      <div><p class="eyebrow">Training enquiry</p><h2>Shape a programme around your audience.</h2><p>Tell us about the group, learning need, preferred format, timing, and accessibility requirements. This is an initial inquiry and does not confirm availability.</p></div>
+      <form class="form-shell" name="training-inquiry" method="POST" action="/thank-you/?form=training" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="training-inquiry" /><p class="honeypot"><label>Do not fill this out: <input name="bot-field" /></label></p>
+        <fieldset class="form-section"><legend>Contact and organisation</legend><div class="form-grid">
+          <div class="form-field"><label for="training-name">Full name <span class="required">*</span></label><input id="training-name" name="full-name" autocomplete="name" required /></div>
+          <div class="form-field"><label for="training-email">Work email <span class="required">*</span></label><input id="training-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="form-field"><label for="training-org">Organisation <span class="required">*</span></label><input id="training-org" name="organisation" autocomplete="organization" required /></div>
+          <div class="form-field"><label for="training-country">Country and time zone <span class="required">*</span></label><input id="training-country" name="country-time-zone" required /></div>
+        </div></fieldset>
+        <fieldset class="form-section"><legend>Learning need</legend><div class="form-grid">
+          <div class="form-field"><label for="audience">Intended audience <span class="required">*</span></label><input id="audience" name="audience" required /></div>
+          <div class="form-field"><label for="group-size">Approximate group size <span class="required">*</span></label><input id="group-size" name="group-size" type="number" min="1" required /></div>
+          <div class="form-field form-field--full"><label for="topic">Topic or theme <span class="required">*</span></label><input id="topic" name="topic" required /></div>
+          <div class="form-field form-field--full"><label for="objectives">Learning objectives <span class="required">*</span></label><textarea id="objectives" name="learning-objectives" required></textarea></div>
+          <div class="form-field"><label for="format">Preferred format</label><select id="format" name="preferred-format"><option>Live online workshop</option><option>Seminar or webinar</option><option>Short course</option><option>Project clinic</option><option>Institutional programme</option><option>Not sure</option></select></div>
+          <div class="form-field"><label for="dates">Preferred dates or timeframe</label><input id="dates" name="preferred-dates" /></div>
+          <div class="form-field form-field--full"><label for="access-needs">Accessibility or participation needs</label><textarea id="access-needs" name="accessibility-needs"></textarea></div>
+          <div class="form-field form-field--full"><label for="training-message">Additional context</label><textarea id="training-message" name="message"></textarea></div>
+        </div></fieldset>
+        <label class="check-row mt-2" for="training-privacy"><input id="training-privacy" name="privacy-consent" type="checkbox" value="consent-given" required /><span>I have read the <a href="/privacy/">Privacy Policy</a> and consent to use of this information to respond. <span class="required">*</span></span></label>
+        <div class="form-actions"><p>Please do not include confidential or identifiable research information.</p><button class="button button--primary" type="submit">Submit training inquiry <span aria-hidden="true">↗</span></button></div>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .theme-grid{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--line)}.theme-grid article{min-height:9rem;padding:1.1rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.theme-grid article:nth-child(2n){border-right:0}.theme-grid article:nth-last-child(-n+2){border-bottom:0}.theme-grid span{color:var(--gold-dark);font-size:.68rem;font-weight:800}.theme-grid h3{margin-top:1.7rem;font-size:1.2rem}
+  .training-principles{border-color:rgba(255,255,255,.18)}.training-principles .number-card{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.18)}.training-principles h3{color:white}.training-principles p{color:rgba(255,255,255,.7)}.training-principles .number-card__index{color:var(--gold-light)}
+  .form-page-grid{display:grid;grid-template-columns:minmax(18rem,.55fr) minmax(0,1fr);gap:clamp(2rem,6vw,6rem);align-items:start}.form-page-grid>div{position:sticky;top:1rem}.form-page-grid>div h2{max-width:13ch}.form-page-grid>div>p:last-child{margin-top:1rem}
+  @media(max-width:61.99rem){.form-page-grid{grid-template-columns:1fr}.form-page-grid>div{position:static}}
+  @media(max-width:47.99rem){.theme-grid{grid-template-columns:1fr}.theme-grid article,.theme-grid article:nth-child(2n),.theme-grid article:nth-last-child(-n+2){border-right:0;border-bottom:1px solid var(--line)}.theme-grid article:last-child{border-bottom:0}}
+</style>

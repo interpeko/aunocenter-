@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CallToAction from '@/components/CallToAction.astro';
+import { resources, services, SITE, type Resource } from '@/data/site';
+
+export function getStaticPaths() { return resources.map(resource => ({ params: { slug: resource.slug }, props: { resource } })); }
+interface Props { resource: Resource }
+const { resource } = Astro.props;
+const relatedService = services.find(service => service.slug === resource.relatedService);
+const related = resources.filter(item => item.slug !== resource.slug && (item.category === resource.category || item.relatedService === resource.relatedService)).slice(0, 3);
+const crumbs = [{ label: 'Research resources', href: '/resources/' }, { label: resource.title }];
+const articleSchema = {
+  '@context': 'https://schema.org', '@type': 'Article', headline: resource.title, description: resource.summary,
+  mainEntityOfPage: new URL(`/resources/${resource.slug}/`, Astro.site ?? Astro.url.origin).href,
+  author: { '@type': 'Organization', name: SITE.name }, publisher: { '@type': 'Organization', name: SITE.name }
+};
+const slugify = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+---
+
+<BaseLayout title={`${resource.title} | AUNO Center`} description={resource.summary} breadcrumbs={crumbs} type="article" schema={articleSchema}>
+  <header class="article-header"><div class="shell article-header__inner"><p class="eyebrow">{resource.category}</p><h1>{resource.title}</h1><p class="article-header__summary">{resource.summary}</p><div class="article-meta"><span>{resource.readingTime}</span><span>AUNO Center research resource</span></div></div></header>
+  <section class="section"><div class="shell article-layout">
+    <aside><nav class="article-toc" aria-label="On this page"><p>On this page</p><ol>{resource.sections.map(section => <li><a href={`#${slugify(section.heading)}`}>{section.heading}</a></li>)}</ol></nav></aside>
+    <article class="article-body"><p>{resource.intro}</p>
+      {resource.sections.map(section => <section id={slugify(section.heading)}><h2>{section.heading}</h2>{section.paragraphs.map(paragraph => <p>{paragraph}</p>)}{section.points && <ul>{section.points.map(point => <li>{point}</li>)}</ul>}</section>)}
+      <div class="article-takeaway"><h2>Key takeaway</h2><p>{resource.takeaway}</p></div>
+      <div class="notice mt-3"><h2>Use this resource responsibly</h2><p>This guide is educational and general. Apply it in accordance with your discipline, institution, ethics approvals, law, professional standards, and project context.</p></div>
+    </article>
+  </div></section>
+  <section class="section section--ivory"><div class="shell"><div class="content-grid"><div><p class="eyebrow">Related support</p><h2>{relatedService?.title ?? 'Research support'}</h2><p class="max-copy mt-1">{relatedService?.summary}</p><a class="button button--outline mt-2" href={`/services/${relatedService?.slug}/`}>Explore this service</a></div><div><p class="eyebrow">Continue reading</p><ul class="related-resources">{related.map(item => <li><a href={`/resources/${item.slug}/`}><small>{item.category}</small><strong>{item.title}</strong><span aria-hidden="true">↗</span></a></li>)}</ul></div></div></div></section>
+  <CallToAction title="Apply strong principles to a real research decision." text="Describe the project context and the methodological question that would benefit from focused support." />
+</BaseLayout>
+
+<style>
+  .related-resources{list-style:none;border-top:1px solid var(--line)}.related-resources li{border-bottom:1px solid var(--line)}.related-resources a{display:grid;grid-template-columns:1fr 2rem;gap:.6rem;padding:1rem 0;text-decoration:none}.related-resources small{grid-column:1;color:var(--gold-dark);font-size:.68rem;font-weight:800;text-transform:uppercase}.related-resources strong{grid-column:1;font-family:var(--font-display);font-size:1.1rem;font-weight:500;line-height:1.3}.related-resources span{grid-column:2;grid-row:1/3;align-self:center}
+</style>

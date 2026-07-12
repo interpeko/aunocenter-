@@ -1,0 +1,113 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+import { formServices } from '@/data/site';
+
+const crumbs = [{ label: 'Request research support' }];
+---
+
+<BaseLayout title="Request Research Support | AUNO Center" description="Submit a responsible initial request for methodology, statistics, questionnaires, literature review, interpretation, or manuscript support." breadcrumbs={crumbs}>
+  <Breadcrumbs items={crumbs} />
+  <PageHero eyebrow="Research support portal" title="Tell us about your research support needs." lead="Share a concise, non-confidential overview. We will use it to understand the request, identify the appropriate next step, and determine whether the work is within scope." />
+
+  <section class="section section--ivory">
+    <div class="shell portal-layout">
+      <aside class="portal-aside" aria-labelledby="before-submit">
+        <div class="notice notice--critical">
+          <h2 id="before-submit">Before you submit</h2>
+          <p><strong>Do not include</strong> patient information, participant identifiers, confidential datasets, private institutional records, credentials, unpublished sensitive material, or other protected information.</p>
+        </div>
+        <div class="side-card">
+          <h2>What happens next?</h2>
+          <ol>
+            <li><span>1</span> We review the request for fit, scope, and responsible-use requirements.</li>
+            <li><span>2</span> We contact you using the email address supplied.</li>
+            <li><span>3</span> Work begins only after scope, roles, timing, confidentiality, deliverables, and any fees are agreed.</li>
+          </ol>
+        </div>
+        <div class="side-card"><h2>Need something else?</h2><p>Use the general contact route for media, accessibility, privacy, or other institutional enquiries.</p><a href="/contact/">Go to contact →</a></div>
+      </aside>
+
+      <form
+        class="form-shell"
+        name="research-support-request"
+        method="POST"
+        action="/thank-you/?form=research-support"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="research-support-request" />
+        <p class="honeypot"><label>Do not fill this out: <input name="bot-field" /></label></p>
+
+        <fieldset class="form-section">
+          <legend>1. About you</legend>
+          <p>Fields marked <span class="required">*</span> are required.</p>
+          <div class="form-grid">
+            <div class="form-field"><label for="full-name">Full name <span class="required">*</span></label><input id="full-name" name="full-name" type="text" autocomplete="name" required /></div>
+            <div class="form-field"><label for="email">Email address <span class="required">*</span></label><input id="email" name="email" type="email" autocomplete="email" required /></div>
+            <div class="form-field"><label for="country">Country or region <span class="required">*</span></label><input id="country" name="country-region" type="text" autocomplete="country-name" required /></div>
+            <div class="form-field"><label for="timezone">Time zone</label><input id="timezone" name="time-zone" type="text" placeholder="For example, UTC+3" /></div>
+            <div class="form-field"><label for="role">Your role <span class="required">*</span></label><select id="role" name="role" required><option value="">Select your role</option><option>Student</option><option>Researcher</option><option>Healthcare professional</option><option>Educator</option><option>Institutional representative</option><option>Other</option></select></div>
+            <div class="form-field"><label for="organisation">Organisation or institution <span class="required">*</span></label><input id="organisation" name="organisation" type="text" autocomplete="organization" placeholder="Enter Not applicable if needed" required /></div>
+            <div class="form-field form-field--full"><label for="discipline">Discipline or research area</label><input id="discipline" name="discipline" type="text" placeholder="For example, public health, education, social science" /></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>2. About the project</legend>
+          <div class="form-grid">
+            <div class="form-field form-field--full"><label for="service">Service needed <span class="required">*</span></label><select id="service" name="service-needed" required><option value="">Choose a service</option>{formServices.map((item) => <option value={item}>{item}</option>)}</select></div>
+            <div class="form-field form-field--full"><label for="project-title">Project title <span class="required">*</span></label><input id="project-title" name="project-title" type="text" required /></div>
+            <div class="form-field"><label for="stage">Current project stage <span class="required">*</span></label><select id="stage" name="project-stage" required><option value="">Select a stage</option><option>Idea or topic development</option><option>Question and protocol planning</option><option>Ethics or institutional preparation</option><option>Data collection planning</option><option>Data collection in progress</option><option>Analysis planning</option><option>Analysis in progress</option><option>Writing or interpretation</option><option>Pre-submission review</option><option>Revision after review</option><option>Other</option></select></div>
+            <div class="form-field"><label for="data-type">Type of data <span class="required">*</span></label><select id="data-type" name="data-type" required><option value="">Select a type</option><option>No data yet</option><option>Quantitative</option><option>Qualitative</option><option>Mixed methods</option><option>Evidence review</option><option>Other</option></select></div>
+            <div class="form-field form-field--full"><label for="summary">Plain-language project summary <span class="required">*</span></label><textarea id="summary" name="project-summary" minlength="50" maxlength="2500" aria-describedby="summary-help" required></textarea><p class="field-help" id="summary-help">Briefly describe the problem, context, intended participants or evidence, and purpose. Do not include confidential or identifiable information.</p></div>
+            <div class="form-field form-field--full"><label for="question">Main research question or objective <span class="required">*</span></label><textarea id="question" name="research-question" minlength="20" maxlength="1500" required></textarea></div>
+            <div class="form-field form-field--full"><label for="support">What support would be most useful? <span class="required">*</span></label><textarea id="support" name="requested-support" minlength="30" maxlength="2000" required></textarea></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>3. Timing and context</legend>
+          <div class="form-grid">
+            <div class="form-field"><label for="date">Desired completion date <span class="required">*</span></label><input id="date" name="desired-completion-date" type="date" required /><p class="field-help">A requested date is not confirmed until we respond.</p></div>
+            <div class="form-field"><label for="contact-method">Preferred reply method</label><select id="contact-method" name="preferred-contact-method"><option>Email</option><option>WhatsApp</option><option>Telegram</option></select></div>
+            <div class="form-field"><label for="funding">Funding or institutional context</label><select id="funding" name="funding-context"><option value="">Select if relevant</option><option>Self-funded</option><option>Institutionally funded</option><option>Grant funded</option><option>Funding application in progress</option><option>Not applicable</option><option>Prefer not to say</option></select></div>
+            <div class="form-field"><label for="heard">How did you hear about AUNO Center? <span class="required">*</span></label><select id="heard" name="referral-source" required><option value="">Select one</option><option>WhatsApp</option><option>Instagram</option><option>Facebook</option><option>LinkedIn</option><option>TikTok</option><option>Telegram</option><option>X</option><option>Search engine</option><option>Referral</option><option>Other</option></select></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>4. Responsible submission</legend>
+          <div class="check-stack">
+            <label class="check-row" for="responsible-use"><input id="responsible-use" name="responsible-use-acknowledgement" type="checkbox" value="confirmed" required /><span>I confirm that this request does not ask AUNO Center to fabricate data or citations, conceal authorship, complete assessed work dishonestly, bypass ethics requirements, or misrepresent research findings. <span class="required">*</span></span></label>
+            <label class="check-row" for="safe-data"><input id="safe-data" name="safe-data-acknowledgement" type="checkbox" value="confirmed" required /><span>I have not included identifiable patient or participant information, confidential datasets, passwords, or unnecessary sensitive information. <span class="required">*</span></span></label>
+            <label class="check-row" for="privacy-consent"><input id="privacy-consent" name="privacy-consent" type="checkbox" value="consent-given" required /><span>I have read the <a href="/privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy (opens in a new tab)</a> and consent to AUNO Center using this information to assess and respond to my request. <span class="required">*</span></span></label>
+          </div>
+        </fieldset>
+
+        <div class="form-actions">
+          <p>Submitting this form does not create a consultant–client relationship or guarantee acceptance, timing, confidentiality terms, or availability.</p>
+          <button class="button button--primary" type="submit">Submit support request <span aria-hidden="true">↗</span></button>
+        </div>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const select = document.querySelector<HTMLSelectElement>('#service');
+  const requested = new URLSearchParams(window.location.search).get('service');
+  if (select && requested) {
+    const normalized = requested.replaceAll('-', ' ');
+    const option = [...select.options].find((item) => item.text.toLowerCase().includes(normalized.replace('support', '').trim()));
+    if (option) select.value = option.value;
+  }
+</script>
+
+<style>
+  .portal-layout{display:grid;grid-template-columns:20rem minmax(0,1fr);gap:clamp(2rem,5vw,4rem);align-items:start}
+  .portal-aside{position:sticky;top:1rem}.portal-aside .side-card ol{margin-top:1rem;list-style:none}.portal-aside .side-card li{display:grid;grid-template-columns:1.6rem 1fr;gap:.6rem;color:var(--ink-soft);font-size:.88rem}.portal-aside .side-card li+li{margin-top:1rem}.portal-aside .side-card li span{width:1.45rem;height:1.45rem;display:grid;place-items:center;color:white;background:var(--plum-700);border-radius:50%;font-size:.68rem;font-weight:800}
+  @media(max-width:61.99rem){.portal-layout{grid-template-columns:1fr}.portal-aside{position:static;display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}.portal-aside .notice{grid-column:1/-1}.portal-aside .side-card+.side-card{margin-top:0}}
+  @media(max-width:47.99rem){.portal-aside{grid-template-columns:1fr}.portal-aside .notice{grid-column:auto}}
+</style>

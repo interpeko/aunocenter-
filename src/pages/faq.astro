@@ -1,0 +1,20 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+import CallToAction from '@/components/CallToAction.astro';
+import { faqGroups } from '@/data/site';
+const crumbs=[{label:'Frequently asked questions'}];
+const faqSchema={'@context':'https://schema.org','@type':'FAQPage',mainEntity:faqGroups.flatMap(group=>group.items.map(item=>({'@type':'Question',name:item.question,acceptedAnswer:{'@type':'Answer',text:item.answer}})))};
+---
+
+<BaseLayout title="Frequently Asked Questions | AUNO Center" description="Answers about AUNO Center research services, eligibility, timelines, confidentiality, ethics, fees, responsible use, and data safety." breadcrumbs={crumbs} schema={faqSchema}>
+  <Breadcrumbs items={crumbs}/><PageHero eyebrow="Frequently asked questions" title="Clear answers before you begin." lead="Understand who can request support, how enquiries are reviewed, where the professional boundaries sit, and how to submit information responsibly." tone="light" />
+  <section class="section"><div class="shell faq-layout"><nav class="faq-nav" aria-label="FAQ categories"><p>Browse by category</p><ul>{faqGroups.map(group=><li><a href={`#${group.category.toLowerCase().replaceAll(/[^a-z0-9]+/g,'-')}`}>{group.category}</a></li>)}</ul><a class="button button--primary" href="/request-support/">Request support</a></nav><div>{faqGroups.map(group=><section class="faq-group" id={group.category.toLowerCase().replaceAll(/[^a-z0-9]+/g,'-')}><h2>{group.category}</h2><div class="faq-list">{group.items.map(item=><details class="faq-item"><summary>{item.question}</summary><div><p>{item.answer}</p></div></details>)}</div></section>)}</div></div></section>
+  <CallToAction title="Still deciding where to start?" text="Use the contact page for a general question or the support portal to describe a specific research need." secondaryLabel="Ask a general question" secondaryHref="/contact/" />
+</BaseLayout>
+
+<style>
+  .faq-layout{display:grid;grid-template-columns:15rem minmax(0,48rem);gap:clamp(3rem,8vw,8rem);justify-content:center;align-items:start}.faq-nav{position:sticky;top:1rem;padding:1.3rem;background:var(--ivory);border:1px solid var(--line);border-radius:var(--radius)}.faq-nav>p{color:var(--ink);font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.faq-nav ul{margin-top:1rem;list-style:none}.faq-nav li+li{margin-top:.6rem}.faq-nav a:not(.button){color:var(--plum-700);font-size:.88rem;font-weight:700}.faq-nav .button{width:100%;margin-top:1.4rem}
+  @media(max-width:47.99rem){.faq-layout{grid-template-columns:1fr}.faq-nav{position:static}.faq-nav ul{display:flex;flex-wrap:wrap;gap:.6rem 1rem}.faq-nav li+li{margin-top:0}}
+</style>

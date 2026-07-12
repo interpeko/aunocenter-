@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+import { SITE } from '@/data/site';
+const crumbs=[{label:'Terms of use'}];
+---
+
+<BaseLayout title="Terms of Use | AUNO Center" description="Terms governing lawful use of the AUNO Center website, public resources, forms, intellectual property, external links, and limitations." breadcrumbs={crumbs}>
+  <Breadcrumbs items={crumbs}/><PageHero eyebrow="Legal & access" title="Terms of Use" lead="These terms govern use of the public AUNO Center website. By continuing to use the site, you agree to use it lawfully and in accordance with these terms." tone="light" />
+  <section class="section"><div class="shell legal-layout"><aside><div class="side-card"><h2>Terms details</h2><dl><dt>Effective date</dt><dd>11 July 2026</dd><dt>Questions</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></dl></div><div class="side-card"><h2>Related policies</h2><ul><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/research-consultancy-disclaimer/">Research Consultancy Disclaimer</a></li><li><a href="/accessibility/">Accessibility Statement</a></li></ul></div></aside><article class="prose">
+    <h2 class="mt-0">Acceptance and lawful use</h2><p>By using this website, you agree to use it lawfully and in accordance with these terms. If you do not agree, do not use the website.</p>
+    <h2>Informational website</h2><p>Website content is provided for general information and education. It does not create a consultant–client, professional, fiduciary, employment, partnership, or agency relationship. A service relationship begins only through a separate written agreement or clearly confirmed engagement.</p>
+    <h2>Acceptable use</h2><p>You may not misuse the website; attempt unauthorised access; interfere with security; submit malicious code; impersonate another person; infringe intellectual-property or privacy rights; submit unlawful, misleading, or harmful material; scrape or overload the service; or use AUNO Center’s name or content to imply an unauthorised endorsement.</p>
+    <h2>Intellectual property</h2><p>Unless otherwise stated, website text, design, graphics, branding, and original resources are owned by or licensed to AUNO Center. Reasonable personal and educational use is permitted with appropriate attribution, but reproduction, modification, sale, redistribution, automated extraction, or commercial exploitation requires permission unless applicable law allows it.</p>
+    <h2>Information you submit</h2><p>You retain responsibility for information submitted through forms. You confirm that you have the right to submit it and that it does not contain unnecessary confidential, identifiable, protected, infringing, or unlawful material. Public forms are not secure data-transfer channels for patient, participant, or confidential project records.</p>
+    <h2>Research integrity</h2><p>You must not use the website or request services to fabricate or falsify data, invent citations, plagiarise, conceal authorship, bypass academic or ethics rules, manipulate results, or misrepresent evidence. AUNO Center may decline requests that conflict with responsible research practice.</p>
+    <h2>External services and links</h2><p>Links to third-party websites and social platforms are offered for convenience. AUNO Center does not control and is not responsible for their content, availability, security, accessibility, terms, or practices. Use of those services is governed by their own terms.</p>
+    <h2>Availability and accuracy</h2><p>The website is provided on an “as available” basis. While reasonable care is taken, AUNO Center does not guarantee uninterrupted access, error-free content, complete currency, suitability for a particular project, or any academic, publication, regulatory, funding, clinical, or commercial outcome.</p>
+    <h2>Limitation</h2><p>To the extent permitted by applicable law, AUNO Center is not liable for indirect, incidental, consequential, special, or reliance-based loss arising solely from use of or inability to use the public website. Nothing in these terms excludes rights or liabilities that cannot lawfully be excluded.</p>
+    <h2>Changes</h2><p>These terms may be updated when operational, legal, or technical circumstances change. Continued use after updated terms are published constitutes acceptance where permitted by law.</p>
+    <h2>Contact</h2><p>Questions may be sent to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+  </article></div></section>
+</BaseLayout>
+
+<style>.legal-layout{display:grid;grid-template-columns:19rem minmax(0,48rem);gap:clamp(3rem,7vw,7rem);justify-content:center;align-items:start}.legal-layout>aside{position:sticky;top:1rem}.legal-layout dl{margin-top:1rem}.legal-layout dt{color:var(--gold-dark);font-size:.7rem;font-weight:800;text-transform:uppercase}.legal-layout dd+dt{margin-top:1rem}@media(max-width:61.99rem){.legal-layout{grid-template-columns:1fr}.legal-layout>aside{position:static;display:grid;grid-template-columns:1fr 1fr;gap:1rem}.legal-layout .side-card+.side-card{margin-top:0}}@media(max-width:47.99rem){.legal-layout>aside{grid-template-columns:1fr}}</style>

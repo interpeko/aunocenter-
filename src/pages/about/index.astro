@@ -1,0 +1,78 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import CallToAction from '@/components/CallToAction.astro';
+import { SITE } from '@/data/site';
+
+const crumbs = [{ label: 'About AUNO Center' }];
+---
+
+<BaseLayout title="About AUNO Center | Research Support with Global Purpose" description="Learn how AUNO Center approaches research support, capacity building, integrity, and globally connected knowledge exchange." breadcrumbs={crumbs}>
+  <Breadcrumbs items={crumbs} />
+  <PageHero eyebrow="Our institutional purpose" title="About AUNO Center" lead="A research-support and capacity-building center created to help people and institutions approach research with greater clarity, rigor, and responsibility." />
+
+  <section class="section section--ivory" id="founder">
+    <div class="shell founder-profile">
+      <figure><img src="/images/mustafa-saadabi.png" width="828" height="810" alt="Mustafa Saadabi, Founder and Director of AUNO Center" /><figcaption><strong>{SITE.founder.name}</strong><span>{SITE.founder.title}</span><small>{SITE.founder.affiliation}</small></figcaption></figure>
+      <div><p class="eyebrow">Founder & Director</p><h2>A center built around the interconnection of life and knowledge.</h2><blockquote>“{SITE.founder.word}”</blockquote></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell content-grid">
+      <article class="prose">
+        <p class="lead">Research can influence education, healthcare, policy, professional practice, and the way communities understand complex challenges. Its value depends on the quality of the decisions behind it.</p>
+        <p>AUNO Center supports those decisions across research design, methodology, analysis, evidence synthesis, interpretation, reporting, and professional development. We work from a simple principle: good support should strengthen both the project and the researcher’s ability to make informed choices.</p>
+        <p>Our global outlook is expressed through respect for different research contexts, disciplines, communities, and knowledge traditions. We encourage methods that are appropriate to the question, transparent about their limitations, and attentive to the people affected by the research.</p>
+
+        <h2>What defines the center</h2>
+        <div class="feature-grid mt-2">
+          <article class="feature-card"><span class="feature-card__mark">01</span><h3>Whole-process perspective</h3><p>Questions, design, data, analysis, ethics, and reporting are treated as connected decisions.</p></article>
+          <article class="feature-card"><span class="feature-card__mark">02</span><h3>Learning-centered support</h3><p>Guidance is designed to build judgement and capability, not create dependence.</p></article>
+          <article class="feature-card"><span class="feature-card__mark">03</span><h3>Transparent practice</h3><p>Assumptions, limitations, roles, and responsibilities are made explicit.</p></article>
+          <article class="feature-card"><span class="feature-card__mark">04</span><h3>Contextual respect</h3><p>Methods and collaboration should respect discipline, community, culture, and setting.</p></article>
+        </div>
+
+        <h2>Who we support</h2>
+        <p>AUNO Center’s services and learning activities are designed for students, independent researchers, academic teams, healthcare professionals, educators, research offices, and institutions developing stronger research systems.</p>
+        <ul class="check-list">
+          <li>Students and early-career researchers building methodological confidence</li>
+          <li>Academic and professional researchers facing a focused research decision</li>
+          <li>Healthcare teams working with complex evidence and privacy responsibilities</li>
+          <li>Universities, hospitals, non-governmental organisations, and research offices strengthening capability</li>
+          <li>International collaborators seeking clear, equitable ways of working</li>
+        </ul>
+
+        <div class="callout">
+          <h2 class="mt-0">One World. One Research.</h2>
+          <p>The tagline reflects a belief that research questions may arise in different places, but the pursuit of credible knowledge is a shared responsibility. Progress depends on openness, ethical practice, thoughtful collaboration, and evidence that can be understood and used.</p>
+        </div>
+      </article>
+
+      <aside class="sticky-aside" aria-label="About AUNO Center links">
+        <div class="side-card"><h2>Institutional foundation</h2><p>Explore the vision, mission, objectives, and values that guide AUNO Center.</p><a href="/about/vision-mission/">Read our purpose & values →</a></div>
+        <div class="side-card"><h2>Responsible research</h2><p>See our approach to ethics, integrity, authorship, privacy, and responsible AI.</p><a href="/research-ethics-integrity/">Explore ethics & integrity →</a></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--ivory">
+    <div class="shell">
+      <SectionHeading eyebrow="AUNO in practice" title="Research support that is rigorous, understandable, and responsible." text="The center’s role is to make good methodological choices easier to see, explain, document, and apply." />
+      <div class="number-grid">
+        <article class="number-card"><span class="number-card__index">01</span><h3>Listen</h3><p>Begin with the real question, context, constraints, and intended use.</p></article>
+        <article class="number-card"><span class="number-card__index">02</span><h3>Clarify</h3><p>Make assumptions, options, trade-offs, and boundaries visible.</p></article>
+        <article class="number-card"><span class="number-card__index">03</span><h3>Collaborate</h3><p>Work with defined roles, transparent decisions, and mutual respect.</p></article>
+        <article class="number-card"><span class="number-card__index">04</span><h3>Strengthen</h3><p>Leave projects and researchers better equipped for what comes next.</p></article>
+      </div>
+    </div>
+  </section>
+  <CallToAction title="Explore support shaped around your research context." text="Share a non-confidential overview of your project, stage, and current methodological need." />
+</BaseLayout>
+
+<style>
+  .founder-profile{display:grid;grid-template-columns:minmax(18rem,.55fr) minmax(0,1fr);gap:clamp(3rem,8vw,8rem);align-items:center}.founder-profile figure{padding:1rem;background:white;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}.founder-profile figure img{width:100%;aspect-ratio:1/1.04;object-fit:cover;object-position:center top;border-radius:calc(var(--radius-lg) - .45rem)}.founder-profile figcaption{display:grid;padding:1rem .3rem .2rem}.founder-profile figcaption strong{font-family:var(--font-display);font-size:1.5rem;font-weight:500}.founder-profile figcaption span{color:var(--plum-700);font-weight:750}.founder-profile figcaption small{color:var(--ink-soft)}.founder-profile h2{max-width:15ch}.founder-profile blockquote{margin-top:1.5rem;padding-left:1.4rem;color:var(--ink-soft);border-left:3px solid var(--gold);font-family:var(--font-display);font-size:clamp(1.1rem,2vw,1.35rem);line-height:1.65}
+  @media(max-width:47.99rem){.founder-profile{grid-template-columns:1fr}}
+</style>

@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+import CallToAction from '@/components/CallToAction.astro';
+import { events, resources } from '@/data/site';
+const crumbs = [{ label: 'News & events' }];
+---
+
+<BaseLayout title="News and Events | AUNO Center" description="Find AUNO Center research-learning events, workshops, clinics, announcements, and newly published resources." breadcrumbs={crumbs}>
+  <Breadcrumbs items={crumbs} />
+  <PageHero eyebrow="News & events" title="Learning, exchange, and research updates." lead="Confirmed announcements, learning opportunities, research clinics, workshops, and newly published resources will appear here with complete dates, time zones, formats, and registration details." />
+
+  <section class="section"><div class="shell"><div class="news-notice"><span>Current programme status</span><h2>No events are currently open for registration.</h2><p>Follow AUNO Center or subscribe for confirmed programme announcements. The learning formats below are planned programme concepts; each remains labelled “Schedule to be announced” until details are approved.</p></div></div></section>
+
+  <section class="section section--ivory"><div class="shell"><div class="section-heading"><p class="eyebrow">Planned learning programme</p><h2>Research methods in active conversation.</h2><p>Dates, time zones, attendance mode, accessibility information, and registration links will be published only after confirmation.</p></div><div class="event-grid">{events.map((event,index)=><article><div class="event-card__top"><span>{event.type}</span><i>{String(index+1).padStart(2,'0')}</i></div><h3>{event.title}</h3><p>{event.description}</p><strong>{event.status}</strong></article>)}</div></div></section>
+
+  <section class="section"><div class="shell"><div class="section-heading"><p class="eyebrow">Latest research resources</p><h2>New knowledge for better decisions.</h2></div><div class="resource-grid">{resources.slice(0,3).map(resource=><article class="resource-card"><div class="resource-card__meta"><span>{resource.category}</span><span>{resource.readingTime}</span></div><h3><a href={`/resources/${resource.slug}/`}>{resource.title}</a></h3><p>{resource.summary}</p><a class="text-link" href={`/resources/${resource.slug}/`}>Read the guide <span aria-hidden="true">→</span></a></article>)}</div><div class="center mt-3"><a class="button button--outline" href="/resources/">Browse all resources</a></div></div></section>
+  <CallToAction eyebrow="Programme enquiries" title="Interested in a tailored workshop or research clinic?" text="Tell us about the audience, learning need, group size, timing, and format." primaryLabel="Request training" primaryHref="/training/#training-inquiry" secondaryLabel="Follow our channels" secondaryHref="/contact/" />
+</BaseLayout>
+
+<style>
+  .news-notice{max-width:64rem;padding:clamp(2rem,5vw,4rem);background:linear-gradient(120deg,var(--plum-950),#183e42);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg)}.news-notice span{color:var(--gold-light);font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.news-notice h2{max-width:17ch;margin-top:2rem;color:white}.news-notice p{max-width:48rem;margin-top:1rem;color:rgba(255,255,255,.72)}
+  .event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.event-grid article{min-height:20rem;display:flex;flex-direction:column;padding:1.5rem;background:white;border:1px solid var(--line);border-radius:var(--radius)}.event-card__top{display:flex;justify-content:space-between;gap:1rem;color:var(--gold-dark);font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.event-card__top i{font-style:normal}.event-grid h3{margin-top:3rem}.event-grid p{margin-top:.8rem}.event-grid>article>strong{margin-top:auto;padding-top:1.2rem;color:var(--plum-700);font-size:.78rem;text-transform:uppercase}
+  @media(max-width:61.99rem){.event-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:47.99rem){.event-grid{grid-template-columns:1fr}}
+</style>

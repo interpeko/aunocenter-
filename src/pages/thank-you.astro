@@ -1,0 +1,11 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+---
+
+<BaseLayout title="Thank You | AUNO Center" description="Your message has been received by AUNO Center." noindex>
+  <PageHero eyebrow="Submission received" title="Thank you. Your message is on its way." lead="We will review the information provided and respond using the email address submitted. Availability, scope, and timing are confirmed only through a direct response." tone="gold">
+    <div slot="actions" class="button-row"><a class="button button--primary" href="/">Return home</a><a class="button button--outline" href="/resources/">Explore research resources</a></div>
+  </PageHero>
+  <section class="section"><div class="shell"><div class="notice max-copy"><h2>Protect sensitive information</h2><p>Please do not send confidential or identifiable research data by ordinary email or public form unless a secure process has been agreed.</p></div></div></section>
+</BaseLayout>

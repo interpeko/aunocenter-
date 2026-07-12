@@ -1,0 +1,108 @@
+---
+import { SITE, services, socials } from '@/data/site';
+import SocialIcon from './SocialIcon.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-newsletter">
+    <div class="shell footer-newsletter__inner">
+      <div>
+        <p class="eyebrow eyebrow--light">Research updates</p>
+        <h2>Thoughtful knowledge, delivered with purpose.</h2>
+        <p>Receive new resources, confirmed learning events, and AUNO Center announcements.</p>
+      </div>
+      <form
+        class="newsletter-form"
+        name="newsletter-subscription"
+        method="POST"
+        action="/thank-you/?form=newsletter"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="newsletter-subscription" />
+        <p class="honeypot"><label>Do not fill this out: <input name="bot-field" /></label></p>
+        <label for="newsletter-email">Email address</label>
+        <div class="newsletter-form__row">
+          <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+          <button class="button button--gold" type="submit">Subscribe</button>
+        </div>
+        <label class="check-row" for="newsletter-consent">
+          <input id="newsletter-consent" name="subscription-consent" type="checkbox" value="yes" required />
+          <span>I would like to receive AUNO Center updates and can unsubscribe at any time.</span>
+        </label>
+      </form>
+    </div>
+  </div>
+
+  <div class="shell footer-main">
+    <div class="footer-brand">
+      <a class="brand brand--footer" href="/" aria-label="AUNO Center home">
+        <span class="brand__crest"><img src="/images/auno-crest.webp" width="72" height="72" alt="" /></span>
+        <span class="brand__copy"><strong>AUNO</strong><small>Research Center</small></span>
+      </a>
+      <p class="footer-brand__descriptor">{SITE.descriptor}</p>
+      <p class="footer-brand__tagline">{SITE.tagline}</p>
+      <p>Supporting clearer questions, stronger methods, responsible analysis, and research capability across disciplines and contexts.</p>
+      <p class="footer-contact"><a href={`mailto:${SITE.email}`}>{SITE.email}</a><br /><a href={`tel:${SITE.phone.replace(/[^+\d]/g, '')}`}>{SITE.phone}</a></p>
+      <div class="social-row" aria-label="AUNO Center social channels">
+        {socials.filter((social) => social.icon !== 'gmail').map((social) => (
+          <a href={social.href} target="_blank" rel="noopener noreferrer" aria-label={`${social.name} — opens in a new tab`} title={social.name}>
+            <SocialIcon icon={social.icon} size={17} />
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <section aria-labelledby="footer-explore">
+        <h2 id="footer-explore">Explore</h2>
+        <ul>
+          <li><a href="/about/">About AUNO Center</a></li>
+          <li><a href="/about/vision-mission/">Purpose & values</a></li>
+          <li><a href="/training/">Training</a></li>
+          <li><a href="/courses/">Courses</a></li>
+          <li><a href="/resources/">Resources</a></li>
+          <li><a href="/projects-publications/">Projects & publications</a></li>
+          <li><a href="/future-development-program/">Future Development Program</a></li>
+          <li><a href="/news-events/">News & events</a></li>
+          <li><a href="/media/">Media & YouTube</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="footer-services">
+        <h2 id="footer-services">Research services</h2>
+        <ul>
+          {services.map((service) => <li><a href={`/services/${service.slug}/`}>{service.shortTitle}</a></li>)}
+        </ul>
+      </section>
+      <section aria-labelledby="footer-focus">
+        <h2 id="footer-focus">Research focus</h2>
+        <ul>
+          <li><a href="/research-ethics-integrity/">Ethics & integrity</a></li>
+          <li><a href="/international-collaboration/">International collaboration</a></li>
+          <li><a href="/healthcare-research/">Healthcare research</a></li>
+          <li><a href="/institutional-research-support/">Institutional support</a></li>
+          <li><a href="/pubmed-search/">PubMed search</a></li>
+          <li><a href="/interpeko/">Interpeko research assistant</a></li>
+          <li><a href="/join/">Join AUNO Center</a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="footer-legal">
+        <h2 id="footer-legal">Legal & access</h2>
+        <ul>
+          <li><a href="/privacy/">Privacy policy</a></li>
+          <li><a href="/terms/">Terms of use</a></li>
+          <li><a href="/research-consultancy-disclaimer/">Consultancy disclaimer</a></li>
+          <li><a href="/accessibility/">Accessibility statement</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <div class="shell footer-legalbar">
+    <p>© {year} AUNO Center. All rights reserved.</p>
+    <p>Public content is educational and is not medical, legal, regulatory, ethics, or project-specific statistical advice.</p>
+  </div>
+</footer>

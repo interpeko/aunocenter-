@@ -1,0 +1,56 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import CallToAction from '@/components/CallToAction.astro';
+import { services } from '@/data/site';
+
+const crumbs = [{ label: 'Research services' }];
+---
+
+<BaseLayout title="Research Services | AUNO Center" description="Explore research design, statistics, questionnaires, results interpretation, manuscript review, and literature review support." breadcrumbs={crumbs}>
+  <Breadcrumbs items={crumbs} />
+  <PageHero eyebrow="Research services" title="Better-informed decisions across the research lifecycle." lead="Your research question remains yours. Our role is to strengthen the reasoning, methods, analysis, and communication behind it.">
+    <div slot="actions" class="button-row"><a class="button button--gold" href="/request-support/">Request research support <span aria-hidden="true">↗</span></a></div>
+  </PageHero>
+
+  <section class="section">
+    <div class="shell intro-services">
+      <div><p class="eyebrow">Support model</p><h2>Focused when you need it. Connected when the project requires it.</h2></div>
+      <div><p>Research support is most useful when it is matched to the project’s stage and genuine need. AUNO Center can assist with one focused methodological question or several connected stages.</p><p>Every request is scoped before work begins so deliverables, responsibilities, limitations, communication, timing, and expectations are clear.</p></div>
+    </div>
+  </section>
+
+  <section class="section section--ivory">
+    <div class="shell">
+      <SectionHeading eyebrow="Six core services" title="Explore the support pathway that fits your current decision." text="Each service page explains when support may help, what it can include, possible outputs, working steps, and important boundaries." />
+      <div class="service-grid">{services.map((service) => <ServiceCard service={service} />)}</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHeading eyebrow="Quality framework" title="What every engagement should make clear." />
+      <div class="number-grid">
+        <article class="number-card"><span class="number-card__index">01 / Question</span><h3>Purpose</h3><p>What decision or knowledge need should this work address?</p></article>
+        <article class="number-card"><span class="number-card__index">02 / Scope</span><h3>Boundaries</h3><p>What is included, excluded, and dependent on outside approval or information?</p></article>
+        <article class="number-card"><span class="number-card__index">03 / Process</span><h3>Responsibilities</h3><p>Who provides data, makes decisions, verifies outputs, and owns final work?</p></article>
+        <article class="number-card"><span class="number-card__index">04 / Output</span><h3>Use</h3><p>What will be delivered, how can it be used, and what limitations must remain visible?</p></article>
+      </div>
+      <div class="notice mt-3">
+        <h3>Research consultancy boundaries</h3>
+        <p>AUNO Center does not guarantee ethics approval, academic outcomes, publication, funding, statistically significant results, or professional or regulatory acceptance. Researchers remain responsible for their work, source data, institutional requirements, authorship, disclosure, and final decisions.</p>
+        <p><a href="/research-consultancy-disclaimer/">Read the full Research Consultancy Disclaimer →</a></p>
+      </div>
+    </div>
+  </section>
+  <CallToAction title="Not sure which service fits? Start with the research decision." text="Describe the project stage and the choice or problem you need to resolve. We will use that context to assess the most appropriate next step." />
+</BaseLayout>
+
+<style>
+  .intro-services{display:grid;grid-template-columns:1fr .8fr;gap:clamp(3rem,8vw,8rem)}
+  .intro-services h2{max-width:15ch}.intro-services div:last-child p+p{margin-top:1rem}
+  @media(max-width:47.99rem){.intro-services{grid-template-columns:1fr;gap:2rem}}
+</style>

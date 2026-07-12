@@ -1,0 +1,49 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+import { services, resources, focusAreas, libraryMaterials } from '@/data/site';
+import { courses } from '@/data/courses';
+const crumbs = [{ label: 'Search' }];
+const pages = [
+  { title:'About AUNO Center', type:'Institution', description:'Purpose, approach, audiences, and institutional identity.', href:'/about/' },
+  { title:'Vision, mission & values', type:'Institution', description:'The framework guiding AUNO Center’s research support.', href:'/about/vision-mission/' },
+  { title:'Research services', type:'Services', description:'Support across design, analysis, instruments, interpretation, review, and evidence synthesis.', href:'/services/' },
+  { title:'Training & capacity building', type:'Training', description:'Workshops, seminars, project clinics, and tailored programmes.', href:'/training/' },
+  { title:'Courses', type:'Learning', description:'Ten courses across methods, statistics, evidence, writing, ethics, and responsible AI.', href:'/courses/' },
+  { title:'Future Development Program', type:'Program', description:'Connected research for human health, animals, earth, nature, education, and innovation.', href:'/future-development-program/' },
+  { title:'Projects & publications', type:'Research record', description:'A verified public register of AUNO Center research contributions.', href:'/projects-publications/' },
+  { title:'PubMed search', type:'Evidence', description:'Search official public biomedical literature from NCBI PubMed.', href:'/pubmed-search/' },
+  { title:'Interpeko research assistant', type:'Help', description:'Navigate approved AUNO Center information with a privacy-aware automated guide.', href:'/interpeko/' },
+  { title:'Join AUNO Center', type:'Institution', description:'Professional interest portal for collaboration, education, and contribution.', href:'/join/' },
+  { title:'Media & YouTube', type:'Media', description:'Official AUNO Center YouTube and institutional media information.', href:'/media/' },
+  { title:'Research ethics & integrity', type:'Research focus', description:'Consent, privacy, authorship, data stewardship, transparency, and responsible AI.', href:'/research-ethics-integrity/' },
+  { title:'International collaboration', type:'Research focus', description:'Responsible collaboration across disciplines, institutions, and contexts.', href:'/international-collaboration/' },
+  { title:'Healthcare research', type:'Research focus', description:'Methods and evidence support attentive to patients, professionals, systems, and privacy.', href:'/healthcare-research/' },
+  { title:'Institutional research support', type:'Research focus', description:'Research systems, capability, methods clinics, and tailored institutional support.', href:'/institutional-research-support/' },
+  { title:'News & events', type:'Updates', description:'Learning opportunities, planned programme formats, and new resources.', href:'/news-events/' },
+  { title:'Frequently asked questions', type:'Help', description:'Answers about scope, timelines, privacy, responsibility, and services.', href:'/faq/' },
+  { title:'Contact AUNO Center', type:'Contact', description:'Official email, social channels, collaboration, and contact form.', href:'/contact/' },
+  ...services.map(service=>({title:service.title,type:'Service',description:service.summary,href:`/services/${service.slug}/`})),
+  ...resources.map(resource=>({title:resource.title,type:resource.category,description:resource.summary,href:`/resources/${resource.slug}/`})),
+  ...libraryMaterials.map(material=>({title:material.title,type:'Learning material',description:material.summary,href:material.href})),
+  ...courses.map(course=>({title:course.title,type:'Course',description:course.summary,href:`/courses/${course.slug}/`})),
+  ...focusAreas.map(area=>({title:area.title,type:'Research focus',description:area.text,href:area.href}))
+];
+---
+
+<BaseLayout title="Search | AUNO Center" description="Search AUNO Center services, research resources, training, focus areas, and institutional information." breadcrumbs={crumbs} noindex>
+  <Breadcrumbs items={crumbs} /><PageHero eyebrow="Site search" title="Find research support and knowledge." lead="Search services, resources, institutional pages, training, and research focus areas." tone="light" />
+  <section class="section"><div class="shell search-layout"><div class="site-search"><label for="site-search">Search AUNO Center</label><div><input id="site-search" type="search" placeholder="Try “questionnaire”, “ethics”, or “healthcare”" autofocus/><button class="button button--primary" type="button" id="search-button">Search</button></div></div><p id="search-status" role="status" aria-live="polite">Enter a topic to search {pages.length} pages and resources.</p><div class="search-results" id="search-results">{pages.map(page=><article data-search={`${page.title} ${page.type} ${page.description}`.toLowerCase()} hidden><span>{page.type}</span><h2><a href={page.href}>{page.title}</a></h2><p>{page.description}</p></article>)}</div></div></section>
+</BaseLayout>
+
+<script>
+  const input=document.querySelector<HTMLInputElement>('#site-search');const button=document.querySelector<HTMLButtonElement>('#search-button');const results=[...document.querySelectorAll<HTMLElement>('[data-search]')];const status=document.querySelector<HTMLElement>('#search-status');
+  function run(){const q=input?.value.toLowerCase().trim()??'';let count=0;results.forEach(item=>{const show=q.length>0&&(item.dataset.search?.includes(q)??false);item.hidden=!show;if(show)count++});if(status)status.textContent=q?`${count} ${count===1?'result':'results'} for “${input?.value.trim()}”.`:`Enter a topic to search ${results.length} pages and resources.`}
+  input?.addEventListener('input',run);input?.addEventListener('keydown',event=>{if(event.key==='Enter')run()});button?.addEventListener('click',run);const q=new URLSearchParams(location.search).get('q');if(input&&q){input.value=q;run()}
+</script>
+
+<style>
+  .search-layout{max-width:58rem}.site-search label{display:block;margin-bottom:.5rem;font-weight:750}.site-search>div{display:grid;grid-template-columns:1fr auto;gap:.6rem}.site-search input{min-height:3.25rem;padding:.75rem .9rem;border:1px solid #aaa0ad;border-radius:.35rem}.search-layout>p{margin-top:1rem;font-size:.84rem}.search-results{margin-top:2rem;border-top:1px solid var(--line)}.search-results article{padding:1.4rem 0;border-bottom:1px solid var(--line)}.search-results span{color:var(--gold-dark);font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.search-results h2{margin-top:.45rem;font-size:1.6rem}.search-results h2 a{text-decoration:none}.search-results p{margin-top:.4rem}
+  @media(max-width:47.99rem){.site-search>div{grid-template-columns:1fr}.site-search .button{width:100%}}
+</style>

@@ -1,0 +1,12 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+import { courses } from '@/data/courses';
+export function getStaticPaths(){return courses.map(course=>({params:{slug:course.slug},props:{course}}));}
+const { course } = Astro.props;
+const crumbs=[{label:'Courses',href:'/courses/'},{label:course.title}];
+---
+<BaseLayout title={`${course.title} | AUNO Center Courses`} description={course.summary} breadcrumbs={crumbs}><Breadcrumbs items={crumbs}/><PageHero eyebrow={`${course.category} · ${course.level}`} title={course.title} lead={course.summary}><div slot="actions" class="button-row"><a class="button button--gold" href={`/courses/enroll/?course=${course.slug}`}>Apply to enroll — ${course.price} USD</a><a class="button button--ghost-light" href="/courses/scholarship/">Scholarship route</a></div></PageHero>
+<section class="section"><div class="shell content-grid"><div><p class="eyebrow">What you will learn</p><h2>Outcomes built around sound research decisions.</h2><ul class="check-list mt-2">{course.outcomes.map(item=><li>{item}</li>)}</ul><p class="eyebrow mt-3">Course pathway</p><div class="process-list mt-1">{course.modules.map((module,index)=><article><span>{String(index+1).padStart(2,'0')}</span><div><h3>{module.title}</h3><p>{module.description}</p></div></article>)}</div></div><aside class="sticky-aside"><div class="side-card"><h2>Course facts</h2><dl><dt>Price</dt><dd>${course.price} USD</dd><dt>Level</dt><dd>{course.level}</dd><dt>Format</dt><dd>{course.format}</dd></dl></div><div class="side-card"><h2>Designed for</h2><ul>{course.audience.map(item=><li>{item}</li>)}</ul></div><div class="notice"><p>No instructor, certificate, schedule, or place is represented as confirmed until AUNO Center provides written enrollment details.</p></div></aside></div></section></BaseLayout>
+<style>.process-list{border-top:1px solid var(--line)}.process-list article{display:grid;grid-template-columns:3rem 1fr;gap:1rem;padding:1.4rem 0;border-bottom:1px solid var(--line)}.process-list span{color:var(--gold-dark);font-size:.75rem;font-weight:800}.process-list h3{font-size:1.25rem}.process-list p{margin-top:.35rem}.side-card dl{display:grid;gap:.5rem;margin-top:1rem}.side-card dt{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.side-card dd{margin:0 0 .8rem;color:var(--ink-soft)}</style>

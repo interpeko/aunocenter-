@@ -1,0 +1,87 @@
+---
+import { SITE, navGroups } from '@/data/site';
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+<header class="site-header" data-header>
+  <div class="institution-bar">
+    <div class="shell institution-bar__inner">
+      <p><span class="pulse-dot"></span>{SITE.tagline}</p>
+      <div class="institution-bar__links">
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        <a href="/contact/">Contact</a>
+        <a href="/interpeko/">Ask Interpeko</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/search/" aria-label="Search AUNO Center">Search <span aria-hidden="true">⌕</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell header-main">
+    <a class="brand" href="/" aria-label="AUNO Center home">
+      <span class="brand__crest"><img src="/images/auno-crest.webp" width="64" height="64" alt="" /></span>
+      <span class="brand__copy">
+        <strong>AUNO</strong>
+        <small>Research Center</small>
+      </span>
+    </a>
+
+    <nav class="desktop-navigation" aria-label="Primary navigation">
+      <ul class="primary-nav">
+        {navGroups.map((item) => (
+          <li class:list={[item.children && 'has-children', isActive(item.href) && 'is-active']}>
+            {item.children ? (
+              <details class="nav-group">
+                <summary>{item.label}</summary>
+                <div class="nav-panel">
+                  <p class="nav-panel__label">Explore {item.label.toLowerCase()}</p>
+                  <ul>
+                    {item.children.map((child) => (
+                      <li><a href={child.href} aria-current={currentPath === child.href ? 'page' : undefined}>{child.label}</a></li>
+                    ))}
+                  </ul>
+                </div>
+              </details>
+            ) : (
+              <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined}>{item.label}</a>
+            )}
+          </li>
+        ))}
+      </ul>
+      <a class="button button--primary header-cta" href="/request-support/">Request support <span aria-hidden="true">↗</span></a>
+    </nav>
+
+    <details class="nav-disclosure">
+      <summary aria-label="Open primary navigation">
+        <span class="menu-label">Menu</span>
+        <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+      </summary>
+      <nav aria-label="Mobile navigation">
+        <ul class="primary-nav">
+          {navGroups.map((item) => (
+            <li class:list={[item.children && 'has-children', isActive(item.href) && 'is-active']}>
+              {item.children ? (
+                <details class="nav-group">
+                  <summary>{item.label}</summary>
+                  <div class="nav-panel">
+                    <p class="nav-panel__label">Explore {item.label.toLowerCase()}</p>
+                    <ul>
+                      {item.children.map((child) => (
+                        <li><a href={child.href} aria-current={currentPath === child.href ? 'page' : undefined}>{child.label}</a></li>
+                      ))}
+                    </ul>
+                  </div>
+                </details>
+              ) : (
+                <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined}>{item.label}</a>
+              )}
+            </li>
+          ))}
+        </ul>
+        <a class="button button--primary header-cta" href="/request-support/">Request support <span aria-hidden="true">↗</span></a>
+      </nav>
+    </details>
+  </div>
+</header>

@@ -1,0 +1,45 @@
+---
+import {
+  siFacebook,
+  siGmail,
+  siInstagram,
+  siTelegram,
+  siTiktok,
+  siWhatsapp,
+  siX,
+  siYoutube
+} from 'simple-icons';
+
+interface Props {
+  icon: string;
+  size?: number;
+}
+
+const { icon, size = 18 } = Astro.props;
+const icons: Record<string, { path: string; title: string }> = {
+  facebook: siFacebook,
+  gmail: siGmail,
+  instagram: siInstagram,
+  telegram: siTelegram,
+  tiktok: siTiktok,
+  whatsapp: siWhatsapp,
+  x: siX,
+  youtube: siYoutube
+};
+const selected = icons[icon] ?? siX;
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  aria-hidden="true"
+  focusable="false"
+>
+  {icon === 'linkedin' ? (
+    <text x="2.25" y="18.25" font-size="16.5" font-weight="800" font-family="Arial, sans-serif">in</text>
+  ) : (
+    <path d={selected.path}></path>
+  )}
+</svg>

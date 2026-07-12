@@ -1,0 +1,97 @@
+---
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { SITE, socials } from '@/data/site';
+import '@/styles/global.css';
+
+interface Crumb { label: string; href?: string }
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+  type?: 'website' | 'article';
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  breadcrumbs?: Crumb[];
+}
+
+const {
+  title,
+  description,
+  image = '/images/auno-social-poster.png',
+  noindex = false,
+  type = 'website',
+  schema,
+  breadcrumbs = []
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const absoluteImage = new URL(image, Astro.site ?? Astro.url.origin);
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  url: new URL('/', Astro.site ?? Astro.url.origin).href,
+  logo: new URL('/images/auno-crest.png', Astro.site ?? Astro.url.origin).href,
+  email: SITE.email,
+  telephone: SITE.phone,
+  founder: { '@type': 'Person', name: SITE.founder.name, jobTitle: SITE.founder.title },
+  slogan: SITE.tagline,
+  description: SITE.description,
+  sameAs: socials.filter((item) => item.icon !== 'gmail').map((item) => item.href)
+};
+const breadcrumbSchema = breadcrumbs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', canonical).href },
+    ...breadcrumbs.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 2,
+      name: item.label,
+      item: new URL(item.href ?? Astro.url.pathname, canonical).href
+    }))
+  ]
+} : null;
+const schemas = [organizationSchema, breadcrumbSchema, ...(Array.isArray(schema) ? schema : schema ? [schema] : [])].filter(Boolean);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#24102f" />
+    <meta name="color-scheme" content="light" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/images/auno-crest.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/images/auno-crest.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:alt" content="AUNO Center — One World. One Research." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteImage} />
+    <link rel="preload" as="image" href="/images/auno-crest.webp" type="image/webp" fetchpriority="high" />
+    {schemas.map((entry) => <script is:inline type="application/ld+json" set:html={JSON.stringify(entry)}></script>)}
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <Header />
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

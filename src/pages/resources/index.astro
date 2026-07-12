@@ -1,0 +1,68 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+import CallToAction from '@/components/CallToAction.astro';
+import { resources, libraryMaterials } from '@/data/site';
+const crumbs = [{ label: 'Research resources' }];
+const categories = ['All', 'Learning materials', ...new Set(resources.map(item => item.category))];
+---
+
+<BaseLayout title="Research Resources and Articles | AUNO Center" description="Practical articles and tools for research design, statistics, questionnaires, literature reviews, reporting, integrity, and healthcare research." breadcrumbs={crumbs}>
+  <Breadcrumbs items={crumbs} />
+  <PageHero eyebrow="Open research knowledge" title="Research knowledge you can use." lead="Concise, practical guidance to help researchers make stronger decisions and recognise when additional methodological, professional, ethics, or legal advice is needed." tone="gold" />
+
+  <section class="section">
+    <div class="shell">
+      <div class="resource-tools">
+        <div><p class="eyebrow">Browse the library</p><h2>Guides for stronger research decisions.</h2></div>
+        <div class="resource-search"><label for="resource-search">Search resources</label><input id="resource-search" type="search" placeholder="Search by title, topic, or category" autocomplete="off" /></div>
+      </div>
+      <div class="filter-bar" aria-label="Filter resources by category">
+        {categories.map((category, index) => <button class="filter-button" type="button" data-filter={category} aria-pressed={index === 0 ? 'true' : 'false'}>{category}</button>)}
+      </div>
+      <p id="resource-status" class="resource-status" role="status" aria-live="polite">Showing all {resources.length + libraryMaterials.length} resources.</p>
+      <div class="resource-grid mt-2" id="resource-grid">
+        {libraryMaterials.map(material => <article class="resource-card resource-card--material" data-category="Learning materials" data-search={`${material.title} ${material.summary} ${material.author} ${material.topics.join(' ')}`.toLowerCase()}><img src={material.thumbnail} width="720" height="960" alt={`Cover of ${material.title}`} loading="lazy" /><div class="resource-card__body"><div class="resource-card__meta"><span>Learning material</span><span>{material.pages} pages</span></div><h3><a href={material.href}>{material.title}</a></h3><p>{material.summary}</p><p class="resource-author">Attributed to {material.author}</p><a class="text-link" href={material.href} target="_blank" rel="noopener">Open PDF <span aria-hidden="true">↗</span></a></div></article>)}
+        {resources.map(resource => <article class="resource-card" data-category={resource.category} data-search={`${resource.title} ${resource.summary} ${resource.category}`.toLowerCase()}><div class="resource-card__meta"><span>{resource.category}</span><span>{resource.readingTime}</span></div><h3><a href={`/resources/${resource.slug}/`}>{resource.title}</a></h3><p>{resource.summary}</p><a class="text-link" href={`/resources/${resource.slug}/`}>Read the guide <span aria-hidden="true">→</span></a></article>)}
+      </div>
+      <div class="empty-resource" id="resource-empty" hidden><h2>No matching resources</h2><p>Try a broader term or clear the category filter.</p></div>
+      <div class="notice mt-3"><h2>Educational resource notice</h2><p>Resources are general and educational. They do not replace project-specific statistical, legal, ethics, regulatory, clinical, or institutional advice.</p></div>
+    </div>
+  </section>
+  <CallToAction title="Need guidance applied to your project?" text="Share the question, stage, and decision that require more focused methodological support." />
+</BaseLayout>
+
+<script>
+  const search = document.querySelector<HTMLInputElement>('#resource-search');
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+  const cards = [...document.querySelectorAll<HTMLElement>('.resource-card')];
+  const status = document.querySelector<HTMLElement>('#resource-status');
+  const empty = document.querySelector<HTMLElement>('#resource-empty');
+  let category = 'All';
+  function updateResources() {
+    const query = search?.value.toLowerCase().trim() ?? '';
+    let visible = 0;
+    cards.forEach(card => {
+      const categoryMatch = category === 'All' || card.dataset.category === category;
+      const queryMatch = !query || card.dataset.search?.includes(query);
+      const show = categoryMatch && queryMatch;
+      card.hidden = !show;
+      if (show) visible++;
+    });
+    if (status) status.textContent = `Showing ${visible} ${visible === 1 ? 'resource' : 'resources'}${category === 'All' ? '' : ` in ${category}`}.`;
+    if (empty) empty.hidden = visible !== 0;
+  }
+  buttons.forEach(button => button.addEventListener('click', () => {
+    category = button.dataset.filter ?? 'All';
+    buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    updateResources();
+  }));
+  search?.addEventListener('input', updateResources);
+</script>
+
+<style>
+  .resource-tools{display:grid;grid-template-columns:1fr minmax(18rem,.55fr);align-items:end;gap:3rem;margin-bottom:2rem}.resource-tools h2{max-width:14ch}.resource-search{display:grid;gap:.4rem}.resource-search label{font-size:.84rem;font-weight:750}.resource-search input{min-height:3.2rem;padding:.75rem .85rem;border:1px solid #bcb2c0;border-radius:.35rem}.resource-search input:focus{border-color:var(--plum-700);box-shadow:0 0 0 3px rgba(82,36,94,.12);outline:0}.resource-status{font-size:.82rem}.empty-resource{padding:3rem;text-align:center;background:var(--ivory);border:1px solid var(--line);border-radius:var(--radius)}.empty-resource h2{font-size:1.8rem}.empty-resource p{margin-top:.6rem}
+  .resource-card--material{padding:0;overflow:hidden}.resource-card--material>img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top}.resource-card__body{padding:1.35rem}.resource-author{font-size:.8rem;font-weight:750;color:var(--plum-700)}
+  @media(max-width:47.99rem){.resource-tools{grid-template-columns:1fr;gap:1.5rem}}
+</style>

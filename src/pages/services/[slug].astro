@@ -1,0 +1,101 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+import CallToAction from '@/components/CallToAction.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import { services, SITE, type Service } from '@/data/site';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+interface Props { service: Service }
+const { service } = Astro.props;
+const crumbs = [{ label: 'Research services', href: '/services/' }, { label: service.title }];
+const related = services.filter((item) => item.slug !== service.slug).slice(0, 3);
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `${service.title} support`,
+  description: service.summary,
+  provider: { '@type': 'Organization', name: SITE.name },
+  serviceType: service.title,
+  areaServed: 'Worldwide',
+  url: new URL(`/services/${service.slug}/`, Astro.site ?? Astro.url.origin).href
+};
+---
+
+<BaseLayout title={`${service.title} Support | AUNO Center`} description={service.summary} breadcrumbs={crumbs} schema={serviceSchema}>
+  <Breadcrumbs items={crumbs} />
+  <PageHero eyebrow={`Research service ${service.number}`} title={service.title} lead={service.lead}>
+    <div slot="actions" class="button-row">
+      <a class="button button--gold" href={`/request-support/?service=${service.slug}`}>Request this service <span aria-hidden="true">↗</span></a>
+      <a class="button button--ghost-light" href="/services/">All services</a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="shell content-grid">
+      <article>
+        <section aria-labelledby="when-help">
+          <p class="eyebrow">When support may help</p>
+          <h2 id="when-help">Recognise the methodological decision in front of you.</h2>
+          <ul class="decision-list">
+            {service.when.map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}
+          </ul>
+        </section>
+
+        <section class="service-includes" aria-labelledby="support-includes">
+          <p class="eyebrow">Scope of support</p>
+          <h2 id="support-includes">Support may include</h2>
+          <ul class="check-list two-column-list">{service.includes.map((item) => <li>{item}</li>)}</ul>
+        </section>
+      </article>
+
+      <aside class="sticky-aside" aria-label="Possible service outputs">
+        <div class="side-card output-card">
+          <p class="eyebrow">Possible outputs</p>
+          <h2>Useful, documented next steps.</h2>
+          <ul class="check-list">{service.deliverables.map((item) => <li>{item}</li>)}</ul>
+          <a class="button button--primary" href={`/request-support/?service=${service.slug}`}>Discuss your request</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--ivory">
+    <div class="shell">
+      <div class="section-heading"><p class="eyebrow">Working approach</p><h2>A transparent four-stage process.</h2><p>The exact workflow is adapted to scope, but the reasoning and responsibilities remain visible.</p></div>
+      <div class="number-grid">
+        {service.process.map((step, index) => <article class="number-card"><span class="number-card__index">{String(index + 1).padStart(2, '0')}</span><h3>{step.title}</h3><p>{step.text}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section service-boundary">
+    <div class="shell service-boundary__inner">
+      <div><p class="eyebrow">Professional boundary</p><h2>Responsible support has clear limits.</h2></div>
+      <div class="notice"><p>{service.boundary}</p><p><a href="/research-consultancy-disclaimer/">Read the complete consultancy disclaimer →</a></p></div>
+    </div>
+  </section>
+
+  <section class="section section--ivory">
+    <div class="shell">
+      <div class="section-heading"><p class="eyebrow">Connected services</p><h2>Other stages you may need.</h2></div>
+      <div class="service-grid">{related.map((item) => <ServiceCard service={item} />)}</div>
+    </div>
+  </section>
+
+  <CallToAction title={`Strengthen your ${service.shortTitle.toLowerCase()} decisions.`} text="Share a brief, non-confidential overview of the project, current stage, and support you need." />
+</BaseLayout>
+
+<style>
+  .decision-list{margin-top:2rem;list-style:none;border-top:1px solid var(--line)}
+  .decision-list li{display:grid;grid-template-columns:3rem 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--line)}
+  .decision-list span{color:var(--gold-dark);font-size:.7rem;font-weight:800}.decision-list p{color:var(--ink)}
+  .service-includes{margin-top:5rem}.two-column-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem 2rem;margin-top:2rem}
+  .output-card{padding:1.7rem;background:var(--plum-50)}.output-card .eyebrow{margin-bottom:.8rem}.output-card h2{font-size:1.8rem}.output-card ul{margin-top:1.5rem}.output-card .button{width:100%;margin-top:1.8rem}
+  .service-boundary__inner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,7vw,7rem);align-items:start}.service-boundary h2{max-width:14ch}
+  @media(max-width:47.99rem){.two-column-list{grid-template-columns:1fr}.service-boundary__inner{grid-template-columns:1fr}}
+</style>

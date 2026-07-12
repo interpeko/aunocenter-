@@ -1,0 +1,30 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+import CallToAction from '@/components/CallToAction.astro';
+const crumbs=[{label:'Institutional research support'}];
+const supports=[['Research-needs assessment','Map priority capability, process, and methodological needs with the people who use the system.'],['Methods clinics','Create a structured route for teams to discuss questions, designs, analysis, and reporting.'],['Review workflows','Develop proportionate protocol, methodology, and reporting review processes with clear roles.'],['Templates & guidance','Build practical, context-aware resources for protocols, analysis plans, data management, and transparent reporting.'],['Learning pathways','Connect workshops, clinics, guided practice, and leadership development over time.'],['Research communication','Strengthen how evidence, uncertainty, decisions, and institutional learning are shared.']];
+---
+
+<BaseLayout title="Institutional Research Support | AUNO Center" description="Research-system, methods, training, evidence, reporting, and capability support for universities, healthcare organisations, and research-active institutions." breadcrumbs={crumbs}>
+  <Breadcrumbs items={crumbs}/><PageHero eyebrow="Institutional research support" title="Strengthen the systems behind good research." lead="Institutions need more than isolated project assistance. They need shared methods, clear processes, capable teams, and responsible standards that can be applied consistently.">
+    <div slot="actions" class="button-row"><a class="button button--gold" href="/contact/?type=institutional">Start an institutional inquiry <span aria-hidden="true">↗</span></a></div>
+  </PageHero>
+
+  <section class="section"><div class="shell institutional-intro"><div><p class="eyebrow">From projects to systems</p><h2>Capability is sustained by the environment around the researcher.</h2></div><div><p>Good institutional research support connects policy, people, methods, review, learning, data responsibility, and communication. The goal is not to impose a generic system, but to understand the organisation’s context and build practical routes that teams can use.</p><p>Engagements are tailored only after the need, stakeholders, constraints, intended outcomes, decision rights, and measures of success are understood.</p></div></div></section>
+
+  <section class="section section--ivory"><div class="shell"><div class="section-heading"><p class="eyebrow">Institutional support areas</p><h2>Build a stronger research environment.</h2></div><div class="institutional-grid">{supports.map(([title,text],index)=><article><span>{String(index+1).padStart(2,'0')}</span><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>
+
+  <section class="section"><div class="shell"><div class="section-heading"><p class="eyebrow">Engagement pathway</p><h2>A programme shaped around the institution.</h2></div><div class="number-grid"><article class="number-card"><span class="number-card__index">01 / Define</span><h3>Understand the need</h3><p>Identify the institutional problem, stakeholders, current system, and intended outcome.</p></article><article class="number-card"><span class="number-card__index">02 / Design</span><h3>Agree success</h3><p>Set scope, roles, boundaries, measures, accessibility, and the route to sustainable use.</p></article><article class="number-card"><span class="number-card__index">03 / Deliver</span><h3>Work in context</h3><p>Provide advisory work, learning, methods clinics, tools, or connected programme elements.</p></article><article class="number-card"><span class="number-card__index">04 / Learn</span><h3>Review and sustain</h3><p>Examine learning, adoption, limitations, and the next capability-building decisions.</p></article></div></div></section>
+
+  <section class="section section--plum"><div class="shell content-grid"><div><p class="eyebrow eyebrow--light">Institutional responsibility</p><h2>Clear authority and honest claims.</h2><p class="mt-1">AUNO Center provides tailored research support and capacity building. It does not claim accreditation, regulatory authority, compliance certification, or the power to approve an institution’s research or governance.</p></div><div class="institution-boundary"><h3>Engagements should define</h3><ul class="check-list"><li>Institutional owner and decision authority</li><li>Applicable policies and approval routes</li><li>Data, privacy, and confidentiality arrangements</li><li>Intended users and accessibility requirements</li><li>Success criteria and evaluation approach</li><li>Maintenance and responsibility after delivery</li></ul></div></div></section>
+  <CallToAction title="Build research capability around your institutional context." text="Describe the research-system need, stakeholders, current challenge, intended outcome, and likely timeframe." primaryLabel="Start an institutional inquiry" primaryHref="/contact/?type=institutional" />
+</BaseLayout>
+
+<style>
+  .institutional-intro{display:grid;grid-template-columns:1fr .8fr;gap:clamp(3rem,8vw,8rem)}.institutional-intro h2{max-width:14ch}.institutional-intro div:last-child p+p{margin-top:1rem}
+  .institutional-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.institutional-grid article{min-height:17rem;padding:1.5rem;background:white;border:1px solid var(--line);border-radius:var(--radius)}.institutional-grid span{color:var(--gold-dark);font-size:.7rem;font-weight:800}.institutional-grid h3{margin-top:3rem}.institutional-grid p{margin-top:.7rem}
+  .section--plum h2{color:white}.institution-boundary{padding:1.6rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius)}.institution-boundary h3{color:white}.institution-boundary ul{margin-top:1.2rem}.institution-boundary .check-list li::before{color:var(--gold-light)}
+  @media(max-width:61.99rem){.institutional-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:47.99rem){.institutional-intro,.institutional-grid{grid-template-columns:1fr}}
+</style>

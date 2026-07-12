@@ -1,0 +1,29 @@
+---
+import SocialIcon from '@/components/SocialIcon.astro';
+import { socials } from '@/data/site';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>AUNO Center Social Poster</title>
+    <style is:global>
+      *{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;font-family:Aptos,"Segoe UI",Arial,sans-serif;background:#160d1c}body{display:grid;place-items:center}.poster{position:relative;width:1080px;height:1350px;overflow:hidden;color:#fff;background:#1b1022 url('/images/social-poster-background.webp') center/cover no-repeat}.poster::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(25,12,31,.1),rgba(17,9,22,.55) 52%,rgba(17,9,22,.88))}.poster__content{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:72px 76px 60px}.poster__header{display:grid;justify-items:center;text-align:center}.poster__crest{width:122px;height:122px;overflow:hidden;background:white;border:3px solid rgba(255,255,255,.72);border-radius:28px;box-shadow:0 18px 50px rgba(0,0,0,.25)}.poster__crest img{width:100%;height:100%;object-fit:cover}.poster__name{margin-top:20px;font-family:"Palatino Linotype",Georgia,serif;font-size:80px;font-weight:400;letter-spacing:.13em;line-height:1;color:#30153d}.poster__descriptor{margin-top:1px;color:#805d1b;font-size:24px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.poster__rule{width:92px;height:3px;margin:20px auto 0;background:#b98d3c}.poster__tagline{margin:14px 0 0;color:#35283a;font-family:"Palatino Linotype",Georgia,serif;font-size:30px;font-weight:500}.poster__title{margin:54px 0 0;color:#fff;font-family:"Palatino Linotype",Georgia,serif;font-size:48px;font-weight:400;letter-spacing:-.025em}.poster__subtitle{margin:7px 0 0;color:rgba(255,255,255,.75);font-size:20px}.poster__network{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:28px}.poster__social{min-height:106px;display:grid;grid-template-columns:62px 1fr;align-items:center;gap:17px;padding:16px 20px;background:rgba(24,12,30,.75);border:1px solid rgba(225,192,126,.28);border-radius:18px;backdrop-filter:blur(8px)}.poster__icon{width:58px;height:58px;display:grid;place-items:center;color:white;background:color-mix(in srgb,var(--social) 80%,#24102f);border:1px solid rgba(255,255,255,.22);border-radius:50%}.poster__social strong{display:block;font-size:22px;line-height:1.1}.poster__social small{display:block;margin-top:7px;color:rgba(255,255,255,.72);font-size:17px;line-height:1.15;word-break:break-word}.poster__footer{display:grid;grid-template-columns:1fr 148px;align-items:center;gap:32px;margin-top:auto;padding-top:28px;border-top:1px solid rgba(255,255,255,.22)}.poster__footer p{margin:0;color:#e9cc91;font-family:"Palatino Linotype",Georgia,serif;font-size:34px;line-height:1.15}.poster__footer small{display:block;margin-top:9px;color:rgba(255,255,255,.67);font-size:16px;letter-spacing:.04em}.poster__qr{display:grid;justify-items:center;padding:9px 9px 7px;background:white;border-radius:12px}.poster__qr img{width:124px;height:124px}.poster__qr span{margin-top:4px;color:#3a1a46;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+    </style>
+  </head>
+  <body>
+    <main class="poster" aria-label="AUNO Center official social channels poster">
+      <div class="poster__content">
+        <header class="poster__header"><div class="poster__crest"><img src="/images/auno-crest.webp" alt="AUNO Center crest" /></div><div class="poster__name">AUNO</div><div class="poster__descriptor">Research Center</div><div class="poster__rule"></div><p class="poster__tagline">One World. One Research.</p></header>
+        <h1 class="poster__title">Join our global research network</h1><p class="poster__subtitle">Resources · Learning · Collaboration · Research Support</p>
+        <section class="poster__network">
+          {socials.map(social => <div class="poster__social" style={`--social:${social.color}`}><span class="poster__icon"><SocialIcon icon={social.icon} size={30}/></span><span><strong>{social.name}</strong><small>{social.handle}</small></span></div>)}
+        </section>
+        <footer class="poster__footer"><div><p>Research with clarity.<br/>Knowledge with purpose.</p><small>Official AUNO Center channels · aunocenter@gmail.com</small></div><div class="poster__qr"><img src="/images/auno-whatsapp-qr.svg" alt="QR code for AUNO Center WhatsApp channel"/><span>Follow on WhatsApp</span></div></footer>
+      </div>
+    </main>
+  </body>
+</html>
