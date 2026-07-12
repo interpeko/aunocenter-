@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
 import CallToAction from '@/components/CallToAction.astro';
+import FounderFeature from '@/components/FounderFeature.astro';
 import { SITE, services, resources, focusAreas } from '@/data/site';
 
 const title = 'AUNO Center | Global Research Support and Capacity Building';
@@ -38,20 +39,7 @@ const websiteSchema = {
     </div>
   </section>
 
-  <section class="section founder-home" id="founder">
-    <div class="shell founder-home__inner">
-      <figure class="founder-home__portrait">
-        <img src="/images/mustafa-saadabi.png" width="828" height="810" alt="Mustafa Saadabi, Founder and Director of AUNO Center" loading="lazy" />
-        <figcaption><strong>{SITE.founder.name}</strong><span>{SITE.founder.title}</span><small>{SITE.founder.affiliation}</small></figcaption>
-      </figure>
-      <div class="founder-home__word">
-        <p class="eyebrow">Founder’s word</p>
-        <h2>Research should connect every dimension of life.</h2>
-        <blockquote>“{SITE.founder.word}”</blockquote>
-        <a class="text-link" href="/about/#founder">Meet the Founder & Director <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-  </section>
+  <FounderFeature id="founder" showReadMore={true} />
 
   <section class="audience-band" aria-labelledby="audience-heading">
     <div class="shell audience-band__inner">
@@ -236,7 +224,6 @@ const websiteSchema = {
   .research-path strong { margin-top: .6rem; font-family: var(--font-display); font-size: 1.25rem; font-weight: 500; }
   .research-path small { color: var(--ink-soft); }
   .research-path i { width: clamp(2rem, 5vw, 5rem); height: 1px; background: var(--gold); }
-  .founder-home{background:linear-gradient(135deg,#fffdfa,var(--ivory))}.founder-home__inner{display:grid;grid-template-columns:minmax(18rem,.7fr) minmax(0,1fr);gap:clamp(3rem,8vw,8rem);align-items:center}.founder-home__portrait{position:relative;max-width:31rem;padding:1rem;background:white;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg)}.founder-home__portrait img{width:100%;aspect-ratio:1/1.05;object-fit:cover;object-position:center top;border-radius:calc(var(--radius-lg) - .45rem)}.founder-home__portrait figcaption{display:grid;padding:1.15rem .4rem .25rem}.founder-home__portrait strong{font-family:var(--font-display);font-size:1.55rem;font-weight:500}.founder-home__portrait span{color:var(--plum-700);font-weight:750}.founder-home__portrait small{color:var(--ink-soft)}.founder-home__word h2{max-width:14ch}.founder-home__word blockquote{max-width:48rem;margin:1.5rem 0 0;padding-left:1.4rem;color:var(--ink-soft);border-left:3px solid var(--gold);font-family:var(--font-display);font-size:clamp(1.12rem,2vw,1.38rem);line-height:1.65}.founder-home__word .text-link{margin-top:1.5rem}
   .principle-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .principle-grid article { min-height: 18rem; padding: 1.5rem; border-right: 1px solid var(--line); }
   .principle-grid article:last-child { border-right: 0; }
@@ -273,7 +260,7 @@ const websiteSchema = {
   .globe-rings i:nth-child(2) { transform: rotate(-35deg) scaleX(.55); }
   .globe-rings i:nth-child(3) { inset: 3rem; border-color: var(--teal); opacity: .4; }
   .globe-rings span { z-index: 1; color: var(--plum-900); font-family: var(--font-display); font-size: 2.3rem; letter-spacing: .12em; background: var(--ivory); }
-  @media(max-width:61.99rem){.audience-band__inner{grid-template-columns:1fr}.audience-band ul{grid-template-columns:repeat(2,1fr);gap:.8rem 0}.intro-grid,.resource-feature,.collaboration-feature__inner,.founder-home__inner,.academic-home__grid{grid-template-columns:1fr}.principle-grid{grid-template-columns:repeat(2,1fr)}.principle-grid article:nth-child(2){border-right:0}.principle-grid article:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+  @media(max-width:61.99rem){.audience-band__inner{grid-template-columns:1fr}.audience-band ul{grid-template-columns:repeat(2,1fr);gap:.8rem 0}.intro-grid,.resource-feature,.collaboration-feature__inner,.academic-home__grid{grid-template-columns:1fr}.principle-grid{grid-template-columns:repeat(2,1fr)}.principle-grid article:nth-child(2){border-right:0}.principle-grid article:nth-child(-n+2){border-bottom:1px solid var(--line)}}
   @media(max-width:47.99rem){.home-hero{min-height:42rem}.home-hero__image{object-position:62% center}.home-hero__veil{background:linear-gradient(90deg,rgba(18,8,24,.96),rgba(28,13,36,.8) 75%,rgba(28,13,36,.6))}.home-hero__signature{display:none}.audience-band ul{grid-template-columns:1fr}.audience-band li{padding:.5rem 0;border-left:0;border-bottom:1px solid rgba(255,255,255,.13)}.research-path{grid-template-columns:1fr}.research-path i{width:1px;height:2rem;margin-left:.3rem}.principle-grid{grid-template-columns:1fr}.principle-grid article,.principle-grid article:nth-child(2){min-height:auto;border-right:0;border-bottom:1px solid var(--line)}.principle-grid article:last-child{border-bottom:0}.principle-grid h3{margin-top:2rem}.academic-cycle{grid-template-columns:1fr}.collaboration-feature__visual{min-height:22rem}.globe-rings{width:17rem;height:17rem}}
   .future-home{background:linear-gradient(135deg,#f7f1e6,#f0e8f3)}.future-home__inner{display:grid;grid-template-columns:minmax(16rem,.55fr) minmax(0,1fr);gap:clamp(3rem,8vw,8rem);align-items:center}.future-home__mark{position:relative;min-height:24rem;display:grid;place-items:center;overflow:hidden;color:white;background:linear-gradient(135deg,var(--plum-950),#164246);border-radius:50% 50% 46% 54%/43% 49% 51% 57%;box-shadow:var(--shadow-lg)}.future-home__mark:before,.future-home__mark:after{content:"";position:absolute;width:70%;height:70%;border:1px solid rgba(217,182,109,.35);border-radius:50%}.future-home__mark:after{width:48%;height:48%}.future-home__mark span{z-index:1;font-family:var(--font-display);font-size:8rem;color:var(--gold-light)}.future-home__mark i{position:absolute;width:60%;height:1px;background:rgba(255,255,255,.35)}.future-home__mark strong{position:absolute;bottom:4rem;letter-spacing:.3em;font-size:.72rem}.future-home h2{max-width:14ch}.future-home p:not(.eyebrow){max-width:47rem;margin-top:1rem}.future-home .button-row{margin-top:1.6rem}
   @media(max-width:61.99rem){.future-home__inner{grid-template-columns:1fr}.future-home__mark{min-height:20rem;max-width:28rem}}

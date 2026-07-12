@@ -8,7 +8,6 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 <header class="site-header" data-header>
   <div class="institution-bar">
     <div class="shell institution-bar__inner">
-      <p><span class="pulse-dot"></span>{SITE.tagline}</p>
       <div class="institution-bar__links">
         <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
         <a href="/contact/">Contact</a>
@@ -25,6 +24,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
       <span class="brand__copy">
         <strong>AUNO</strong>
         <small>Research Center</small>
+        <em>{SITE.tagline}</em>
       </span>
     </a>
 

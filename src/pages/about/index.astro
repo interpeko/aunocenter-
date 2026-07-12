@@ -4,7 +4,7 @@ import Breadcrumbs from '@/components/Breadcrumbs.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import CallToAction from '@/components/CallToAction.astro';
-import { SITE } from '@/data/site';
+import FounderFeature from '@/components/FounderFeature.astro';
 
 const crumbs = [{ label: 'About AUNO Center' }];
 ---
@@ -13,12 +13,7 @@ const crumbs = [{ label: 'About AUNO Center' }];
   <Breadcrumbs items={crumbs} />
   <PageHero eyebrow="Our institutional purpose" title="About AUNO Center" lead="A research-support and capacity-building center created to help people and institutions approach research with greater clarity, rigor, and responsibility." />
 
-  <section class="section section--ivory" id="founder">
-    <div class="shell founder-profile">
-      <figure><img src="/images/mustafa-saadabi.png" width="828" height="810" alt="Mustafa Saadabi, Founder and Director of AUNO Center" /><figcaption><strong>{SITE.founder.name}</strong><span>{SITE.founder.title}</span><small>{SITE.founder.affiliation}</small></figcaption></figure>
-      <div><p class="eyebrow">Founder & Director</p><h2>A center built around the interconnection of life and knowledge.</h2><blockquote>“{SITE.founder.word}”</blockquote></div>
-    </div>
-  </section>
+  <FounderFeature id="founder" priority={true} />
 
   <section class="section">
     <div class="shell content-grid">
@@ -71,8 +66,3 @@ const crumbs = [{ label: 'About AUNO Center' }];
   </section>
   <CallToAction title="Explore support shaped around your research context." text="Share a non-confidential overview of your project, stage, and current methodological need." />
 </BaseLayout>
-
-<style>
-  .founder-profile{display:grid;grid-template-columns:minmax(18rem,.55fr) minmax(0,1fr);gap:clamp(3rem,8vw,8rem);align-items:center}.founder-profile figure{padding:1rem;background:white;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}.founder-profile figure img{width:100%;aspect-ratio:1/1.04;object-fit:cover;object-position:center top;border-radius:calc(var(--radius-lg) - .45rem)}.founder-profile figcaption{display:grid;padding:1rem .3rem .2rem}.founder-profile figcaption strong{font-family:var(--font-display);font-size:1.5rem;font-weight:500}.founder-profile figcaption span{color:var(--plum-700);font-weight:750}.founder-profile figcaption small{color:var(--ink-soft)}.founder-profile h2{max-width:15ch}.founder-profile blockquote{margin-top:1.5rem;padding-left:1.4rem;color:var(--ink-soft);border-left:3px solid var(--gold);font-family:var(--font-display);font-size:clamp(1.1rem,2vw,1.35rem);line-height:1.65}
-  @media(max-width:47.99rem){.founder-profile{grid-template-columns:1fr}}
-</style>

@@ -6,7 +6,7 @@ export const SITE = {
   phone: '+1 (940) 730-6443',
   founder: {
     name: 'Mustafa Saadabi',
-    title: 'Founder and Director of AUNO Center',
+    title: 'Founder and Director',
     affiliation: 'Faculty of Medicine',
     word: 'AUNO Center was created with the belief that research should connect every dimension of life. Human beings, animals, the earth, and nature are deeply interconnected. AUNO Center brings these fields together through multidisciplinary research, scientific collaboration, responsible innovation, education, and knowledge exchange. Our goal is to support research that contributes to human health, animal wellbeing, environmental protection, sustainable development, and a better future for life on our planet.'
   },

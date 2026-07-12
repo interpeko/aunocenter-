@@ -22,6 +22,7 @@ const requiredFiles = [
   'research-consultancy-disclaimer/index.html', 'accessibility/index.html',
   'thank-you/index.html', 'search/index.html', 'sitemap-index.xml', 'robots.txt',
   'images/auno-social-poster.png', 'images/auno-whatsapp-qr.svg', 'images/auno-whatsapp-qr.png',
+  'images/mustafa-saadabi-founder-portrait.webp', 'images/mustafa-saadabi-founder-portrait-360.webp',
   'images/auno-introduction-thumbnail.svg', 'media/auno-center-introduction-production-brief.md',
   'media/auno-center-introduction-transcript.txt', 'media/auno-center-introduction-captions.vtt',
   'resources/research-question-canvas.md', 'resources/analysis-plan-checklist.md', 'resources/manuscript-readiness-checklist.md'
@@ -68,6 +69,24 @@ for (const [file, html] of htmlByFile) {
 }
 
 const normalizedHtml = [...htmlByFile.values()].join('\n').replaceAll('&amp;', '&');
+const homepageHtml = htmlByFile.get(path.join(root, 'index.html')) ?? '';
+for (const phrase of ['Founder and Director', 'Mustafa Saadabi', 'Faculty of Medicine', 'Founder’s Word', 'Read More']) {
+  if (!homepageHtml.includes(phrase)) failures.push(`Homepage founder section is missing: ${phrase}`);
+}
+if (!homepageHtml.includes('mustafa-saadabi-founder-portrait-360.webp 360w') || !homepageHtml.includes('mustafa-saadabi-founder-portrait.webp 720w')) {
+  failures.push('Homepage founder portrait is missing its responsive WebP source set');
+}
+if (/President Message|Founder of AUNO Center|Founder and Director of AUNO Center/i.test(normalizedHtml)) {
+  failures.push('Website contains a prohibited founder title');
+}
+const headerHtml = homepageHtml.match(/<header class="site-header"[\s\S]*?<\/header>/)?.[0] ?? '';
+if (!headerHtml.includes('<em>One World. One Research. One Center of Excellence.</em>')) {
+  failures.push('Header brand is missing the institutional slogan beneath the AUNO name');
+}
+const institutionBarHtml = headerHtml.match(/<div class="institution-bar">[\s\S]*?<\/div>\s*<div class="shell header-main">/)?.[0] ?? '';
+if (institutionBarHtml.includes('One World. One Research. One Center of Excellence.')) {
+  failures.push('Institutional slogan remains in the upper utility strip');
+}
 const officialDestinations = [
   'https://whatsapp.com/channel/0029Vb8MkN93wtb5LNUftx0r',
   'https://www.instagram.com/aunocenter?igsh=a3dzeHVvY2Fpem82&utm_source=qr',

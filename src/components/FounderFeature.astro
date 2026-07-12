@@ -1,0 +1,154 @@
+---
+import { SITE } from '@/data/site';
+
+interface Props {
+  id?: string;
+  showReadMore?: boolean;
+  priority?: boolean;
+}
+
+const { id = 'founder', showReadMore = false, priority = false } = Astro.props;
+const headingId = `${id}-heading`;
+---
+
+<section class="section founder-feature" id={id} aria-labelledby={headingId}>
+  <div class="shell founder-feature__inner">
+    <figure class="founder-feature__portrait">
+      <picture>
+        <source
+          srcset="/images/mustafa-saadabi-founder-portrait-360.webp 360w, /images/mustafa-saadabi-founder-portrait.webp 720w"
+          sizes="(max-width: 30rem) 76vw, 19rem"
+          type="image/webp"
+        />
+        <img
+          src="/images/mustafa-saadabi-founder-portrait.webp"
+          width="720"
+          height="1280"
+          alt="Portrait of Mustafa Saadabi"
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      </picture>
+    </figure>
+
+    <div class="founder-feature__identity">
+      <p class="eyebrow">Institutional leadership</p>
+      <h2 id={headingId}>{SITE.founder.title}</h2>
+      <p class="founder-feature__name">{SITE.founder.name}</p>
+      <p class="founder-feature__affiliation">{SITE.founder.affiliation}</p>
+    </div>
+
+    <div class="founder-feature__word">
+      <span class="founder-feature__rule" aria-hidden="true"></span>
+      <p class="eyebrow">Founder’s Word</p>
+      <blockquote>“{SITE.founder.word}”</blockquote>
+      {showReadMore && (
+        <a class="button button--outline" href="/about/#founder" aria-label="Read more about Mustafa Saadabi">
+          Read More <span aria-hidden="true">→</span>
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .founder-feature {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 15%, rgba(210, 174, 101, .12), transparent 23rem),
+      linear-gradient(180deg, #fffdfa, var(--ivory));
+  }
+  .founder-feature::before,
+  .founder-feature::after {
+    content: '';
+    position: absolute;
+    width: 22rem;
+    height: 22rem;
+    border: 1px solid rgba(83, 39, 96, .08);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .founder-feature::before { top: -12rem; left: -10rem; }
+  .founder-feature::after { right: -12rem; bottom: -14rem; }
+  .founder-feature__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    justify-items: center;
+    max-width: 62rem;
+    text-align: center;
+  }
+  .founder-feature__portrait {
+    position: relative;
+    width: clamp(15.5rem, 22vw, 19rem);
+    margin: 0 auto;
+    padding: .42rem;
+    background: #fff;
+    border: 1px solid rgba(182, 137, 58, .72);
+    border-radius: .6rem;
+    box-shadow: 0 24px 54px rgba(41, 18, 49, .16);
+  }
+  .founder-feature__portrait::after {
+    content: '';
+    position: absolute;
+    inset: .8rem -.75rem -.75rem .8rem;
+    z-index: -1;
+    border: 1px solid rgba(83, 39, 96, .22);
+    border-radius: .6rem;
+  }
+  .founder-feature__portrait picture { display: block; overflow: hidden; border-radius: .3rem; }
+  .founder-feature__portrait img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: 50% 18%;
+  }
+  .founder-feature__identity { margin-top: 2.25rem; }
+  .founder-feature__identity .eyebrow { justify-content: center; }
+  .founder-feature__identity h2 {
+    margin-top: .45rem;
+    color: var(--plum-900);
+    font-size: clamp(2.3rem, 5vw, 4.15rem);
+  }
+  .founder-feature__name {
+    margin-top: .7rem;
+    color: var(--plum-800);
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.3vw, 1.7rem);
+    font-weight: 500;
+  }
+  .founder-feature__affiliation {
+    margin-top: .25rem;
+    color: var(--gold-dark);
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .founder-feature__word {
+    display: grid;
+    justify-items: center;
+    max-width: 52rem;
+    margin-top: 1.8rem;
+  }
+  .founder-feature__rule { width: 4.5rem; height: 2px; margin-bottom: 1.35rem; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .founder-feature__word .eyebrow { justify-content: center; }
+  .founder-feature__word blockquote {
+    max-width: 48rem;
+    margin-top: 1rem;
+    color: var(--ink-soft);
+    font-family: var(--font-display);
+    font-size: clamp(1.08rem, 2vw, 1.35rem);
+    line-height: 1.75;
+  }
+  .founder-feature__word .button { margin-top: 1.7rem; }
+  @media (max-width: 35rem) {
+    .founder-feature { padding-block: 4rem; }
+    .founder-feature__portrait { width: min(76vw, 17rem); }
+    .founder-feature__identity { margin-top: 1.8rem; }
+    .founder-feature__word { margin-top: 1.45rem; }
+    .founder-feature__word blockquote { font-size: 1.04rem; line-height: 1.7; }
+  }
+</style>
