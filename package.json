@@ -12,10 +12,11 @@
     "generate:assets": "node scripts/generate-assets.mjs",
     "optimize:assets": "node scripts/optimize-assets.mjs",
     "render:poster": "node scripts/render-social-poster.mjs",
-    "build": "astro check && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "npm run build && npm run test:site",
+    "verify": "astro check && astro build && node scripts/check-site.mjs",
+    "test": "npm run verify",
     "test:site": "node scripts/check-site.mjs"
   },
   "dependencies": {
