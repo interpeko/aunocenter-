@@ -2,7 +2,7 @@ import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const root = path.resolve('dist');
-const base = '/aunocenter-';
+const base = '/aunocenter-/';
 
 async function walk(directory) {
   const files = [];
