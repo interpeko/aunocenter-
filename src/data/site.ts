@@ -103,12 +103,9 @@ export const navGroups: readonly NavItem[] = [
     href: '/services/',
     children: [
       { label: 'All research services', href: '/services/' },
-      { label: 'Research design & methodology', href: '/services/research-design-methodology/' },
-      { label: 'Statistical analysis', href: '/services/statistical-analysis/' },
-      { label: 'Questionnaire development', href: '/services/questionnaire-development/' },
-      { label: 'Results interpretation', href: '/services/results-interpretation/' },
-      { label: 'Pre-submission review', href: '/services/pre-submission-review/' },
-      { label: 'Literature review support', href: '/services/literature-review-support/' }
+      { label: 'Methods & measurement', href: '/services/#methods-measurement' },
+      { label: 'Evidence, writing & publication', href: '/services/#evidence-writing' },
+      { label: 'Applied & institutional support', href: '/services/#applied-institutional' }
     ]
   },
   {
@@ -135,6 +132,8 @@ export const navGroups: readonly NavItem[] = [
     href: '/resources/',
     children: [
       { label: 'Resource library', href: '/resources/' },
+      { label: 'Academic practice framework', href: '/academic-standards/' },
+      { label: 'Editorial & corrections policy', href: '/editorial-policy/' },
       { label: 'Projects & publications', href: '/projects-publications/' },
       { label: 'News & events', href: '/news-events/' },
       { label: 'Media & YouTube', href: '/media/' }
@@ -1063,6 +1062,14 @@ export const faqGroups = [
       {
         question: 'How is initial request information used?',
         answer: 'It is used to assess the request, respond, and determine an appropriate next step. Please review the Privacy Policy and do not submit unnecessary sensitive information.'
+      },
+      {
+        question: 'Does Interpeko send my question to an AI provider?',
+        answer: 'On the primary Netlify site, AI mode may send the question, limited recent context, and a pseudonymous session identifier through a secure server function to OpenAI. If AI mode is unavailable or the GitHub Pages mirror is used, guided mode stays in the browser. Never submit sensitive or confidential information.'
+      },
+      {
+        question: 'Can I rely on an Interpeko answer without checking it?',
+        answer: 'No. Interpeko is an educational research-navigation and methods assistant. Verify methods, evidence, citations, calculations, standards, and decisions against the original source and the responsible qualified or institutional authority.'
       },
       {
         question: 'How can I stay informed?',

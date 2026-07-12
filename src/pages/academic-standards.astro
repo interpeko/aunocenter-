@@ -1,0 +1,162 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+import CallToAction from '@/components/CallToAction.astro';
+
+const crumbs = [{ label: 'Academic practice framework' }];
+const stages = [
+  ['Question & contribution', 'Define the knowledge gap, intended contribution, population or context, concepts, outcomes and decisions the research should inform.'],
+  ['Protocol & governance', 'Record objectives, methods, roles, ethics, registration, data management, conflicts and planned departures before results shape decisions.'],
+  ['Design & measurement', 'Align design, sampling, measurement, timing and quality controls with the intended inference and relevant sources of bias.'],
+  ['Analysis & interpretation', 'Pre-specify priorities, estimands, assumptions, missing-data handling, sensitivity work, uncertainty and the limits of interpretation.'],
+  ['Reporting & contribution', 'Use the applicable reporting guidance, verify references, calibrate claims, disclose assistance, and connect credit with accountability.'],
+  ['Preservation & correction', 'Maintain provenance, versions, reusable metadata, appropriate access controls, correction routes and a durable record of what changed.']
+];
+const standards = [
+  {
+    name: 'EQUATOR Network',
+    category: 'Reporting guidelines',
+    text: 'A searchable starting point for identifying reporting guidance appropriate to a health-research design.',
+    href: 'https://www.equator-network.org/'
+  },
+  {
+    name: 'ICMJE Recommendations',
+    category: 'Medical publishing',
+    text: 'Recommendations on scholarly conduct, reporting, authorship, disclosure, participant protection, manuscript preparation and responsible AI use.',
+    href: 'https://www.icmje.org/recommendations/'
+  },
+  {
+    name: 'COPE Core Practices',
+    category: 'Publication ethics',
+    text: 'Primary publication-ethics guidance covering integrity, conflicts, authorship, peer review, data, corrections and misconduct processes.',
+    href: 'https://publicationethics.org/core-practices'
+  },
+  {
+    name: 'WHO ICTRP',
+    category: 'Clinical trial registration',
+    text: 'WHO information on trial-registration standards, primary registries and the International Clinical Trials Registry Platform.',
+    href: 'https://www.who.int/tools/clinical-trials-registry-platform'
+  },
+  {
+    name: 'FAIR Principles',
+    category: 'Data stewardship',
+    text: 'Principles for making digital research objects more findable, accessible, interoperable and reusable while preserving appropriate governance.',
+    href: 'https://www.go-fair.org/fair-principles/'
+  },
+  {
+    name: 'CRediT taxonomy',
+    category: 'Contributor roles',
+    text: 'A role-based vocabulary for describing contributions more precisely than an author list alone.',
+    href: 'https://credit.niso.org/'
+  }
+];
+---
+
+<BaseLayout
+  title="Academic Practice Framework | AUNO Center"
+  description="AUNO Center’s standards-informed framework for research questions, protocols, design, analysis, transparent reporting, contribution, reproducibility, and correction."
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs items={crumbs} />
+  <PageHero
+    eyebrow="Scholarly practice"
+    title="Academic rigor is a chain of visible decisions."
+    lead="The AUNO Academic Practice Framework connects the research question to governance, design, measurement, analysis, reporting, contribution, preservation, and correction."
+    tone="gold"
+  >
+    <div slot="actions" class="button-row">
+      <a class="button button--primary" href="/interpeko/">Ask Interpeko</a>
+      <a class="button button--outline" href="/research-ethics-integrity/">Research ethics & integrity</a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="shell framework-intro">
+      <div>
+        <p class="eyebrow">Practice framework</p>
+        <h2>From an important question to a credible record.</h2>
+      </div>
+      <div>
+        <p>The framework is a decision aid, not a universal checklist. Applicable requirements depend on the discipline, design, institution, jurisdiction, funder, registry, publisher, profession, population and intended use.</p>
+        <p>Researchers should identify the authoritative source for each requirement, record the version consulted, and document how it was applied or why it was not applicable.</p>
+      </div>
+    </div>
+    <div class="shell framework-grid">
+      {stages.map((stage, index) => (
+        <article>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <h3>{stage[0]}</h3>
+          <p>{stage[1]}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--plum evidence-standard">
+    <div class="shell content-grid">
+      <div class="section-heading section-heading--light">
+        <p class="eyebrow eyebrow--light">Evidence discipline</p>
+        <h2>Claims should carry the weight their evidence can support.</h2>
+        <p>Academic strength is not created by complex terminology. It comes from alignment between question, design, data, analysis, uncertainty, context and the wording of conclusions.</p>
+      </div>
+      <div class="principle-stack">
+        <article><span>01</span><div><h3>Traceability</h3><p>A reader can follow a claim back to its source, method, data or documented rationale.</p></div></article>
+        <article><span>02</span><div><h3>Proportionality</h3><p>The certainty and specificity of a conclusion match the design and quality of the evidence.</p></div></article>
+        <article><span>03</span><div><h3>Reproducibility</h3><p>Another researcher can understand the decisions, materials, transformations and analysis used.</p></div></article>
+        <article><span>04</span><div><h3>Correctability</h3><p>Versions, limitations, departures and material errors can be identified and corrected transparently.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ivory">
+    <div class="shell">
+      <div class="section-heading">
+        <p class="eyebrow">Primary standards desk</p>
+        <h2>Start with the authority responsible for the standard.</h2>
+        <p>These independent sources are provided for navigation. Their inclusion does not imply affiliation, endorsement, certification, or that every framework applies to every project.</p>
+      </div>
+      <div class="standards-grid">
+        {standards.map((standard, index) => (
+          <article>
+            <div><span>{String(index + 1).padStart(2, '0')}</span><small>{standard.category}</small></div>
+            <h3>{standard.name}</h3>
+            <p>{standard.text}</p>
+            <a href={standard.href} target="_blank" rel="noopener noreferrer">Visit primary source <span aria-hidden="true">↗</span><span class="sr-only"> — opens in a new tab</span></a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell application-grid">
+      <div>
+        <p class="eyebrow">Application protocol</p>
+        <h2>Use standards as part of the research method.</h2>
+      </div>
+      <ol>
+        <li><span>01</span><div><h3>Identify</h3><p>Determine which design, population, governance and publication frameworks may apply.</p></div></li>
+        <li><span>02</span><div><h3>Verify</h3><p>Consult the current primary source and relevant institutional or jurisdictional requirements.</p></div></li>
+        <li><span>03</span><div><h3>Operationalise</h3><p>Translate requirements into protocol, data, analysis, reporting and responsibility decisions.</p></div></li>
+        <li><span>04</span><div><h3>Document</h3><p>Record the source, version, decisions, deviations, limitations and responsible reviewer.</p></div></li>
+      </ol>
+    </div>
+    <div class="shell notice mt-3">
+      <h2>Important boundary</h2>
+      <p>This framework is educational and cannot determine legal compliance, ethics approval, registration obligations, clinical appropriateness, journal acceptance, or institutional policy. Confirm those requirements with the responsible authority.</p>
+    </div>
+  </section>
+
+  <CallToAction title="Apply academic standards to a real research decision." text="Use Interpeko for structured orientation or request focused human research support for a defined project context." />
+</BaseLayout>
+
+<style>
+  .framework-intro{display:grid;grid-template-columns:.8fr 1fr;gap:clamp(3rem,8vw,8rem)}.framework-intro h2{max-width:14ch}.framework-intro div:last-child p+p{margin-top:1rem}
+  .framework-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:4rem;border-top:1px solid var(--line);border-left:1px solid var(--line)}.framework-grid article{min-height:18rem;padding:1.6rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.framework-grid span,.principle-stack>article>span{color:var(--gold-dark);font-size:.68rem;font-weight:800}.framework-grid h3{margin-top:3.5rem;font-size:1.55rem}.framework-grid p{margin-top:.8rem;font-size:.88rem}
+  .principle-stack{display:grid;gap:.75rem}.principle-stack article{display:grid;grid-template-columns:2rem 1fr;gap:.8rem;padding:1rem;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05)}.principle-stack h3{color:white;font-size:1.2rem}.principle-stack p{margin-top:.25rem;color:rgba(255,255,255,.7);font-size:.82rem}.principle-stack>article>span{color:var(--gold-light)}
+  .standards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.standards-grid article{display:flex;flex-direction:column;min-height:19rem;padding:1.5rem;border:1px solid var(--line);border-radius:var(--radius);background:white}.standards-grid article>div{display:flex;justify-content:space-between;gap:1rem}.standards-grid article>div span{color:var(--gold-dark);font-size:.65rem;font-weight:800}.standards-grid small{color:var(--plum-700);font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.standards-grid h3{margin-top:2.8rem;font-size:1.5rem}.standards-grid p{margin-top:.8rem;font-size:.84rem}.standards-grid a{margin-top:auto;padding-top:1rem;color:var(--plum-700);font-size:.76rem;font-weight:800}
+  .application-grid{display:grid;grid-template-columns:.7fr 1fr;gap:clamp(3rem,8vw,8rem)}.application-grid h2{max-width:13ch}.application-grid ol{display:grid;gap:1rem;list-style:none}.application-grid li{display:grid;grid-template-columns:2.3rem 1fr;gap:.8rem;padding-bottom:1rem;border-bottom:1px solid var(--line)}.application-grid li>span{color:var(--gold-dark);font-size:.68rem;font-weight:800}.application-grid h3{font-size:1.2rem}.application-grid p{margin-top:.3rem;font-size:.85rem}
+  @media(max-width:61.99rem){.framework-grid,.standards-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:47.99rem){.framework-intro,.application-grid{grid-template-columns:1fr;gap:2rem}.framework-grid,.standards-grid{grid-template-columns:1fr}.framework-grid article{min-height:auto}.framework-grid h3{margin-top:2.5rem}}
+</style>

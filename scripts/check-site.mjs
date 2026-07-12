@@ -14,7 +14,8 @@ const requiredFiles = [
   'services/institutional-research-support/index.html', 'training/index.html', 'resources/index.html',
   'courses/index.html', 'courses/enroll/index.html', 'courses/scholarship/index.html',
   'future-development-program/index.html', 'projects-publications/index.html', 'media/index.html',
-  'pubmed-search/index.html', 'interpeko/index.html', 'join/index.html', 'research-ethics-integrity/index.html',
+  'pubmed-search/index.html', 'interpeko/index.html', 'academic-standards/index.html',
+  'editorial-policy/index.html', 'join/index.html', 'research-ethics-integrity/index.html',
   'international-collaboration/index.html', 'healthcare-research/index.html',
   'institutional-research-support/index.html', 'news-events/index.html', 'faq/index.html',
   'contact/index.html', 'privacy/index.html', 'terms/index.html',
@@ -39,6 +40,11 @@ async function walk(directory) {
 for (const file of requiredFiles) {
   try { await access(path.join(root, file)); }
   catch { failures.push(`Missing required build artifact: ${file}`); }
+}
+
+for (const file of ['netlify/functions/interpeko.mjs', 'shared/interpeko-knowledge.mjs']) {
+  try { await access(path.resolve(file)); }
+  catch { failures.push(`Missing Interpeko implementation file: ${file}`); }
 }
 
 const files = await walk(root);
@@ -107,6 +113,29 @@ if (resourcePages.length < 8) failures.push(`Expected at least 8 detailed resour
 if (!normalizedHtml.includes('One World. One Research.')) failures.push('Institutional tagline is missing');
 if (/planned programme concepts|Schedule to be announced/i.test(normalizedHtml)) failures.push('Unverified programme concepts are present');
 if (/social[- ]links website|link hub|linktree homepage/i.test((htmlByFile.get(path.join(root, 'index.html')) ?? ''))) failures.push('Homepage contains old link-hub language');
+
+const interpekoHtml = htmlByFile.get(path.join(root, 'interpeko', 'index.html')) ?? '';
+for (const phrase of ['AI-generated', 'Guided academic mode', 'Human review required', 'Academic guidance in four moves']) {
+  if (!interpekoHtml.includes(phrase)) failures.push(`Interpeko page is missing: ${phrase}`);
+}
+const privacyHtml = htmlByFile.get(path.join(root, 'privacy', 'index.html')) ?? '';
+if (!privacyHtml.includes('OpenAI') || !privacyHtml.includes('up to 30 days')) failures.push('Privacy policy is missing the Interpeko AI processing and retention disclosure');
+if (/does not send questions to an external artificial-intelligence provider/i.test(privacyHtml)) failures.push('Privacy policy contains the obsolete browser-only Interpeko claim');
+const standardsHtml = htmlByFile.get(path.join(root, 'academic-standards', 'index.html')) ?? '';
+for (const standard of ['EQUATOR Network', 'ICMJE Recommendations', 'WHO ICTRP', 'FAIR Principles', 'CRediT taxonomy']) {
+  if (!standardsHtml.includes(standard)) failures.push(`Academic standards page is missing: ${standard}`);
+}
+const servicesHtml = htmlByFile.get(path.join(root, 'services', 'index.html')) ?? '';
+if (!servicesHtml.includes('Eleven detailed services')) failures.push('Service architecture does not state all eleven services');
+
+const interpekoFunction = await readFile(path.resolve('netlify/functions/interpeko.mjs'), 'utf8');
+for (const control of ['OPENAI_API_KEY', 'store: false', 'max_output_tokens: 700', 'safety_identifier', 'no-store, private']) {
+  if (!interpekoFunction.includes(control)) failures.push(`Interpeko function is missing security control: ${control}`);
+}
+const netlifyConfig = await readFile(path.resolve('netlify.toml'), 'utf8');
+if (!netlifyConfig.includes('from = "/api/interpeko"') || !netlifyConfig.includes('to = "/.netlify/functions/interpeko"')) failures.push('Netlify Interpeko redirect is missing');
+const publicReleaseText = `${normalizedHtml}\n${interpekoFunction}\n${await readFile(path.resolve('shared/interpeko-knowledge.mjs'), 'utf8')}`;
+if (/\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}\b/.test(publicReleaseText)) failures.push('A secret-like API key appears in public release content');
 
 if (failures.length) {
   console.error(`Site QA failed with ${failures.length} issue(s):`);

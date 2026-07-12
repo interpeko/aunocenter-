@@ -16,7 +16,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "verify": "astro check && astro build && node scripts/check-site.mjs",
-    "test": "npm run verify",
+    "test:functions": "node --test tests/*.test.mjs",
+    "test": "npm run verify && npm run test:functions",
     "test:site": "node scripts/check-site.mjs"
   },
   "dependencies": {

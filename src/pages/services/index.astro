@@ -8,6 +8,29 @@ import CallToAction from '@/components/CallToAction.astro';
 import { services } from '@/data/site';
 
 const crumbs = [{ label: 'Research services' }];
+const pathways = [
+  {
+    id: 'methods-measurement',
+    number: '01',
+    title: 'Methods & measurement',
+    text: 'Define the question, design the study, plan measurement, interpret findings, and connect analysis to the intended inference.',
+    slugs: ['research-design-methodology', 'statistical-analysis', 'questionnaire-development', 'results-interpretation', 'research-proposal-support']
+  },
+  {
+    id: 'evidence-writing',
+    number: '02',
+    title: 'Evidence, writing & publication',
+    text: 'Develop reproducible evidence work, clear scientific arguments, accountable manuscripts, and submission-ready reporting.',
+    slugs: ['literature-review-support', 'scientific-writing', 'manuscript-development', 'pre-submission-review']
+  },
+  {
+    id: 'applied-institutional',
+    number: '03',
+    title: 'Applied healthcare & institutional support',
+    text: 'Strengthen context-sensitive healthcare research and the systems institutions use to develop research capability.',
+    slugs: ['healthcare-research-consultancy', 'institutional-research-support']
+  }
+];
 ---
 
 <BaseLayout title="Research Services | AUNO Center" description="Explore research design, statistics, questionnaires, results interpretation, manuscript review, and literature review support." breadcrumbs={crumbs}>
@@ -25,8 +48,18 @@ const crumbs = [{ label: 'Research services' }];
 
   <section class="section section--ivory">
     <div class="shell">
-      <SectionHeading eyebrow="Six core services" title="Explore the support pathway that fits your current decision." text="Each service page explains when support may help, what it can include, possible outputs, working steps, and important boundaries." />
-      <div class="service-grid">{services.map((service) => <ServiceCard service={service} />)}</div>
+      <SectionHeading eyebrow="Eleven detailed services" title="Three scholarly pathways across the research lifecycle." text="Each service page explains when support may help, what it can include, possible outputs, working steps, and important boundaries." />
+      <div class="service-pathways">
+        {pathways.map(pathway => (
+          <section class="service-pathway" id={pathway.id} aria-labelledby={`${pathway.id}-title`}>
+            <div class="service-pathway__head">
+              <span>{pathway.number}</span>
+              <div><h2 id={`${pathway.id}-title`}>{pathway.title}</h2><p>{pathway.text}</p></div>
+            </div>
+            <div class="service-grid">{pathway.slugs.map(slug => services.find(service => service.slug === slug)).filter(Boolean).map(service => <ServiceCard service={service!} />)}</div>
+          </section>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -52,5 +85,6 @@ const crumbs = [{ label: 'Research services' }];
 <style>
   .intro-services{display:grid;grid-template-columns:1fr .8fr;gap:clamp(3rem,8vw,8rem)}
   .intro-services h2{max-width:15ch}.intro-services div:last-child p+p{margin-top:1rem}
+  .service-pathways{display:grid;gap:5rem}.service-pathway{scroll-margin-top:2rem}.service-pathway__head{display:grid;grid-template-columns:3rem minmax(0,44rem);gap:1rem;align-items:start;margin-bottom:2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--line)}.service-pathway__head>span{display:grid;place-items:center;width:2.4rem;height:2.4rem;border:1px solid var(--gold);border-radius:50%;color:var(--gold-dark);font-size:.68rem;font-weight:800}.service-pathway__head h2{font-size:clamp(1.7rem,3vw,2.45rem)}.service-pathway__head p{margin-top:.55rem}
   @media(max-width:47.99rem){.intro-services{grid-template-columns:1fr;gap:2rem}}
 </style>

@@ -30,8 +30,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Build the institutional website
-        run: npm run build
+      - name: Verify and build the institutional website
+        run: npm test
       - name: Prepare sub-path fallback
         run: node scripts/prepare-github-pages.mjs
       - name: Configure GitHub Pages

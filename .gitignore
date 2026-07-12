@@ -5,5 +5,8 @@ dist/
 playwright-report/
 test-results/
 .env
+.env.local
+outputs/
+work/
 .DS_Store
 Thumbs.db

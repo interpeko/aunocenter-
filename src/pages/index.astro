@@ -110,6 +110,25 @@ const websiteSchema = {
     </div>
   </section>
 
+  <section class="section academic-home">
+    <div class="shell academic-home__grid">
+      <div class="academic-home__copy">
+        <p class="eyebrow">Academic practice framework</p>
+        <h2>Standards-informed research, from question to correction.</h2>
+        <p>AUNO Center’s academic framework makes the decisions behind credible work visible: purpose, protocol, governance, design, measurement, analysis, reporting, contribution, preservation, and correction.</p>
+        <div class="button-row"><a class="button button--primary" href="/academic-standards/">Explore the framework</a><a class="button button--outline" href="/interpeko/">Ask Interpeko AI</a></div>
+      </div>
+      <ol class="academic-cycle" aria-label="Academic practice cycle">
+        <li><span>01</span><div><strong>Question</strong><small>Gap, purpose, context</small></div></li>
+        <li><span>02</span><div><strong>Protocol</strong><small>Governance, roles, plan</small></div></li>
+        <li><span>03</span><div><strong>Design</strong><small>Sampling, measurement, bias</small></div></li>
+        <li><span>04</span><div><strong>Analysis</strong><small>Estimands, assumptions, uncertainty</small></div></li>
+        <li><span>05</span><div><strong>Reporting</strong><small>Claims, sources, contribution</small></div></li>
+        <li><span>06</span><div><strong>Correction</strong><small>Version, provenance, revision</small></div></li>
+      </ol>
+    </div>
+  </section>
+
   <section class="section section--plum process-section">
     <div class="shell">
       <SectionHeading eyebrow="Engagement pathway" title="A clear path from request to support." text="Every engagement begins with scope, boundaries, responsibilities, and expected outputs—not assumptions." light />
@@ -163,9 +182,9 @@ const websiteSchema = {
     <div class="shell future-home__inner">
       <div class="future-home__mark" aria-hidden="true"><span>1</span><i></i><strong>WORLD</strong></div>
       <div>
-        <p class="eyebrow">Future Development Program</p>
+        <p class="eyebrow">Future Development Program · Published framework</p>
         <h2>Research for every dimension of life.</h2>
-        <p>AUNO Center’s Future Development Program connects human health, animal wellbeing, earth, nature, education, and responsible innovation through an evidence-led institutional framework.</p>
+        <p>AUNO Center’s published development framework connects human health, animal wellbeing, earth, nature, education, and responsible innovation. No cohort, partner, venue, date, or specific project is represented as confirmed.</p>
         <p>Program initiatives will be published only when their scope, responsible people, safeguards, resources, and status are verified.</p>
         <div class="button-row"><a class="button button--primary" href="/future-development-program/">Explore the program</a><a class="button button--outline" href="/news-events/">Verified updates</a></div>
       </div>
@@ -224,6 +243,7 @@ const websiteSchema = {
   .principle-grid span { width: 2.5rem; height: 2.5rem; display: grid; place-items: center; color: var(--plum-700); border: 1px solid var(--gold); border-radius: 50%; font-family: var(--font-display); font-size: 1.2rem; }
   .principle-grid h3 { margin-top: 3.5rem; font-size: 1.45rem; }
   .principle-grid p { margin-top: .7rem; font-size: .92rem; }
+  .academic-home{background:linear-gradient(135deg,#f9f5ec,#f3edf5)}.academic-home__grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(22rem,1fr);gap:clamp(3rem,8vw,8rem);align-items:center}.academic-home__copy h2{max-width:14ch}.academic-home__copy>p:not(.eyebrow){max-width:42rem;margin-top:1rem}.academic-home__copy .button-row{margin-top:1.5rem}.academic-cycle{display:grid;grid-template-columns:repeat(2,1fr);list-style:none;border-top:1px solid var(--line);border-left:1px solid var(--line)}.academic-cycle li{display:grid;grid-template-columns:2rem 1fr;gap:.7rem;min-height:7.5rem;padding:1rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.7)}.academic-cycle>li>span{color:var(--gold-dark);font-size:.62rem;font-weight:800}.academic-cycle li div{display:grid;align-content:start}.academic-cycle strong{font-family:var(--font-display);font-size:1.15rem;font-weight:500}.academic-cycle small{margin-top:.25rem;color:var(--ink-soft);line-height:1.4}
   .number-grid--dark { border-color: rgba(255,255,255,.17); }
   .number-grid--dark .number-card { background: rgba(255,255,255,.045); border-color: rgba(255,255,255,.17); }
   .number-grid--dark .number-card h3 { color: white; }
@@ -253,8 +273,8 @@ const websiteSchema = {
   .globe-rings i:nth-child(2) { transform: rotate(-35deg) scaleX(.55); }
   .globe-rings i:nth-child(3) { inset: 3rem; border-color: var(--teal); opacity: .4; }
   .globe-rings span { z-index: 1; color: var(--plum-900); font-family: var(--font-display); font-size: 2.3rem; letter-spacing: .12em; background: var(--ivory); }
-  @media(max-width:61.99rem){.audience-band__inner{grid-template-columns:1fr}.audience-band ul{grid-template-columns:repeat(2,1fr);gap:.8rem 0}.intro-grid,.resource-feature,.collaboration-feature__inner,.founder-home__inner{grid-template-columns:1fr}.principle-grid{grid-template-columns:repeat(2,1fr)}.principle-grid article:nth-child(2){border-right:0}.principle-grid article:nth-child(-n+2){border-bottom:1px solid var(--line)}}
-  @media(max-width:47.99rem){.home-hero{min-height:42rem}.home-hero__image{object-position:62% center}.home-hero__veil{background:linear-gradient(90deg,rgba(18,8,24,.96),rgba(28,13,36,.8) 75%,rgba(28,13,36,.6))}.home-hero__signature{display:none}.audience-band ul{grid-template-columns:1fr}.audience-band li{padding:.5rem 0;border-left:0;border-bottom:1px solid rgba(255,255,255,.13)}.research-path{grid-template-columns:1fr}.research-path i{width:1px;height:2rem;margin-left:.3rem}.principle-grid{grid-template-columns:1fr}.principle-grid article,.principle-grid article:nth-child(2){min-height:auto;border-right:0;border-bottom:1px solid var(--line)}.principle-grid article:last-child{border-bottom:0}.principle-grid h3{margin-top:2rem}.collaboration-feature__visual{min-height:22rem}.globe-rings{width:17rem;height:17rem}}
+  @media(max-width:61.99rem){.audience-band__inner{grid-template-columns:1fr}.audience-band ul{grid-template-columns:repeat(2,1fr);gap:.8rem 0}.intro-grid,.resource-feature,.collaboration-feature__inner,.founder-home__inner,.academic-home__grid{grid-template-columns:1fr}.principle-grid{grid-template-columns:repeat(2,1fr)}.principle-grid article:nth-child(2){border-right:0}.principle-grid article:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+  @media(max-width:47.99rem){.home-hero{min-height:42rem}.home-hero__image{object-position:62% center}.home-hero__veil{background:linear-gradient(90deg,rgba(18,8,24,.96),rgba(28,13,36,.8) 75%,rgba(28,13,36,.6))}.home-hero__signature{display:none}.audience-band ul{grid-template-columns:1fr}.audience-band li{padding:.5rem 0;border-left:0;border-bottom:1px solid rgba(255,255,255,.13)}.research-path{grid-template-columns:1fr}.research-path i{width:1px;height:2rem;margin-left:.3rem}.principle-grid{grid-template-columns:1fr}.principle-grid article,.principle-grid article:nth-child(2){min-height:auto;border-right:0;border-bottom:1px solid var(--line)}.principle-grid article:last-child{border-bottom:0}.principle-grid h3{margin-top:2rem}.academic-cycle{grid-template-columns:1fr}.collaboration-feature__visual{min-height:22rem}.globe-rings{width:17rem;height:17rem}}
   .future-home{background:linear-gradient(135deg,#f7f1e6,#f0e8f3)}.future-home__inner{display:grid;grid-template-columns:minmax(16rem,.55fr) minmax(0,1fr);gap:clamp(3rem,8vw,8rem);align-items:center}.future-home__mark{position:relative;min-height:24rem;display:grid;place-items:center;overflow:hidden;color:white;background:linear-gradient(135deg,var(--plum-950),#164246);border-radius:50% 50% 46% 54%/43% 49% 51% 57%;box-shadow:var(--shadow-lg)}.future-home__mark:before,.future-home__mark:after{content:"";position:absolute;width:70%;height:70%;border:1px solid rgba(217,182,109,.35);border-radius:50%}.future-home__mark:after{width:48%;height:48%}.future-home__mark span{z-index:1;font-family:var(--font-display);font-size:8rem;color:var(--gold-light)}.future-home__mark i{position:absolute;width:60%;height:1px;background:rgba(255,255,255,.35)}.future-home__mark strong{position:absolute;bottom:4rem;letter-spacing:.3em;font-size:.72rem}.future-home h2{max-width:14ch}.future-home p:not(.eyebrow){max-width:47rem;margin-top:1rem}.future-home .button-row{margin-top:1.6rem}
   @media(max-width:61.99rem){.future-home__inner{grid-template-columns:1fr}.future-home__mark{min-height:20rem;max-width:28rem}}
 </style>

@@ -34,7 +34,7 @@ const toolkits = [
         {resources.map(resource => <article class="resource-card" data-category={resource.category} data-search={`${resource.title} ${resource.summary} ${resource.category}`.toLowerCase()}><div class="resource-card__meta"><span>{resource.category}</span><span>{resource.readingTime}</span></div><h3><a href={`/resources/${resource.slug}/`}>{resource.title}</a></h3><p>{resource.summary}</p><a class="text-link" href={`/resources/${resource.slug}/`}>Read the guide <span aria-hidden="true">→</span></a></article>)}
       </div>
       <div class="empty-resource" id="resource-empty" hidden><h2>No matching resources</h2><p>Try a broader term or clear the category filter.</p></div>
-      <div class="notice mt-3"><h2>Educational resource notice</h2><p>Resources are general and educational. They do not replace project-specific statistical, legal, ethics, regulatory, clinical, or institutional advice.</p></div>
+      <div class="resource-governance mt-3"><div class="notice"><h2>Educational resource notice</h2><p>Resources are general and educational. They do not replace project-specific statistical, legal, ethics, regulatory, clinical, or institutional advice.</p></div><div class="side-card"><h2>Academic transparency</h2><p>Each web article now shows its publication type, version, date, review status, responsible organisation, and suggested citation.</p><p><a href="/editorial-policy/">Read the Editorial & Corrections Policy →</a></p></div></div>
     </div>
   </section>
   <CallToAction title="Need guidance applied to your project?" text="Share the question, stage, and decision that require more focused methodological support." />
@@ -71,5 +71,6 @@ const toolkits = [
 <style>
   .resource-tools{display:grid;grid-template-columns:1fr minmax(18rem,.55fr);align-items:end;gap:3rem;margin-bottom:2rem}.resource-tools h2{max-width:14ch}.resource-search{display:grid;gap:.4rem}.resource-search label{font-size:.84rem;font-weight:750}.resource-search input{min-height:3.2rem;padding:.75rem .85rem;border:1px solid #bcb2c0;border-radius:.35rem}.resource-search input:focus{border-color:var(--plum-700);box-shadow:0 0 0 3px rgba(82,36,94,.12);outline:0}.resource-status{font-size:.82rem}.empty-resource{padding:3rem;text-align:center;background:var(--ivory);border:1px solid var(--line);border-radius:var(--radius)}.empty-resource h2{font-size:1.8rem}.empty-resource p{margin-top:.6rem}
   .resource-card--material{padding:0;overflow:hidden}.resource-card--material>img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top}.resource-card__body{padding:1.35rem}.resource-author{font-size:.8rem;font-weight:750;color:var(--plum-700)}
-  @media(max-width:47.99rem){.resource-tools{grid-template-columns:1fr;gap:1.5rem}}
+  .resource-governance{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.resource-governance .notice,.resource-governance .side-card{margin:0}
+  @media(max-width:47.99rem){.resource-tools,.resource-governance{grid-template-columns:1fr;gap:1.5rem}}
 </style>

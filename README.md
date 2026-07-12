@@ -1,6 +1,6 @@
 # AUNO Center institutional website
 
-A complete, static, production-ready institutional research platform for AUNO Center, built with Astro and configured for Netlify. It contains 60 generated pages, eleven research services, ten courses, a verified resource library, institutional programs, legal and accessibility pages, eight Netlify forms, an NCBI PubMed integration, and the Interpeko public-information assistant.
+A complete, production-ready institutional research platform for AUNO Center, built with Astro and configured for Netlify. It contains more than 60 generated pages, eleven research services, ten courses, a verified resource library, an Academic Practice Framework, an Editorial & Corrections Policy, institutional programs, legal and accessibility pages, eight Netlify forms, an NCBI PubMed integration, and the Interpeko academic research assistant.
 
 ## Local development
 
@@ -45,6 +45,14 @@ Configure form notification delivery to `aunocenter@gmail.com` in the Netlify da
 
 The PubMed proxy is implemented at `netlify/functions/pubmed-search.mjs` and exposed through `/api/pubmed-search`. It queries the official NCBI E-utilities service and does not scrape PubMed pages.
 
+Interpeko uses a server-side OpenAI Responses API function at `netlify/functions/interpeko.mjs`, exposed through `/api/interpeko`. The API key remains server-only. The function pins the academic instructions and model, disables application storage, limits payload size and output, applies best-effort rate limits, moderates input, sanitises provider errors, and returns only allowlisted AUNO Center source routes. The browser automatically switches to an approved on-device academic guide when AI mode is unavailable.
+
+Required production environment variables:
+
+- `OPENAI_API_KEY` — server-only OpenAI project key
+- `INTERPEKO_MODEL` — optional; defaults to `gpt-5.6-terra`
+- `RATE_LIMIT_SALT` — optional independent secret for pseudonymous rate-limit identifiers
+
 ## GitHub Pages access fallback
 
 An independent static mirror is published at `https://interpeko.github.io/aunocenter-/`. The Pages workflow builds the same 60-page source from `main`, prepares repository-prefixed asset and navigation paths, and deploys the result automatically.
@@ -55,7 +63,7 @@ The mirror provides complete public content and navigation if regional Netlify r
 
 - Public forms intentionally prohibit sensitive patient, participant, credential, payment, and confidential dataset submissions.
 - Optional CVs submitted through the Join portal are private Netlify form submissions and are never committed to the website repository.
-- Interpeko uses an approved browser-side knowledge map; it does not transmit questions to an external AI provider.
+- Interpeko labels AI-generated and on-device guided responses separately, does not accept sensitive research data, and links answers to approved institutional sources.
 - No accreditations, named partners, staff, instructors, dates, impact metrics, completed projects, or guaranteed outcomes are claimed without verified source information.
 - The three supplied educational PDFs retain their document attribution and are not misattributed to the founder.
 

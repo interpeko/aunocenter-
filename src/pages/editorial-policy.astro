@@ -1,0 +1,76 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PageHero from '@/components/PageHero.astro';
+import { SITE } from '@/data/site';
+
+const crumbs = [{ label: 'Editorial & corrections policy' }];
+---
+
+<BaseLayout
+  title="Editorial and Corrections Policy | AUNO Center"
+  description="How AUNO Center classifies, attributes, reviews, versions, corrects, and distinguishes institutional information, educational resources, external evidence, and AI-assisted guidance."
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs items={crumbs} />
+  <PageHero
+    eyebrow="Scholarly transparency"
+    title="Editorial & Corrections Policy"
+    lead="A credible research platform should make the status, provenance, limits, and correction route of its content visible."
+    tone="light"
+  />
+  <section class="section">
+    <div class="shell legal-layout">
+      <aside>
+        <div class="side-card">
+          <h2>Policy details</h2>
+          <dl><dt>Effective date</dt><dd>12 July 2026</dd><dt>Editorial contact</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></dl>
+        </div>
+        <div class="notice"><h2>Current article status</h2><p>AUNO Center web articles are educational resources and are not externally peer reviewed unless a page explicitly states otherwise.</p></div>
+      </aside>
+      <article class="prose">
+        <h2 class="mt-0">Purpose</h2>
+        <p>This policy explains how public AUNO Center content should be classified, attributed, reviewed, updated, corrected, and distinguished from peer-reviewed research. It applies to institutional pages, research-service information, courses, educational articles, downloadable materials, public registers, media packages, and Interpeko guidance.</p>
+
+        <h2>Content classifications</h2>
+        <ul>
+          <li><strong>Institutional information</strong> describes AUNO Center’s verified purpose, services, policies, contact routes, programs, and public status.</li>
+          <li><strong>Educational research resources</strong> provide general methodological orientation. They are not peer-reviewed journal articles, clinical guidance, legal advice, or project-specific consultancy.</li>
+          <li><strong>Contributor-supplied materials</strong> retain the attribution visible in the supplied file or otherwise verified record. AUNO Center does not infer identity, authorship, affiliation, permission, or endorsement from incomplete metadata.</li>
+          <li><strong>External standards and evidence</strong> are linked to their primary source where practical. A link does not imply affiliation, endorsement, or that the source applies to every project.</li>
+          <li><strong>Projects and publications</strong> appear in the public register only after title, status, contribution, responsible people, dates, identifiers, and relevant governance information can be supported.</li>
+          <li><strong>Interpeko responses</strong> are AI-generated or produced by the approved browser guide and are always educational, provisional, and subject to verification.</li>
+        </ul>
+
+        <h2>Review and status labels</h2>
+        <p>A resource must not be described as peer reviewed, expert reviewed, approved, validated, accredited, certified, or endorsed without a documented basis for that description. Where relevant, pages identify the publication type, version, publication date, update date, external-review status, and responsible organisation.</p>
+
+        <h2>Sources and citations</h2>
+        <p>Authors and editors should prefer primary sources for standards, policies, registrations, reporting guidance, and original findings. References must be checked against the source rather than copied from an unverified secondary citation. Educational summaries should distinguish established guidance from interpretation and should not use citations to overstate certainty.</p>
+
+        <h2>Authorship, contribution, and conflicts</h2>
+        <p>Public attribution should reflect genuine contribution and accountability. Editorial, statistical, language, design, technical, translation, consultancy, and AI assistance should be acknowledged or disclosed when material and in accordance with applicable institutional and publisher policies. Relevant financial and non-financial conflicts should be declared.</p>
+
+        <h2>AI-assisted work</h2>
+        <p>AI tools cannot be authors or accountable decision-makers. Material produced with AI assistance must be checked for accuracy, fabricated references, bias, confidentiality risk, inappropriate reuse, and unsupported conclusions before publication or submission. The responsible human or organisation remains accountable for the final content and any required disclosure.</p>
+
+        <h2>Versions and substantive updates</h2>
+        <p>Minor spelling, formatting, accessibility, and link repairs may be made without a formal correction notice. Material changes to methods guidance, institutional claims, authorship, status, conclusions, safety information, or policy should update the visible revision date and, where useful, include a concise note describing what changed.</p>
+
+        <h2>Corrections and removal</h2>
+        <p>Potential errors may be reported to <a href={`mailto:${SITE.email}`}>{SITE.email}</a> with the page address, the statement of concern, and a supporting source where available. Material errors should be assessed promptly and corrected transparently. Content may be removed while provenance, permission, privacy, safety, or legal concerns are assessed.</p>
+
+        <h2>Evidence preservation</h2>
+        <p>A correction should preserve enough information for readers to understand that a material change occurred. Where a public research record is later created, persistent identifiers, repository records, registration details, funding, conflicts, contributor roles, and version history should be included when applicable and verified.</p>
+
+        <h2>Questions</h2>
+        <p>Questions about publication status, attribution, corrections, permissions, or this policy may be sent to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-layout{display:grid;grid-template-columns:19rem minmax(0,48rem);gap:clamp(3rem,7vw,7rem);justify-content:center;align-items:start}.legal-layout>aside{position:sticky;top:1rem}.legal-layout .notice{margin-top:1rem}.legal-layout dl{margin-top:1rem}.legal-layout dt{color:var(--gold-dark);font-size:.7rem;font-weight:800;text-transform:uppercase}.legal-layout dd+dt{margin-top:1rem}
+  @media(max-width:61.99rem){.legal-layout{grid-template-columns:1fr}.legal-layout>aside{position:static;display:grid;grid-template-columns:1fr 1fr;gap:1rem}.legal-layout .notice{margin-top:0}}@media(max-width:47.99rem){.legal-layout>aside{grid-template-columns:1fr}}
+</style>
