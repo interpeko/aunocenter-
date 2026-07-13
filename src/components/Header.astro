@@ -13,7 +13,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
         <a href="/contact/">Contact</a>
         <a href="/interpeko/">Ask Interpeko AI</a>
         <a href="/faq/">FAQ</a>
-        <a href="/search/" aria-label="Search AUNO Center">Search <span aria-hidden="true">⌕</span></a>
+        <a href="/search/" aria-label="Search AUNO Center">Search <span class="icon icon--search" aria-hidden="true"></span></a>
       </div>
     </div>
   </div>
@@ -50,11 +50,11 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
           </li>
         ))}
       </ul>
-      <a class="button button--primary header-cta" href="/request-support/">Request support <span aria-hidden="true">↗</span></a>
+      <a class="button button--primary header-cta" href="/request-support/">Request support <span class="icon icon--up-right" aria-hidden="true"></span></a>
     </nav>
 
     <details class="nav-disclosure">
-      <summary aria-label="Open primary navigation">
+      <summary aria-label="Primary navigation menu">
         <span class="menu-label">Menu</span>
         <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
       </summary>
@@ -80,7 +80,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
             </li>
           ))}
         </ul>
-        <a class="button button--primary header-cta" href="/request-support/">Request support <span aria-hidden="true">↗</span></a>
+        <a class="button button--primary header-cta" href="/request-support/">Request support <span class="icon icon--up-right" aria-hidden="true"></span></a>
       </nav>
     </details>
   </div>

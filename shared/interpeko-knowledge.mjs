@@ -1,3 +1,5 @@
+import { retrieveApprovedContent } from './interpeko-retrieval.mjs';
+
 export const approvedSources = [
   {
     id: 'about',
@@ -214,8 +216,11 @@ export function selectGuidedResponse(question) {
   };
 }
 
-export function sourcesFor(question, answer = '') {
-  const selected = selectGuidedResponse(`${question} ${answer}`);
+export function sourcesFor(question, _answer = '') {
+  const retrieved = retrieveApprovedContent(question, { limit: 4 });
+  if (retrieved.length) return retrieved;
+
+  const selected = selectGuidedResponse(question);
   return selected.sourceIds
     .map(id => approvedSources.find(source => source.id === id))
     .filter(Boolean)

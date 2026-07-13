@@ -28,14 +28,14 @@ const slugify = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-')
       <div class="publication-record" aria-label="Publication record">
         <dl><div><dt>Responsible organisation</dt><dd>AUNO Center</dd></div><div><dt>Version</dt><dd>{version}</dd></div><div><dt>Published</dt><dd>12 July 2026</dd></div><div><dt>Review status</dt><dd>Editorial educational content; not externally peer reviewed</dd></div></dl>
         <p><strong>Suggested citation:</strong> AUNO Center. “{resource.title}.” Version {version}, 2026. <a href={canonical}>{canonical}</a>.</p>
-        <p><a href="/editorial-policy/">Editorial, attribution, versioning, and corrections policy →</a></p>
+        <p><a href="/editorial-policy/">Editorial, attribution, versioning, and corrections policy <span class="icon icon--right" aria-hidden="true"></span></a></p>
       </div>
       {resource.sections.map(section => <section id={slugify(section.heading)}><h2>{section.heading}</h2>{section.paragraphs.map(paragraph => <p>{paragraph}</p>)}{section.points && <ul>{section.points.map(point => <li>{point}</li>)}</ul>}</section>)}
       <div class="article-takeaway"><h2>Key takeaway</h2><p>{resource.takeaway}</p></div>
       <div class="notice mt-3"><h2>Use this resource responsibly</h2><p>This guide is educational and general. Apply it in accordance with your discipline, institution, ethics approvals, law, professional standards, and project context.</p></div>
     </article>
   </div></section>
-  <section class="section section--ivory"><div class="shell"><div class="content-grid"><div><p class="eyebrow">Related support</p><h2>{relatedService?.title ?? 'Research support'}</h2><p class="max-copy mt-1">{relatedService?.summary}</p><a class="button button--outline mt-2" href={`/services/${relatedService?.slug}/`}>Explore this service</a></div><div><p class="eyebrow">Continue reading</p><ul class="related-resources">{related.map(item => <li><a href={`/resources/${item.slug}/`}><small>{item.category}</small><strong>{item.title}</strong><span aria-hidden="true">↗</span></a></li>)}</ul></div></div></div></section>
+  <section class="section section--ivory"><div class="shell"><div class="content-grid"><div><p class="eyebrow">Related support</p><h2>{relatedService?.title ?? 'Research support'}</h2><p class="max-copy mt-1">{relatedService?.summary}</p><a class="button button--outline mt-2" href={`/services/${relatedService?.slug}/`}>Explore this service</a></div><div><p class="eyebrow">Continue reading</p><ul class="related-resources">{related.map(item => <li><a href={`/resources/${item.slug}/`}><small>{item.category}</small><strong>{item.title}</strong><span class="icon icon--up-right" aria-hidden="true"></span></a></li>)}</ul></div></div></div></section>
   <CallToAction title="Apply strong principles to a real research decision." text="Describe the project context and the methodological question that would benefit from focused support." />
 </BaseLayout>
 

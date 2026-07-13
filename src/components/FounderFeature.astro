@@ -44,7 +44,7 @@ const headingId = `${id}-heading`;
       <blockquote>“{SITE.founder.word}”</blockquote>
       {showReadMore && (
         <a class="button button--outline" href="/about/#founder" aria-label="Read more about Mustafa Saadabi">
-          Read More <span aria-hidden="true">→</span>
+          Read More <span class="icon icon--right" aria-hidden="true"></span>
         </a>
       )}
     </div>
@@ -55,9 +55,7 @@ const headingId = `${id}-heading`;
   .founder-feature {
     position: relative;
     overflow: hidden;
-    background:
-      radial-gradient(circle at 50% 15%, rgba(210, 174, 101, .12), transparent 23rem),
-      linear-gradient(180deg, #fffdfa, var(--ivory));
+    background: var(--paper);
   }
   .founder-feature::before,
   .founder-feature::after {
@@ -85,19 +83,19 @@ const headingId = `${id}-heading`;
     margin: 0 auto;
     padding: .42rem;
     background: #fff;
-    border: 1px solid rgba(182, 137, 58, .72);
-    border-radius: .6rem;
-    box-shadow: 0 24px 54px rgba(41, 18, 49, .16);
+    border: 1px solid rgba(182, 137, 58, .48);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 10px 28px rgba(41, 18, 49, .09);
   }
   .founder-feature__portrait::after {
     content: '';
     position: absolute;
     inset: .8rem -.75rem -.75rem .8rem;
     z-index: -1;
-    border: 1px solid rgba(83, 39, 96, .22);
-    border-radius: .6rem;
+    border: 1px solid rgba(83, 39, 96, .14);
+    border-radius: var(--radius-sm);
   }
-  .founder-feature__portrait picture { display: block; overflow: hidden; aspect-ratio: 3 / 4; border-radius: .3rem; }
+  .founder-feature__portrait picture { display: block; overflow: hidden; aspect-ratio: 3 / 4; border-radius: .5rem; }
   .founder-feature__portrait img {
     display: block;
     width: 100%;
@@ -133,7 +131,7 @@ const headingId = `${id}-heading`;
     max-width: 52rem;
     margin-top: 1.8rem;
   }
-  .founder-feature__rule { width: 4.5rem; height: 2px; margin-bottom: 1.35rem; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .founder-feature__rule { width: 4.5rem; height: 1px; margin-bottom: 1.35rem; background: var(--gold); }
   .founder-feature__word .eyebrow { justify-content: center; }
   .founder-feature__word blockquote {
     max-width: 48rem;

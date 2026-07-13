@@ -30,7 +30,7 @@ const serviceSchema = {
   <Breadcrumbs items={crumbs} />
   <PageHero eyebrow={`Research service ${service.number}`} title={service.title} lead={service.lead}>
     <div slot="actions" class="button-row">
-      <a class="button button--gold" href={`/request-support/?service=${service.slug}`}>Request this service <span aria-hidden="true">↗</span></a>
+      <a class="button button--gold" href={`/request-support/?service=${service.slug}`}>Request this service <span class="icon icon--up-right" aria-hidden="true"></span></a>
       <a class="button button--ghost-light" href="/services/">All services</a>
     </div>
   </PageHero>
@@ -76,7 +76,7 @@ const serviceSchema = {
   <section class="section service-boundary">
     <div class="shell service-boundary__inner">
       <div><p class="eyebrow">Professional boundary</p><h2>Responsible support has clear limits.</h2></div>
-      <div class="notice"><p>{service.boundary}</p><p><a href="/research-consultancy-disclaimer/">Read the complete consultancy disclaimer →</a></p></div>
+      <div class="notice"><p>{service.boundary}</p><p><a href="/research-consultancy-disclaimer/">Read the complete consultancy disclaimer <span class="icon icon--right" aria-hidden="true"></span></a></p></div>
     </div>
   </section>
 

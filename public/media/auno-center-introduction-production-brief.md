@@ -26,7 +26,7 @@
 
 4. **29–40 seconds — Who AUNO serves**  
    Visual: students, researchers, healthcare professionals, and institutional teams.  
-   On-screen: “Question → Design → Evidence → Meaning”
+   On-screen: “Question, Design, Evidence, Meaning”
 
 5. **40–49 seconds — Values**  
    Visual: consent, secure data practice, transparent analysis, peer discussion.  

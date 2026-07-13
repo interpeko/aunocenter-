@@ -21,11 +21,13 @@ const requiredFiles = [
   'contact/index.html', 'privacy/index.html', 'terms/index.html',
   'research-consultancy-disclaimer/index.html', 'accessibility/index.html',
   'thank-you/index.html', 'search/index.html', 'sitemap-index.xml', 'robots.txt',
-  'images/auno-social-poster.png', 'images/auno-whatsapp-qr.svg', 'images/auno-whatsapp-qr.png',
+  'images/auno-social-poster.png', 'images/auno-social-poster-preview.webp', 'images/auno-whatsapp-qr.svg', 'images/auno-whatsapp-qr.png',
   'images/mustafa-saadabi-founder-portrait.webp', 'images/mustafa-saadabi-founder-portrait-360.webp',
   'images/auno-introduction-thumbnail.svg', 'media/auno-center-introduction-production-brief.md',
   'media/auno-center-introduction-transcript.txt', 'media/auno-center-introduction-captions.vtt',
   'resources/research-question-canvas.md', 'resources/analysis-plan-checklist.md', 'resources/manuscript-readiness-checklist.md'
+  , 'icons/arrow-right.svg', 'icons/arrow-up-right.svg', 'icons/eye.svg', 'icons/download.svg',
+  'icons/file-text.svg', 'icons/search.svg', 'icons/x.svg', 'icons/lock.svg'
 ];
 
 async function walk(directory) {
@@ -130,6 +132,11 @@ const resourcePages = htmlFiles.filter(file => {
 if (resourcePages.length < 8) failures.push(`Expected at least 8 detailed resources, found ${resourcePages.length}`);
 
 if (!normalizedHtml.includes('One World. One Research.')) failures.push('Institutional tagline is missing');
+if (/[↗→➜🚀➡➤➔➝⟶⟹]/.test(normalizedHtml)) failures.push('Unicode or emoji arrow glyphs remain in the interface');
+if (/\btype="file"/i.test(normalizedHtml)) failures.push('Public forms expose a file input before secure upload infrastructure is configured');
+if (/\b(?:href|src)=""/i.test(normalizedHtml)) failures.push('Build contains an empty href or src attribute');
+if (!normalizedHtml.includes('data-form-progress-enhancement')) failures.push('Form completion enhancement is missing');
+if (!normalizedHtml.includes('data-netlify-form-relay')) failures.push('GitHub Pages form relay is missing');
 if (/planned programme concepts|Schedule to be announced/i.test(normalizedHtml)) failures.push('Unverified programme concepts are present');
 if (/social[- ]links website|link hub|linktree homepage/i.test((htmlByFile.get(path.join(root, 'index.html')) ?? ''))) failures.push('Homepage contains old link-hub language');
 

@@ -45,7 +45,7 @@ Configure form notification delivery to `aunocenter@gmail.com` in the Netlify da
 
 The PubMed proxy is implemented at `netlify/functions/pubmed-search.mjs` and exposed through `/api/pubmed-search`. It queries the official NCBI E-utilities service and does not scrape PubMed pages.
 
-Interpeko uses a server-side OpenAI Responses API function at `netlify/functions/interpeko.mjs`, exposed through `/api/interpeko`. The API key remains server-only. The function pins the academic instructions and model, disables application storage, limits payload size and output, applies best-effort rate limits, moderates input, sanitises provider errors, and returns only allowlisted AUNO Center source routes. The browser automatically switches to an approved on-device academic guide when AI mode is unavailable.
+Interpeko uses a server-side OpenAI Responses API function at `netlify/functions/interpeko.mjs`, exposed through `/api/interpeko`. The API key remains server-only. The function pins the academic instructions and model, disables application storage, limits payload size and output, applies best-effort rate limits, moderates input, sanitises provider errors, and grounds AUNO-specific answers in a 58-record approved public-content registry with exact paths and excerpts. Client-supplied assistant history is rejected. The browser automatically switches to an approved on-device academic guide when AI mode is unavailable.
 
 Required production environment variables:
 
@@ -62,8 +62,10 @@ The mirror provides complete public content and navigation if regional Netlify r
 ## Content, privacy, and safety
 
 - Public forms intentionally prohibit sensitive patient, participant, credential, payment, and confidential dataset submissions.
-- Optional CVs submitted through the Join portal are private Netlify form submissions and are never committed to the website repository.
+- Public file inputs are intentionally disabled until protected storage, server-side validation, malware screening, access controls, retention rules, and time-limited links are configured. Relevant forms explain the approved follow-up route instead of simulating an upload.
 - Interpeko labels AI-generated and on-device guided responses separately, does not accept sensitive research data, and links answers to approved institutional sources.
+- Search uses the same approved content registry, ranks multi-term matches, and offers clearly labelled device-only saved and recently viewed routes without saving search terms or form entries.
+- Learning-material cards provide contained previews, verified file metadata, and distinct SVG-based Preview, View, and Download actions.
 - No accreditations, named partners, staff, instructors, dates, impact metrics, completed projects, or guaranteed outcomes are claimed without verified source information.
 - The three supplied educational PDFs retain their document attribution and are not misattributed to the founder.
 

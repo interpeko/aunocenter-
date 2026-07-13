@@ -69,7 +69,7 @@ const assistantData = JSON.stringify({ academicModes, approvedSources, guidedRes
           <div class="assistant-form__footer">
             <p id="assistant-privacy"><strong>Privacy:</strong> never enter names, patient or participant details, confidential data, unpublished sensitive findings, credentials, or payment information.</p>
             <span id="assistant-count" aria-live="polite">0 / 1200</span>
-            <button class="button button--primary" id="assistant-submit" type="submit">Ask Interpeko <span aria-hidden="true">↗</span></button>
+            <button class="button button--primary" id="assistant-submit" type="submit">Ask Interpeko <span class="icon icon--up-right" aria-hidden="true"></span></button>
           </div>
         </form>
 
@@ -104,7 +104,7 @@ const assistantData = JSON.stringify({ academicModes, approvedSources, guidedRes
           <h2>AI and guided modes</h2>
           <p>Every response is identified as either <strong>AI-generated</strong> or <strong>Guided academic mode</strong>, so you always know which system produced the guidance.</p>
           <p>On the primary Netlify site, Interpeko can use a secure server-side OpenAI connection when configured. If AI mode is unavailable—or on the independent GitHub Pages mirror—it automatically uses the approved academic guide in your browser.</p>
-          <a class="text-link" href="/privacy/">Read the AI privacy disclosure →</a>
+          <a class="text-link" href="/privacy/">Read the AI privacy disclosure <span class="icon icon--right" aria-hidden="true"></span></a>
         </div>
         <div class="notice notice--critical">
           <h2>Human review required</h2>
@@ -153,7 +153,7 @@ const assistantData = JSON.stringify({ academicModes, approvedSources, guidedRes
 
 <script id="interpeko-data" type="application/json" set:html={assistantData} is:inline></script>
 <script>
-  type Source = { id: string; label: string; href: string; summary: string; keywords?: string[] };
+  type Source = { id: string; label: string; href: string; summary: string; excerpt?: string; title?: string; type?: string; keywords?: string[] };
   type GuidedResponse = { id: string; title: string; answer: string; keywords: string[]; sourceIds: string[] };
   type ConversationMessage = { role: 'user' | 'assistant'; content: string };
 
@@ -268,9 +268,26 @@ const assistantData = JSON.stringify({ academicModes, approvedSources, guidedRes
         const anchor = document.createElement('a');
         anchor.textContent = source.label;
         anchor.href = siteHref(source.href);
+        anchor.title = source.excerpt || source.summary;
         links.append(anchor);
       });
-      message.append(sourceLabel, links);
+      const evidence = document.createElement('details');
+      evidence.className = 'source-evidence';
+      const evidenceSummary = document.createElement('summary');
+      evidenceSummary.textContent = 'View approved source evidence';
+      const evidenceList = document.createElement('ul');
+      sources.slice(0, 4).forEach(source => {
+        const item = document.createElement('li');
+        const anchor = document.createElement('a');
+        anchor.href = siteHref(source.href);
+        anchor.textContent = source.title || source.label;
+        const excerpt = document.createElement('p');
+        excerpt.textContent = source.excerpt || source.summary;
+        item.append(anchor, excerpt);
+        evidenceList.append(item);
+      });
+      evidence.append(evidenceSummary, evidenceList);
+      message.append(sourceLabel, links, evidence);
     }
     log.append(message);
     log.scrollTop = log.scrollHeight;
@@ -293,7 +310,7 @@ const assistantData = JSON.stringify({ academicModes, approvedSources, guidedRes
       const response = await fetch('/api/interpeko', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, sessionId, history: conversation.slice(-6) }),
+        body: JSON.stringify({ question, sessionId, history: conversation.filter(message => message.role === 'user').slice(-4) }),
         signal: controller.signal
       });
       const payload = await response.json().catch(() => ({}));
@@ -377,28 +394,29 @@ const assistantData = JSON.stringify({ academicModes, approvedSources, guidedRes
 
 <style>
   .assistant-hero-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.7rem}
-  .assistant-principle{color:white;background:linear-gradient(90deg,#2b1434,#193b3f)}
+  .assistant-principle{color:white;background:#25112f}
   .assistant-principle__inner{display:flex;justify-content:space-between;gap:2rem;align-items:center;padding-block:1.15rem}
   .assistant-principle strong{font-family:var(--font-display);font-size:1.1rem;font-weight:500}.assistant-principle p{color:rgba(255,255,255,.72);font-size:.82rem}
   .assistant-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(18rem,.34fr);gap:2rem;align-items:start}
   .assistant-card{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);background:white}
-  .assistant-head{display:flex;gap:1rem;align-items:center;padding:1.15rem 1.3rem;color:white;background:linear-gradient(115deg,var(--plum-950),#3c1d47 72%,#19464a)}
+  .assistant-head{display:flex;gap:1rem;align-items:center;padding:1.15rem 1.3rem;color:white;background:#2b1435}
   .assistant-head h2{font-size:1.45rem}.assistant-head p{font-size:.76rem;color:rgba(255,255,255,.72)}
-  .assistant-orb{display:grid;place-items:center;width:2.75rem;height:2.75rem;flex:0 0 auto;border:1px solid rgba(255,255,255,.28);border-radius:50%;background:radial-gradient(circle at 32% 28%,var(--gold-light),var(--gold));box-shadow:0 0 0 .35rem rgba(217,182,109,.1);font-family:var(--font-display);font-size:1.35rem;color:var(--plum-950)}
-  .status{display:flex;gap:.45rem;align-items:center;margin-left:auto;padding:.35rem .55rem;border:1px solid rgba(255,255,255,.18);border-radius:2rem;background:rgba(255,255,255,.07);font-size:.68rem;white-space:nowrap}
+  .assistant-orb{display:grid;place-items:center;width:2.75rem;height:2.75rem;flex:0 0 auto;border:1px solid rgba(255,255,255,.3);border-radius:50%;background:var(--gold-light);font-family:var(--font-display);font-size:1.35rem;color:var(--plum-950)}
+  .status{display:flex;gap:.45rem;align-items:center;margin-left:auto;padding:.35rem .55rem;border:1px solid rgba(255,255,255,.18);border-radius:2rem;background:rgba(255,255,255,.07);font-size:.75rem;white-space:nowrap}
   .status i{width:.5rem;height:.5rem;border-radius:50%;background:#8de5b0;box-shadow:0 0 0 .2rem rgba(141,229,176,.12)}.status.is-active i{background:var(--gold-light);animation:pulse 1.1s infinite}
-  .assistant-log{display:grid;gap:1rem;min-height:23rem;max-height:38rem;overflow:auto;padding:1.35rem;background:linear-gradient(145deg,#fbf8f1,#f5f1f6)}
+  .assistant-log{display:grid;gap:1rem;min-height:23rem;max-height:38rem;overflow:auto;padding:1.35rem;background:#faf8fb}
   .message{max-width:89%;padding:1rem 1.1rem;border:1px solid var(--line);border-radius:.9rem;background:white;box-shadow:var(--shadow-sm)}
   .message--assistant{border-top-left-radius:.2rem}.message--user{justify-self:end;border-color:rgba(255,255,255,.08);border-top-right-radius:.2rem;background:var(--plum-900);color:white}
-  .message--user p{color:rgba(255,255,255,.88)}.message-meta{display:flex;justify-content:space-between;gap:1rem;align-items:center}.message-meta strong{font-size:.75rem}.message-meta span{padding:.18rem .42rem;border-radius:2rem;background:var(--ivory);color:var(--plum-700);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}.message--user .message-meta span{background:rgba(255,255,255,.1);color:white}
-  .message p{margin-top:.45rem}.message-answer{white-space:pre-wrap}.message-notice{padding-top:.7rem;border-top:1px solid var(--line);color:var(--ink-soft);font-size:.72rem}.source-label{display:block;margin-top:.8rem;color:var(--gold-dark);font-size:.63rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-  .source-links{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.45rem}.source-links a{padding:.3rem .48rem;border:1px solid var(--line);border-radius:2rem;background:#fff;color:var(--plum-700);font-size:.7rem;font-weight:780;text-decoration:none}.source-links a:hover{border-color:var(--gold)}
+  .message--user p{color:rgba(255,255,255,.88)}.message-meta{display:flex;justify-content:space-between;gap:1rem;align-items:center}.message-meta strong{font-size:.78rem}.message-meta span{padding:.18rem .42rem;border-radius:2rem;background:var(--ivory);color:var(--plum-700);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em}.message--user .message-meta span{background:rgba(255,255,255,.1);color:white}
+  .message p{margin-top:.45rem}.message-answer{white-space:pre-wrap}.message-notice{padding-top:.7rem;border-top:1px solid var(--line);color:var(--ink-soft);font-size:.76rem}.source-label{display:block;margin-top:.8rem;color:var(--gold-dark);font-size:.73rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+  .source-links{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.45rem}.source-links a{padding:.34rem .54rem;border:1px solid var(--line);border-radius:2rem;background:#fff;color:var(--plum-700);font-size:.78rem;font-weight:780;text-decoration:none}.source-links a:hover{border-color:var(--gold)}
+  .source-evidence{margin-top:.7rem;padding-top:.65rem;border-top:1px solid var(--line)}.source-evidence summary{color:var(--plum-700);font-size:.76rem;font-weight:750}.source-evidence ul{display:grid;gap:.65rem;margin-top:.7rem;padding:0;list-style:none}.source-evidence li{padding:.65rem;background:#faf8fb;border-radius:.6rem}.source-evidence li a{color:var(--plum-700);font-size:.8rem;font-weight:750}.source-evidence li p{margin-top:.2rem;font-size:.76rem;line-height:1.5}
   .message--thinking>p{display:flex;gap:.25rem}.message--thinking>p i{width:.45rem;height:.45rem;border-radius:50%;background:var(--gold);animation:thinking 1s infinite}.message--thinking>p i:nth-child(2){animation-delay:.16s}.message--thinking>p i:nth-child(3){animation-delay:.32s}
-  .assistant-form{padding:1.25rem 1.35rem;border-top:1px solid var(--line)}.assistant-form>label{display:block;font-size:.82rem;font-weight:800}.assistant-form textarea{width:100%;min-height:6.2rem;margin-top:.45rem;padding:.8rem .9rem;resize:vertical;border:1px solid #aaa0ad;border-radius:.45rem;background:#fff;font:inherit}.assistant-form textarea:focus{outline:3px solid rgba(182,137,58,.22);border-color:var(--gold-dark)}
-  .assistant-form__footer{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:.75rem;align-items:center;margin-top:.65rem}.assistant-form__footer p{font-size:.68rem}.assistant-form__footer>span{color:var(--ink-soft);font-size:.65rem;white-space:nowrap}.assistant-form__footer .button{white-space:nowrap}
-  .prompt-panel{padding:1rem 1.35rem 1.3rem;border-top:1px solid var(--line);background:#fcfbf8}.prompt-panel__head{display:flex;justify-content:space-between;gap:1rem;align-items:center}.prompt-panel__head p{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.prompt-panel__head button{border:0;background:none;color:var(--plum-700);font-size:.68rem;text-decoration:underline;cursor:pointer}.prompt-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}.prompt-row button{padding:.48rem .66rem;border:1px solid var(--line);border-radius:2rem;background:white;color:var(--ink);font-size:.7rem;cursor:pointer}.prompt-row button:hover{border-color:var(--gold);color:var(--plum-700)}
-  .assistant-aside{display:grid;gap:1rem}.protocol-card .eyebrow{margin-bottom:.7rem}.protocol-card ol{display:grid;gap:.8rem;margin-top:1rem;list-style:none}.protocol-card li{display:grid;grid-template-columns:2rem 1fr;gap:.65rem;align-items:start}.protocol-card li>span{display:grid;place-items:center;width:1.8rem;height:1.8rem;border:1px solid var(--gold);border-radius:50%;color:var(--gold-dark);font-size:.6rem;font-weight:800}.protocol-card li div{display:grid}.protocol-card li strong{font-family:var(--font-display);font-size:1.02rem;font-weight:500}.protocol-card li small{color:var(--ink-soft);line-height:1.45}
-  .mode-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}.mode-grid article{min-height:15rem;padding:1.5rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:white}.mode-grid span{color:var(--gold-dark);font-size:.66rem;font-weight:800}.mode-grid h3{margin-top:3rem;font-size:1.45rem}.mode-grid p{margin-top:.7rem;font-size:.85rem}
+  .assistant-form{padding:1.25rem 1.35rem;border-top:1px solid var(--line)}.assistant-form>label{display:block;font-size:.86rem;font-weight:800}.assistant-form textarea{width:100%;min-height:6.2rem;margin-top:.45rem;padding:.8rem .9rem;resize:vertical;border:1px solid #cfc6d1;border-radius:.72rem;background:#fff;font:inherit}.assistant-form textarea:focus{outline:3px solid rgba(182,137,58,.16);border-color:var(--gold-dark)}
+  .assistant-form__footer{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:.75rem;align-items:center;margin-top:.65rem}.assistant-form__footer p{font-size:.75rem}.assistant-form__footer>span{color:var(--ink-soft);font-size:.75rem;white-space:nowrap}.assistant-form__footer .button{white-space:nowrap}
+  .prompt-panel{padding:1rem 1.35rem 1.3rem;border-top:1px solid var(--line);background:#fcfbf8}.prompt-panel__head{display:flex;justify-content:space-between;gap:1rem;align-items:center}.prompt-panel__head p{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.prompt-panel__head button{border:0;background:none;color:var(--plum-700);font-size:.75rem;text-decoration:underline;cursor:pointer}.prompt-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}.prompt-row button{padding:.5rem .7rem;border:1px solid var(--line);border-radius:2rem;background:white;color:var(--ink);font-size:.78rem;cursor:pointer}.prompt-row button:hover{border-color:var(--gold);color:var(--plum-700)}
+  .assistant-aside{display:grid;gap:1rem}.protocol-card .eyebrow{margin-bottom:.7rem}.protocol-card ol{display:grid;gap:.8rem;margin-top:1rem;list-style:none}.protocol-card li{display:grid;grid-template-columns:2rem 1fr;gap:.65rem;align-items:start}.protocol-card li>span{display:grid;place-items:center;width:1.8rem;height:1.8rem;border:1px solid var(--gold);border-radius:50%;color:var(--gold-dark);font-size:.72rem;font-weight:800}.protocol-card li div{display:grid}.protocol-card li strong{font-family:var(--font-display);font-size:1.02rem;font-weight:500}.protocol-card li small{color:var(--ink-soft);line-height:1.45}
+  .mode-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}.mode-grid article{min-height:15rem;padding:1.5rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:white}.mode-grid span{color:var(--gold-dark);font-size:.74rem;font-weight:800}.mode-grid h3{margin-top:3rem;font-size:1.45rem}.mode-grid p{margin-top:.7rem;font-size:.85rem}
   .boundary-grid{display:grid;grid-template-columns:.7fr 1fr;gap:clamp(3rem,8vw,8rem);align-items:start}.boundary-grid h2{max-width:13ch}.boundary-list{margin-top:0}
   @keyframes thinking{0%,70%,100%{opacity:.25;transform:translateY(0)}35%{opacity:1;transform:translateY(-.15rem)}}@keyframes pulse{50%{opacity:.45}}
   @media(max-width:61.99rem){.assistant-layout{grid-template-columns:1fr}.assistant-aside{grid-template-columns:1fr 1fr}.assistant-aside .notice{grid-column:1/-1}.mode-grid{grid-template-columns:repeat(2,1fr)}}

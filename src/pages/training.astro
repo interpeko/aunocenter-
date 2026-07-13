@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/Breadcrumbs.astro';
 import PageHero from '@/components/PageHero.astro';
+import FileUploadField from '@/components/FileUploadField.astro';
 
 const crumbs = [{ label: 'Training & capacity building' }];
 const themes = [
@@ -16,7 +17,7 @@ const themes = [
 <BaseLayout title="Research Training and Capacity Building | AUNO Center" description="Explore practical research workshops, seminars, project clinics, and tailored capacity-building programmes for individuals and institutions." breadcrumbs={crumbs}>
   <Breadcrumbs items={crumbs} />
   <PageHero eyebrow="Training & capacity building" title="Build research capability that lasts." lead="Practical learning to help participants understand research choices, apply methods thoughtfully, and communicate evidence with confidence.">
-    <div slot="actions" class="button-row"><a class="button button--gold" href="#training-inquiry">Request tailored training <span aria-hidden="true">↗</span></a></div>
+    <div slot="actions" class="button-row"><a class="button button--gold" href="#training-inquiry">Request tailored training <span class="icon icon--up-right" aria-hidden="true"></span></a></div>
   </PageHero>
 
   <section class="section">
@@ -65,8 +66,9 @@ const themes = [
           <div class="form-field form-field--full"><label for="access-needs">Accessibility or participation needs</label><textarea id="access-needs" name="accessibility-needs"></textarea></div>
           <div class="form-field form-field--full"><label for="training-message">Additional context</label><textarea id="training-message" name="message"></textarea></div>
         </div></fieldset>
+        <FileUploadField label="Training briefs or participant materials" context="AUNO Center may request a non-confidential brief through an approved secure route after initial review." />
         <label class="check-row mt-2" for="training-privacy"><input id="training-privacy" name="privacy-consent" type="checkbox" value="consent-given" required /><span>I have read the <a href="/privacy/">Privacy Policy</a> and consent to use of this information to respond. <span class="required">*</span></span></label>
-        <div class="form-actions"><p>Please do not include confidential or identifiable research information.</p><button class="button button--primary" type="submit">Submit training inquiry <span aria-hidden="true">↗</span></button></div>
+        <div class="form-actions"><p>Please do not include confidential or identifiable research information.</p><button class="button button--primary" type="submit">Submit training inquiry <span class="icon icon--up-right" aria-hidden="true"></span></button></div>
       </form>
     </div>
   </section>

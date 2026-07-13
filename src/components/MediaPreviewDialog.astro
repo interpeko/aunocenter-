@@ -1,0 +1,45 @@
+<dialog class="media-dialog" id="media-preview" aria-labelledby="media-preview-title">
+  <div class="media-dialog__surface">
+    <header>
+      <div><p>Document preview</p><h2 id="media-preview-title">Learning material</h2></div>
+      <button class="media-dialog__close" type="button" data-media-close aria-label="Close preview"><span class="icon icon--close" aria-hidden="true"></span></button>
+    </header>
+    <div class="media-dialog__content">
+      <figure><img data-media-image alt="" width="1333" height="750" hidden /><figcaption data-media-meta></figcaption></figure>
+      <div class="media-dialog__copy"><p data-media-summary></p><p class="media-dialog__note">This is a visual cover preview. Open the PDF to read the complete document.</p><div class="button-row"><a class="button button--primary" data-media-view target="_blank" rel="noopener">Open PDF <span class="icon icon--up-right" aria-hidden="true"></span><span class="sr-only"> (opens in a new tab)</span></a><a class="button button--outline" data-media-download download>Download <span class="icon icon--download" aria-hidden="true"></span></a></div></div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('#media-preview');
+  const title = dialog?.querySelector<HTMLElement>('#media-preview-title');
+  const image = dialog?.querySelector<HTMLImageElement>('[data-media-image]');
+  const summary = dialog?.querySelector<HTMLElement>('[data-media-summary]');
+  const meta = dialog?.querySelector<HTMLElement>('[data-media-meta]');
+  const view = dialog?.querySelector<HTMLAnchorElement>('[data-media-view]');
+  const download = dialog?.querySelector<HTMLAnchorElement>('[data-media-download]');
+  const repositoryBase = location.hostname.endsWith('github.io') ? '/aunocenter-' : '';
+  const siteHref = (href: string) => href.startsWith('/') ? `${repositoryBase}${href}` : href;
+  let trigger: HTMLElement | null = null;
+  document.querySelectorAll<HTMLElement>('[data-media-open]').forEach(button => button.addEventListener('click', () => {
+    if (!dialog) return;
+    trigger = button;
+    const itemTitle = button.dataset.mediaTitle ?? 'Learning material';
+    if (title) title.textContent = itemTitle;
+    if (summary) summary.textContent = button.dataset.mediaSummary ?? '';
+    if (meta) meta.textContent = button.dataset.mediaMeta ?? '';
+    if (image) { image.src = siteHref(button.dataset.mediaThumbnail ?? ''); image.alt = `Preview cover for ${itemTitle}`; image.hidden = false; }
+    if (view) view.href = siteHref(button.dataset.mediaHref ?? '');
+    if (download) download.href = siteHref(button.dataset.mediaHref ?? '');
+    dialog.showModal();
+    document.documentElement.classList.add('has-dialog');
+  }));
+  dialog?.querySelector<HTMLElement>('[data-media-close]')?.addEventListener('click', () => dialog.close());
+  dialog?.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+  dialog?.addEventListener('close', () => { document.documentElement.classList.remove('has-dialog'); trigger?.focus(); });
+</script>
+
+<style>
+  :global(html.has-dialog){overflow:hidden}.media-dialog{width:min(68rem,calc(100% - 2rem));max-height:calc(100dvh - 2rem);padding:0;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:auto}.media-dialog::backdrop{background:rgba(20,9,27,.62);backdrop-filter:blur(5px)}.media-dialog__surface>header{position:sticky;z-index:2;top:0;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.25rem 1.4rem;background:rgba(255,253,250,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}.media-dialog header p{color:var(--gold-dark);font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.media-dialog header h2{margin-top:.22rem;font-size:clamp(1.5rem,3vw,2rem)}.media-dialog__close{width:2.8rem;height:2.8rem;display:grid;place-items:center;flex:none;color:var(--plum-800);background:var(--white);border:1px solid var(--line);border-radius:50%;transition:background .25s var(--ease-premium),transform .25s var(--ease-premium)}.media-dialog__close:hover{background:var(--plum-50);transform:rotate(4deg)}.media-dialog__content{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(17rem,.6fr);gap:clamp(1.5rem,4vw,3rem);padding:clamp(1.2rem,4vw,2.4rem)}.media-dialog figure{display:grid;place-items:center;margin:0;padding:1rem;background:#f2eef3;border:1px solid var(--line);border-radius:var(--radius)}.media-dialog figure img{width:100%;max-height:64vh;object-fit:contain;border-radius:.65rem}.media-dialog figcaption{justify-self:start;margin-top:.7rem;color:var(--ink-soft);font-size:.78rem}.media-dialog__copy{align-self:center}.media-dialog__copy>p:first-child{font-size:1.02rem}.media-dialog__note{margin-top:1rem;font-size:.82rem}.media-dialog__copy .button-row{align-items:stretch;flex-direction:column}.media-dialog__copy .button{width:100%}@media(max-width:47.99rem){.media-dialog{width:calc(100% - 1rem);max-height:calc(100dvh - 1rem)}.media-dialog__content{grid-template-columns:1fr}.media-dialog figure img{max-height:43vh}}
+</style>

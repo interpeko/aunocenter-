@@ -1,0 +1,26 @@
+---
+interface Props {
+  label?: string;
+  accepted?: string;
+  context?: string;
+}
+const {
+  label = 'Supporting documents',
+  accepted = 'PDF, DOC, or DOCX',
+  context = 'AUNO Center may request documents after reviewing the form.'
+} = Astro.props;
+---
+
+<div class="secure-upload form-field form-field--full" role="note" aria-label={`${label}: secure upload configuration required`}>
+  <span class="secure-upload__icon"><span class="icon icon--lock" aria-hidden="true"></span></span>
+  <div>
+    <p class="secure-upload__eyebrow">Secure upload · configuration required</p>
+    <h3>{label}</h3>
+    <p>Private document upload is not active on this public form. Submit without a file; {context}</p>
+    <p class="secure-upload__meta">Planned accepted formats: {accepted}. Activation requires protected storage, server-side file validation, malware screening, access controls, retention rules, and time-limited links.</p>
+  </div>
+</div>
+
+<style>
+  .secure-upload{grid-template-columns:2.8rem 1fr;gap:1rem;padding:1.15rem;background:#faf8fb;border:1px solid var(--line);border-radius:var(--radius-sm)}.secure-upload__icon{width:2.8rem;height:2.8rem;display:grid;place-items:center;color:var(--plum-700);background:var(--white);border:1px solid var(--line);border-radius:.75rem}.secure-upload__eyebrow{color:var(--gold-dark);font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.secure-upload h3{margin-top:.22rem;font-family:var(--font-body);font-size:.98rem;font-weight:800;letter-spacing:0}.secure-upload p:not(.secure-upload__eyebrow){margin-top:.35rem;font-size:.84rem}.secure-upload__meta{color:#6c626f;font-size:.75rem!important}
+</style>

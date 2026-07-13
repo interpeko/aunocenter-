@@ -1,0 +1,14 @@
+<span data-recent-page-tracker hidden></span>
+<script>
+  const excluded = ['/search/', '/thank-you/'];
+  const currentPath = location.pathname;
+  if (!excluded.some(path => currentPath.endsWith(path))) {
+    try {
+      const key = 'auno-recent-pages';
+      const current = JSON.parse(localStorage.getItem(key) || '[]') as Array<{title:string;href:string}>;
+      const title = document.title.replace(/\s*\|\s*AUNO Center.*$/i, '').trim() || 'AUNO Center';
+      const next = [{ title, href: currentPath }, ...current.filter(item => item?.href !== currentPath && item?.title)].slice(0, 6);
+      localStorage.setItem(key, JSON.stringify(next));
+    } catch {}
+  }
+</script>

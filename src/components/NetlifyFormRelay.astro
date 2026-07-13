@@ -1,0 +1,11 @@
+<span data-netlify-form-relay hidden></span>
+<script>
+  if (location.hostname.endsWith('github.io')) {
+    const productionOrigin = 'https://aunocenter.netlify.app';
+    document.querySelectorAll<HTMLFormElement>('form[data-netlify="true"]').forEach(form => {
+      const action = form.getAttribute('action') || '/thank-you/';
+      form.action = new URL(action, productionOrigin).href;
+      form.dataset.submissionDestination = 'AUNO Center secure form service';
+    });
+  }
+</script>

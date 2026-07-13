@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/Breadcrumbs.astro';
 import PageHero from '@/components/PageHero.astro';
+import FileUploadField from '@/components/FileUploadField.astro';
 import { formServices } from '@/data/site';
 
 const crumbs = [{ label: 'Request research support' }];
@@ -26,7 +27,7 @@ const crumbs = [{ label: 'Request research support' }];
             <li><span>3</span> Work begins only after scope, roles, timing, confidentiality, deliverables, and any fees are agreed.</li>
           </ol>
         </div>
-        <div class="side-card"><h2>Need something else?</h2><p>Use the general contact route for media, accessibility, privacy, or other institutional enquiries.</p><a href="/contact/">Go to contact →</a></div>
+        <div class="side-card"><h2>Need something else?</h2><p>Use the general contact route for media, accessibility, privacy, or other institutional enquiries.</p><a href="/contact/">Go to contact <span class="icon icon--right" aria-hidden="true"></span></a></div>
       </aside>
 
       <form
@@ -79,6 +80,7 @@ const crumbs = [{ label: 'Request research support' }];
 
         <fieldset class="form-section">
           <legend>4. Responsible submission</legend>
+          <FileUploadField label="Research plans, datasets, or supporting documents" accepted="PDF, DOCX, XLSX, CSV, or approved research formats" context="AUNO Center may arrange an approved transfer route only after the request is reviewed." />
           <div class="check-stack">
             <label class="check-row" for="responsible-use"><input id="responsible-use" name="responsible-use-acknowledgement" type="checkbox" value="confirmed" required /><span>I confirm that this request does not ask AUNO Center to fabricate data or citations, conceal authorship, complete assessed work dishonestly, bypass ethics requirements, or misrepresent research findings. <span class="required">*</span></span></label>
             <label class="check-row" for="safe-data"><input id="safe-data" name="safe-data-acknowledgement" type="checkbox" value="confirmed" required /><span>I have not included identifiable patient or participant information, confidential datasets, passwords, or unnecessary sensitive information. <span class="required">*</span></span></label>
@@ -88,7 +90,7 @@ const crumbs = [{ label: 'Request research support' }];
 
         <div class="form-actions">
           <p>Submitting this form does not create a consultant–client relationship or guarantee acceptance, timing, confidentiality terms, or availability.</p>
-          <button class="button button--primary" type="submit">Submit support request <span aria-hidden="true">↗</span></button>
+          <button class="button button--primary" type="submit">Submit support request <span class="icon icon--up-right" aria-hidden="true"></span></button>
         </div>
       </form>
     </div>

@@ -1,0 +1,48 @@
+<span data-form-progress-enhancement hidden></span>
+
+<script>
+  const forms = document.querySelectorAll<HTMLFormElement>('form.form-shell');
+  forms.forEach(form => {
+    const required = [...form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[required]')]
+      .filter(control => !control.closest('.honeypot'));
+    if (required.length < 2 || form.querySelector('[data-form-progress]')) return;
+
+    const panel = document.createElement('div');
+    panel.className = 'form-progress';
+    panel.dataset.formProgress = '';
+    const heading = document.createElement('div');
+    heading.className = 'form-progress__heading';
+    const label = document.createElement('strong');
+    label.textContent = 'Form completion';
+    const status = document.createElement('span');
+    status.setAttribute('aria-live', 'polite');
+    heading.append(label, status);
+    const meter = document.createElement('progress');
+    meter.max = required.length;
+    meter.setAttribute('aria-label', 'Required fields completed');
+    const note = document.createElement('p');
+    note.textContent = 'Required fields are marked. Your entries are not saved on this device.';
+    panel.append(heading, meter, note);
+    form.prepend(panel);
+
+    const completed = (control: typeof required[number]) => {
+      if (control instanceof HTMLInputElement && control.type === 'checkbox') return control.checked;
+      if (control instanceof HTMLInputElement && control.type === 'radio') {
+        return Boolean(form.querySelector<HTMLInputElement>(`input[type="radio"][name="${CSS.escape(control.name)}"]:checked`));
+      }
+      return control.value.trim() !== '' && control.checkValidity();
+    };
+    const update = () => {
+      const count = required.filter(completed).length;
+      meter.value = count;
+      status.textContent = `${count} of ${required.length} required fields`;
+    };
+    form.addEventListener('input', update);
+    form.addEventListener('change', update);
+    update();
+  });
+</script>
+
+<style is:global>
+  .form-progress{margin:-.35rem -.35rem 2rem;padding:1rem 1.05rem;background:#faf8fb;border:1px solid var(--line);border-radius:var(--radius-sm)}.form-progress__heading{display:flex;align-items:center;justify-content:space-between;gap:1rem;color:var(--ink);font-size:.8rem}.form-progress__heading strong{font-size:.82rem}.form-progress progress{width:100%;height:.38rem;display:block;margin-top:.7rem;overflow:hidden;appearance:none;background:var(--plum-100);border:0;border-radius:999px}.form-progress progress::-webkit-progress-bar{background:var(--plum-100)}.form-progress progress::-webkit-progress-value{background:var(--plum-700);border-radius:999px;transition:width .25s var(--ease-premium)}.form-progress progress::-moz-progress-bar{background:var(--plum-700);border-radius:999px}.form-progress p{margin-top:.55rem;font-size:.73rem}
+</style>
