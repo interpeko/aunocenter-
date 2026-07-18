@@ -178,7 +178,7 @@ export const guidedResponses = [
     id: 'join-collaboration',
     keywords: ['join', 'job', 'career', 'volunteer', 'collaborate', 'writer', 'statistician', 'trainer', 'developer', 'designer'],
     title: 'Professional-interest pathway',
-    answer: `The Join AUNO Center portal accepts professional interest from researchers, writers, statisticians, trainers, developers, designers, volunteers and collaborators. Submissions are reviewed against verified needs and do not guarantee selection, work, payment, membership or appointment.\n\nShare only information you are authorised to provide. Optional CVs are handled as private Netlify form submissions and are not stored in the public repository.`,
+    answer: `The Join AUNO Center portal accepts professional interest from researchers, writers, statisticians, trainers, developers, designers, volunteers and collaborators. Submissions are reviewed against verified needs and do not guarantee selection, work, payment, membership or appointment.\n\nShare only information you are authorised to provide. Secure file uploads are not active on the public form. Submit without a CV or résumé; AUNO Center may request one later through an approved secure route after the initial review.`,
     sourceIds: ['join', 'contact', 'privacy']
   },
   {
