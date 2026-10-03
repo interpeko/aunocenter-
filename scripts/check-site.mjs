@@ -45,6 +45,33 @@ for (const file of requiredFiles) {
   catch { failures.push(`Missing required build artifact: ${file}`); }
 }
 
+try {
+  const manifest = JSON.parse(await readFile(path.join(root, 'site.webmanifest'), 'utf8'));
+  for (const manifestUrl of [
+    'https://aunocenter.netlify.app/site.webmanifest',
+    'https://interpeko.github.io/aunocenter-/site.webmanifest'
+  ]) {
+    const expectedBase = new URL('./', manifestUrl).href;
+    for (const member of ['start_url', 'scope']) {
+      if (new URL(manifest[member], manifestUrl).href !== expectedBase) {
+        failures.push(`Manifest ${member} escapes the AUNO Center site at ${manifestUrl}`);
+      }
+    }
+    for (const icon of manifest.icons ?? []) {
+      if (!new URL(icon.src, manifestUrl).href.startsWith(expectedBase)) {
+        failures.push(`Manifest icon escapes the AUNO Center site at ${manifestUrl}`);
+      }
+    }
+    for (const shortcut of manifest.shortcuts ?? []) {
+      if (!new URL(shortcut.url, manifestUrl).href.startsWith(expectedBase)) {
+        failures.push(`Manifest shortcut escapes the AUNO Center site at ${manifestUrl}`);
+      }
+    }
+  }
+} catch (error) {
+  failures.push(`Missing or invalid site manifest: ${error.message}`);
+}
+
 for (const file of ['netlify/functions/interpeko.mjs', 'shared/interpeko-knowledge.mjs', 'src/components/InterpekoShortcut.astro']) {
   try { await access(path.resolve(file)); }
   catch { failures.push(`Missing Interpeko implementation file: ${file}`); }
