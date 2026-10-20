@@ -24,7 +24,7 @@ const headingId = `${id}-heading`;
           src="/images/mustafa-saadabi-founder-portrait.webp"
           width="720"
           height="1280"
-          alt="Portrait of Mustafa Saadabi"
+          alt={`Portrait of ${SITE.founder.name}`}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
         />
@@ -43,7 +43,7 @@ const headingId = `${id}-heading`;
       <p class="eyebrow">Founder’s Word</p>
       <blockquote>“{SITE.founder.word}”</blockquote>
       {showReadMore && (
-        <a class="button button--outline" href="/about/#founder" aria-label="Read more about Mustafa Saadabi">
+        <a class="button button--outline" href="/about/#founder" aria-label={`Read more about ${SITE.founder.name}`}>
           Read More <span class="icon icon--right" aria-hidden="true"></span>
         </a>
       )}

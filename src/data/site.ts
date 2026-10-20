@@ -5,7 +5,7 @@ export const SITE = {
   email: 'aunocenter@gmail.com',
   phone: '+1 (940) 730-6443',
   founder: {
-    name: 'Mustafa Saadabi',
+    name: 'Dr. Mustafa Saadabi',
     title: 'Founder and Director',
     affiliation: 'Faculty of Medicine',
     word: 'AUNO Center was created with the belief that research should connect every dimension of life. Human beings, animals, the earth, and nature are deeply interconnected. AUNO Center brings these fields together through multidisciplinary research, scientific collaboration, responsible innovation, education, and knowledge exchange. Our goal is to support research that contributes to human health, animal wellbeing, environmental protection, sustainable development, and a better future for life on our planet.'
@@ -937,7 +937,7 @@ export const libraryMaterials = [
     title: 'Data Analysis: Deep Statistical Analysis for Research',
     type: 'Presentation PDF',
     category: 'Statistics',
-    author: 'Mustafa Haytham (as identified in the PDF metadata)',
+    author: 'Dr. Mustafa Haytham',
     pages: 45,
     size: '517 KB',
     summary: 'A practical academic workshop covering analysis planning, data preparation, method selection, R, IBM SPSS Statistics, reporting, and reproducible research workflows.',
@@ -950,7 +950,7 @@ export const libraryMaterials = [
     title: 'Research Report & Scientific Writing',
     type: 'Presentation PDF',
     category: 'Scientific writing',
-    author: 'Dr. Mustafa Haytham (as identified in the PDF metadata)',
+    author: 'Dr. Mustafa Haytham',
     pages: 43,
     size: '1.20 MB',
     summary: 'A structured educational session on scientific writing, IMRaD, clinical research questions, evidence appraisal, abstracts, methods, results, referencing, plagiarism, and responsible AI use.',
